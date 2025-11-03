@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type { GW2Skill } from '../types/gw2';
+import Tooltip from './Tooltip';
 
 type SkillSlot = 'heal' | 'utility1' | 'utility2' | 'utility3' | 'elite';
 
@@ -52,17 +53,21 @@ export default function SkillBar() {
       >
         <div className="flex flex-col items-center gap-1">
           <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">{SLOT_LABELS[slot]}</span>
-          <div
-            className={`relative flex h-14 w-14 items-center justify-center rounded-xl border ${
-              selectedSkill ? 'border-yellow-400 bg-slate-900' : 'border-slate-700 bg-slate-900/50'
-            }`}
-          >
-            {selectedSkill ? (
-              <img src={selectedSkill.icon} alt={selectedSkill.name} className="h-12 w-12 rounded-lg object-cover" />
-            ) : (
+          {selectedSkill ? (
+            <Tooltip title={selectedSkill.name} content={selectedSkill.description || ''} icon={selectedSkill.icon}>
+              <div
+                className={`relative flex h-14 w-14 items-center justify-center rounded-xl border cursor-pointer border-yellow-400 bg-slate-900 hover:border-yellow-300`}
+              >
+                <img src={selectedSkill.icon} alt={selectedSkill.name} className="h-12 w-12 rounded-lg object-cover" />
+              </div>
+            </Tooltip>
+          ) : (
+            <div
+              className={`relative flex h-14 w-14 items-center justify-center rounded-xl border border-slate-700 bg-slate-900/50`}
+            >
               <span className="text-[10px] text-slate-500">Empty</span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         <div className="flex-1">

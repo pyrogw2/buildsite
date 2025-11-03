@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
-import type { GW2Skill, GW2Specialization, GW2Trait } from '../types/gw2';
+import type { GW2Skill, GW2Specialization, GW2Trait, GW2Item } from '../types/gw2';
 import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
-import { STAT_COMBOS, INFUSIONS, type StatCombo, type InfusionType } from '../types/gw2';
+import { STAT_COMBOS, INFUSIONS, RUNE_IDS, RELIC_IDS, type StatCombo, type InfusionType } from '../types/gw2';
 
 type SectionType = 'skills' | 'traits' | 'equipment';
 type SkillSlot = 'heal' | 'utility1' | 'utility2' | 'utility3' | 'elite';
@@ -364,9 +364,42 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
 
 // Equipment Panel Content (without wrapper)
 function EquipmentPanelContent() {
-  const { equipment, updateEquipment, applyStatToCategory, applyInfusionToCategory } = useBuildStore();
+  const { equipment, updateEquipment, applyStatToCategory, applyInfusionToCategory, runeId, setRuneId, relicId, setRelicId } = useBuildStore();
   const [bulkStat, setBulkStat] = useState<StatCombo>('Berserker');
-  const [bulkInfusion, setBulkInfusion] = useState<InfusionType>('Mighty +9 Agony');
+  const [bulkInfusion, setBulkInfusion] = useState<InfusionType>('Mighty');
+  const [runes, setRunes] = useState<GW2Item[]>([]);
+  const [relics, setRelics] = useState<GW2Item[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  const loadItems = async () => {
+    setLoading(true);
+    try {
+      // Fetch all runes and relics using static ID lists
+      const [runeItems, relicItems] = await Promise.all([
+        gw2Api.getItems(RUNE_IDS),
+        gw2Api.getItems(RELIC_IDS)
+      ]);
+
+      // Sort by name for better UX
+      const sortedRunes = runeItems.sort((a, b) => a.name.localeCompare(b.name));
+      const sortedRelics = relicItems.sort((a, b) => a.name.localeCompare(b.name));
+
+      setRunes(sortedRunes);
+      setRelics(sortedRelics);
+      console.log(`Loaded ${sortedRunes.length} runes and ${sortedRelics.length} relics`);
+    } catch (error) {
+      console.error('Failed to load runes/relics:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const selectedRune = runes.find(r => r.id === runeId);
+  const selectedRelic = relics.find(r => r.id === relicId);
 
   const armorItems = equipment.filter(e =>
     ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots'].includes(e.slot)
@@ -496,6 +529,73 @@ function EquipmentPanelContent() {
               >
                 All
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Runes and Relic */}
+      <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
+        <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Upgrades</h3>
+
+        {loading && (
+          <div className="mt-3 text-center text-xs text-slate-400">
+            Loading all runes and relics from API... This may take a minute on first load.
+          </div>
+        )}
+
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          {/* Runes */}
+          <div className="space-y-2">
+            <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Runes (6x)</p>
+            <div className="flex gap-2">
+              <select
+                value={runeId || ''}
+                onChange={(event) => setRuneId(event.target.value ? parseInt(event.target.value) : undefined)}
+                className="flex-1 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                disabled={loading}
+              >
+                <option value="">Select Rune</option>
+                {runes.map((rune) => (
+                  <option key={rune.id} value={rune.id}>
+                    {rune.name.replace('Superior Rune of the ', '').replace('Superior Rune of ', '')}
+                  </option>
+                ))}
+              </select>
+              {selectedRune && (
+                <Tooltip title={selectedRune.name} content={selectedRune.description || ''} icon={selectedRune.icon}>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900">
+                    <img src={selectedRune.icon} alt={selectedRune.name} className="h-6 w-6 rounded" />
+                  </div>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+
+          {/* Relic */}
+          <div className="space-y-2">
+            <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Relic</p>
+            <div className="flex gap-2">
+              <select
+                value={relicId || ''}
+                onChange={(event) => setRelicId(event.target.value ? parseInt(event.target.value) : undefined)}
+                className="flex-1 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                disabled={loading}
+              >
+                <option value="">Select Relic</option>
+                {relics.map((relic) => (
+                  <option key={relic.id} value={relic.id}>
+                    {relic.name.replace('Relic of the ', '').replace('Relic of ', '')}
+                  </option>
+                ))}
+              </select>
+              {selectedRelic && (
+                <Tooltip title={selectedRelic.name} content={selectedRelic.description || ''} icon={selectedRelic.icon}>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900">
+                    <img src={selectedRelic.icon} alt={selectedRelic.name} className="h-6 w-6 rounded" />
+                  </div>
+                </Tooltip>
+              )}
             </div>
           </div>
         </div>

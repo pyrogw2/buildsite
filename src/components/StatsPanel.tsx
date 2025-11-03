@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
-import type { StatCombo, InfusionType } from '../types/gw2';
+import { gw2Api } from '../lib/gw2api';
+import type { StatCombo, InfusionType, GW2Item } from '../types/gw2';
 
 type AttributeKey =
   | 'Power'
@@ -93,11 +94,49 @@ const ATTRIBUTES: Array<{
 
 const formatNumber = (value: number) => Math.round(value).toLocaleString();
 
+// Map API stat names to AttributeKey
+const STAT_NAME_MAP: Record<string, AttributeKey> = {
+  'Power': 'Power',
+  'Precision': 'Precision',
+  'Toughness': 'Toughness',
+  'Vitality': 'Vitality',
+  'Ferocity': 'Ferocity',
+  'Condition Damage': 'ConditionDamage',
+  'Healing Power': 'HealingPower',
+  'Expertise': 'Expertise',
+  'Concentration': 'BoonDuration',
+};
+
+// Parse rune bonus strings like "+25 Power", "+10% Boon Duration"
+function parseRuneBonus(bonus: string): { attribute: AttributeKey; value: number; isPercent: boolean } | null {
+  const match = bonus.match(/\+(\d+)(%?)\s+(.+)/);
+  if (!match) return null;
+
+  const [, valueStr, percentSign, statName] = match;
+  const attribute = STAT_NAME_MAP[statName];
+  if (!attribute) return null;
+
+  return {
+    attribute,
+    value: parseInt(valueStr, 10),
+    isPercent: percentSign === '%',
+  };
+}
+
 export default function StatsPanel() {
-  const { equipment } = useBuildStore();
+  const { equipment, runeId } = useBuildStore();
+  const [runeItem, setRuneItem] = useState<GW2Item | null>(null);
+
+  useEffect(() => {
+    if (runeId) {
+      gw2Api.getItem(runeId).then(setRuneItem).catch(console.error);
+    } else {
+      setRuneItem(null);
+    }
+  }, [runeId]);
 
   const totals = useMemo(() => {
-    return equipment.reduce<Record<AttributeKey, number>>((acc, item) => {
+    const acc = equipment.reduce<Record<AttributeKey, number>>((acc, item) => {
       // Add stat combo contributions
       const contributions = STAT_ATTRIBUTE_MAP[item.stat as StatCombo];
       if (contributions) {
@@ -120,7 +159,27 @@ export default function StatsPanel() {
 
       return acc;
     }, { ...BASE_ATTRIBUTES });
-  }, [equipment]);
+
+    // Add rune bonuses
+    if (runeItem?.details?.bonuses) {
+      runeItem.details.bonuses.forEach(bonus => {
+        const parsed = parseRuneBonus(bonus);
+        if (parsed) {
+          if (parsed.isPercent) {
+            // Convert percentage to flat stat (e.g., 10% boon duration = 150 points)
+            // For Expertise/BoonDuration: 15 points = 1%
+            const flatValue = parsed.value * 15;
+            acc[parsed.attribute] += flatValue;
+          } else {
+            // Direct stat bonus
+            acc[parsed.attribute] += parsed.value;
+          }
+        }
+      });
+    }
+
+    return acc;
+  }, [equipment, runeItem]);
 
   const maxValue = useMemo(() => {
     return ATTRIBUTES.reduce((max, attribute) => Math.max(max, totals[attribute.key]), 0);
