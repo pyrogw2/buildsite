@@ -3,37 +3,52 @@ import type { GameMode } from '../types/gw2';
 
 const GAME_MODES: GameMode[] = ['PvE', 'PvP', 'WvW'];
 
-const MODE_COLORS: Record<GameMode, string> = {
-  PvE: 'bg-green-600',
-  PvP: 'bg-red-600',
-  WvW: 'bg-orange-600',
+const MODE_ACCENTS: Record<GameMode, { gradient: string; glow: string }> = {
+  PvE: { gradient: 'from-emerald-500/60 to-emerald-400/80', glow: '#34d399' },
+  PvP: { gradient: 'from-rose-500/70 to-rose-400/80', glow: '#f87171' },
+  WvW: { gradient: 'from-amber-500/70 to-amber-400/80', glow: '#fbbf24' },
 };
 
 export default function GameModeSelector() {
   const { gameMode, setGameMode } = useBuildStore();
 
   return (
-    <div className="bg-gray-800 rounded-lg p-3">
-      <h2 className="text-sm font-semibold mb-2">Game Mode</h2>
-      <div className="flex gap-2">
-        {GAME_MODES.map((mode) => (
-          <button
-            key={mode}
-            onClick={() => setGameMode(mode)}
-            className={`
-              flex-1 px-3 py-2 rounded font-medium transition-all text-sm
-              ${gameMode === mode
-                ? `${MODE_COLORS[mode]} text-white shadow-md`
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }
-            `}
-          >
-            {mode}
-          </button>
-        ))}
+    <div>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Game Mode</p>
+          <h2 className="mt-2 text-base font-semibold text-white">Contextual balance</h2>
+        </div>
+        <div className="rounded-full border border-slate-700 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-slate-400">
+          Alpha
+        </div>
       </div>
-      <p className="text-xs text-gray-400 mt-2">
-        Skills and traits may have different effects in different game modes
+
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {GAME_MODES.map((mode) => {
+          const isActive = gameMode === mode;
+          const accent = MODE_ACCENTS[mode];
+
+          return (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => setGameMode(mode)}
+              className={`rounded-2xl border border-slate-800 px-3 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition hover:border-slate-600 ${
+                isActive
+                  ? `bg-gradient-to-br ${accent.gradient} text-slate-900 shadow-[0_10px_30px_-20px_rgba(56,189,248,1)]`
+                  : 'bg-slate-950/60 text-slate-400 hover:text-slate-100'
+              }`}
+              style={isActive ? { boxShadow: `0 0 14px -4px ${accent.glow}66` } : undefined}
+            >
+              {mode}
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-3 text-xs text-slate-400">
+        Skills and trait functionality adapts per mode. Preview updates follow your selection instantly.
       </p>
     </div>
   );

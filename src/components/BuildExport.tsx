@@ -8,6 +8,7 @@ export default function BuildExport() {
   const [copied, setCopied] = useState<string | null>(null);
   const [discordMarkdown, setDiscordMarkdown] = useState<string>('');
   const [showMarkdown, setShowMarkdown] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleCopyUrl = () => {
     const url = getShareableUrl(buildData);
@@ -42,80 +43,103 @@ export default function BuildExport() {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-3">
-      <h2 className="text-sm font-semibold mb-2">Share Build</h2>
-
-      <div className="space-y-4">
-        {/* Share URL */}
-        <div className="bg-gray-700 rounded-lg p-4">
-          <h3 className="font-medium text-gray-200 mb-3">Shareable Link</h3>
-          <div className="flex gap-2">
-            <button
-              onClick={handleCopyUrl}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-medium transition-colors"
-            >
-              {copied === 'url' ? '✓ Copied!' : 'Copy Link'}
-            </button>
-            <p className="text-sm text-gray-400 flex items-center">
-              Copy a link to share this build with others
-            </p>
-          </div>
+    <section className="rounded-3xl border border-slate-800/80 bg-slate-900/70 p-6 shadow-[0_18px_50px_-28px_rgba(14,22,40,1)]">
+      <button
+        type="button"
+        onClick={() => setExpanded((value) => !value)}
+        className="flex w-full items-center justify-between"
+      >
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Sharing</p>
+          <h2 className="mt-2 text-lg font-semibold text-white">Build export</h2>
         </div>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 text-slate-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className={`h-4 w-4 transition-transform ${expanded ? '' : '-rotate-90'}`}
+          >
+            <path d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+      </button>
 
-        {/* Discord Export */}
-        <div className="bg-gray-700 rounded-lg p-4">
-          <h3 className="font-medium text-gray-200 mb-3">Discord Markdown</h3>
-          <div className="flex gap-2 mb-3">
-            <button
-              onClick={handleGenerateDiscord}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded font-medium transition-colors"
-            >
-              Generate Discord Format
-            </button>
-            {showMarkdown && (
+      {expanded && (
+        <div className="mt-6 space-y-5">
+          <div className="rounded-2xl border border-slate-800 bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-slate-900/70 p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-base font-semibold text-white">Shareable link</h3>
+                <p className="text-sm text-slate-400">Generate a one-click URL for this build.</p>
+              </div>
               <button
-                onClick={handleCopyDiscord}
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-medium transition-colors"
+                onClick={handleCopyUrl}
+                className="inline-flex items-center gap-2 rounded-full border border-sky-500/60 bg-sky-500/10 px-4 py-2 text-sm font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
               >
-                {copied === 'discord' ? '✓ Copied!' : 'Copy to Clipboard'}
+                <span>{copied === 'url' ? '✓ Copied' : 'Copy link'}</span>
               </button>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-base font-semibold text-white">Discord markdown</h3>
+                <p className="text-sm text-slate-400">Post-ready formatting for guild channels.</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={handleGenerateDiscord}
+                  className="rounded-full border border-indigo-500/60 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-200 transition hover:border-indigo-400 hover:bg-indigo-500/20"
+                >
+                  Generate
+                </button>
+                {showMarkdown && (
+                  <button
+                    onClick={handleCopyDiscord}
+                    className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-200 transition hover:border-emerald-400 hover:bg-emerald-500/20"
+                  >
+                    {copied === 'discord' ? '✓ Copied' : 'Copy'}
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {showMarkdown && discordMarkdown && (
+              <div className="mt-4 rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+                <pre className="text-xs text-slate-300">
+                  {discordMarkdown}
+                </pre>
+              </div>
             )}
           </div>
 
-          {showMarkdown && discordMarkdown && (
-            <div className="bg-gray-800 rounded p-3 mt-3">
-              <pre className="text-sm text-gray-300 whitespace-pre-wrap font-mono">
-                {discordMarkdown}
-              </pre>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-base font-semibold text-white">Text summary</h3>
+                <p className="text-sm text-slate-400">Copy a quick overview for notes or forums.</p>
+              </div>
+              <button
+                onClick={handleCopyText}
+                className="rounded-full border border-purple-500/60 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:border-purple-400 hover:bg-purple-500/20"
+              >
+                {copied === 'text' ? '✓ Copied' : 'Copy text'}
+              </button>
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Text Summary */}
-        <div className="bg-gray-700 rounded-lg p-4">
-          <h3 className="font-medium text-gray-200 mb-3">Text Summary</h3>
-          <button
-            onClick={handleCopyText}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded font-medium transition-colors"
-          >
-            {copied === 'text' ? '✓ Copied!' : 'Copy Text Summary'}
-          </button>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-5 text-slate-500">
+            <h3 className="text-base font-semibold text-slate-300">In-game template code</h3>
+            <p className="mt-1 text-sm">
+              Coming soon — we&apos;re working on automatic chat code export once the encoder is finalised.
+            </p>
+          </div>
         </div>
-
-        {/* In-game Chat Link (Future) */}
-        <div className="bg-gray-700 rounded-lg p-4 opacity-50">
-          <h3 className="font-medium text-gray-200 mb-3">In-Game Template Code</h3>
-          <button
-            disabled
-            className="px-4 py-2 bg-gray-600 rounded font-medium cursor-not-allowed"
-          >
-            Coming Soon
-          </button>
-          <p className="text-xs text-gray-400 mt-2">
-            In-game template code generation requires implementing GW2's chat link format
-          </p>
-        </div>
-      </div>
-    </div>
+      )}
+    </section>
   );
 }
