@@ -45,12 +45,12 @@ export default function EquipmentPanel() {
   );
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
-      <h2 className="text-lg font-semibold mb-3">Equipment</h2>
+    <div className="bg-gray-800 rounded-lg p-3">
+      <h2 className="text-sm font-semibold mb-2">Equipment</h2>
 
       {/* Bulk Apply Controls */}
-      <div className="bg-gray-700 p-3 rounded-lg mb-4 space-y-3">
-        <h3 className="text-sm font-medium text-gray-200">Bulk Apply</h3>
+      <div className="bg-gray-700 p-2 rounded-lg mb-2 space-y-2">
+        <h3 className="text-xs font-medium text-gray-200">Bulk Apply</h3>
 
         {/* Stats */}
         <div className="space-y-2">

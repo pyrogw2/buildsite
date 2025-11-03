@@ -40,9 +40,9 @@ export default function TraitPanel() {
     const selectedChoices = traits[choicesKey] || [null, null, null];
 
     return (
-      <div key={slotNum} className="bg-gray-700 rounded-lg p-4">
-        <div className="mb-3">
-          <label className="text-sm text-gray-300 mb-2 block">
+      <div key={slotNum} className="bg-gray-700 rounded-lg p-2">
+        <div className="mb-2">
+          <label className="text-xs text-gray-300 mb-1 block">
             Specialization {slotNum}
           </label>
           <select
@@ -51,7 +51,7 @@ export default function TraitPanel() {
               const specId = e.target.value ? parseInt(e.target.value) : 0;
               if (specId) setSpecialization(slotNum, specId);
             }}
-            className="w-full bg-gray-600 text-white rounded px-3 py-2"
+            className="w-full bg-gray-600 text-white rounded px-2 py-1 text-xs"
           >
             <option value="">Select Specialization</option>
             {specs.map(spec => (
@@ -74,9 +74,9 @@ export default function TraitPanel() {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
-      <h2 className="text-lg font-semibold mb-3">Specializations & Traits</h2>
-      <div className="space-y-4">
+    <div className="bg-gray-800 rounded-lg p-3">
+      <h2 className="text-sm font-semibold mb-2">Specializations & Traits</h2>
+      <div className="space-y-2">
         {renderSpecSlot(1)}
         {renderSpecSlot(2)}
         {renderSpecSlot(3)}
@@ -139,9 +139,9 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
   const TIER_LABELS = ['Adept', 'Master', 'Grandmaster'];
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1">
       {/* Header row */}
-      <div className="grid grid-cols-3 gap-2 mb-1">
+      <div className="grid grid-cols-3 gap-1.5 mb-0.5">
         {TIER_LABELS.map((label, idx) => (
           <div key={idx} className="text-xs text-gray-400 font-medium text-center">
             {label}
@@ -151,7 +151,7 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
 
       {/* Each position (top/mid/bot) as a row */}
       {traitRows.map((rowTraits, rowIndex) => (
-        <div key={rowIndex} className="grid grid-cols-3 gap-2">
+        <div key={rowIndex} className="grid grid-cols-3 gap-1.5">
           {rowTraits.map((trait, colIndex) => {
             if (!trait) return <div key={colIndex} />;
 
@@ -163,7 +163,7 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
                 key={trait.id}
                 onClick={() => onTraitSelect(tierIndex as 0 | 1 | 2, trait.id)}
                 className={`
-                  flex items-start gap-2 p-2 rounded border-2 transition-all text-left
+                  flex items-start gap-1.5 p-1.5 rounded border-2 transition-all text-left
                   ${isSelected
                     ? 'border-yellow-400 bg-yellow-400/20'
                     : 'border-gray-600 bg-gray-700/50 hover:border-gray-500 hover:bg-gray-700'
@@ -172,7 +172,7 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
               >
                 {/* Trait Icon */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-10 h-10 rounded overflow-hidden bg-gray-800">
+                  <div className="w-8 h-8 rounded overflow-hidden bg-gray-800">
                     <img
                       src={trait.icon}
                       alt={trait.name}
@@ -180,7 +180,7 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
                     />
                   </div>
                   {isSelected && (
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full flex items-center justify-center">
+                    <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-yellow-400 rounded-full flex items-center justify-center">
                       <span className="text-xs text-black font-bold leading-none">✓</span>
                     </div>
                   )}
@@ -188,10 +188,10 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
 
                 {/* Trait Info */}
                 <div className="flex-1 min-w-0">
-                  <div className={`font-semibold text-xs ${isSelected ? 'text-yellow-400' : 'text-gray-200'}`}>
+                  <div className={`font-semibold text-xs leading-tight ${isSelected ? 'text-yellow-400' : 'text-gray-200'}`}>
                     {trait.name}
                   </div>
-                  <div className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+                  <div className="text-xs text-gray-400 mt-0.5 line-clamp-2 leading-tight">
                     {trait.description}
                   </div>
                 </div>

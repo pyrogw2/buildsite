@@ -48,15 +48,15 @@ export default function SkillBar() {
     const selectedSkill = availableSkills.find(s => s.id === selectedSkillId);
 
     return (
-      <div key={slot} className="bg-gray-700 rounded-lg p-3">
-        <label className="text-xs text-gray-400 mb-2 block text-center font-medium">
+      <div key={slot} className="bg-gray-700 rounded-lg p-2">
+        <label className="text-xs text-gray-400 mb-1 block text-center font-medium">
           {SLOT_LABELS[slot]}
         </label>
 
         {/* Skill Icon Display */}
         {selectedSkill ? (
-          <div className="mb-2">
-            <div className="w-16 h-16 mx-auto rounded border-2 border-yellow-400 bg-gray-800 overflow-hidden">
+          <div className="mb-1">
+            <div className="w-12 h-12 mx-auto rounded border-2 border-yellow-400 bg-gray-800 overflow-hidden">
               <img
                 src={selectedSkill.icon}
                 alt={selectedSkill.name}
@@ -64,13 +64,13 @@ export default function SkillBar() {
                 title={selectedSkill.name}
               />
             </div>
-            <div className="text-xs text-center text-gray-300 mt-1 font-medium">
+            <div className="text-xs text-center text-gray-300 mt-0.5 font-medium line-clamp-1">
               {selectedSkill.name}
             </div>
           </div>
         ) : (
-          <div className="mb-2">
-            <div className="w-16 h-16 mx-auto rounded border-2 border-gray-600 bg-gray-800 flex items-center justify-center">
+          <div className="mb-1">
+            <div className="w-12 h-12 mx-auto rounded border-2 border-gray-600 bg-gray-800 flex items-center justify-center">
               <span className="text-gray-500 text-xs">Empty</span>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function SkillBar() {
             const skillId = e.target.value ? parseInt(e.target.value) : 0;
             if (skillId) setSkill(slot, skillId);
           }}
-          className="w-full bg-gray-600 text-white rounded px-2 py-1 text-xs"
+          className="w-full bg-gray-600 text-white rounded px-1.5 py-0.5 text-xs"
         >
           <option value="">Select...</option>
           {skillsForSlot.map(skill => (
@@ -92,13 +92,6 @@ export default function SkillBar() {
             </option>
           ))}
         </select>
-
-        {/* Skill Description on hover/selection */}
-        {selectedSkill && (
-          <div className="text-xs text-gray-400 mt-2 line-clamp-3">
-            {selectedSkill.description}
-          </div>
-        )}
       </div>
     );
   };
@@ -113,9 +106,9 @@ export default function SkillBar() {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
-      <h2 className="text-lg font-semibold mb-3">Skills</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+    <div className="bg-gray-800 rounded-lg p-3">
+      <h2 className="text-sm font-semibold mb-2">Skills</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
         {renderSkillSlot('heal')}
         {renderSkillSlot('utility1')}
         {renderSkillSlot('utility2')}
