@@ -76,7 +76,7 @@ export default function TraitPanel() {
   return (
     <div className="bg-gray-800 rounded-lg p-4">
       <h2 className="text-lg font-semibold mb-3">Specializations & Traits</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="space-y-4">
         {renderSpecSlot(1)}
         {renderSpecSlot(2)}
         {renderSpecSlot(3)}
