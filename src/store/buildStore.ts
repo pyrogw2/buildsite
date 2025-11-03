@@ -1,9 +1,10 @@
 import { create } from 'zustand';
-import type { BuildData, Profession, Equipment, StatCombo, InfusionType, ArmorSlot, TrinketSlot, WeaponSlot } from '../types/gw2';
+import type { BuildData, Profession, Equipment, StatCombo, InfusionType, ArmorSlot, TrinketSlot, WeaponSlot, GameMode } from '../types/gw2';
 
 interface BuildStore extends BuildData {
   // Actions
   setProfession: (profession: Profession) => void;
+  setGameMode: (mode: GameMode) => void;
   updateEquipment: (slot: string, updates: Partial<Equipment>) => void;
   applyStatToCategory: (category: 'armor' | 'trinkets' | 'weapons' | 'all', stat: StatCombo) => void;
   applyInfusionToCategory: (category: 'armor' | 'trinkets' | 'weapons' | 'all', infusion: InfusionType) => void;
@@ -26,6 +27,7 @@ const initialEquipment: Equipment[] = [
 
 const initialBuild: BuildData = {
   profession: 'Guardian',
+  gameMode: 'PvE',
   equipment: initialEquipment,
   skills: {},
   traits: {},
@@ -36,6 +38,9 @@ export const useBuildStore = create<BuildStore>((set) => ({
 
   setProfession: (profession) =>
     set({ profession, skills: {}, traits: {} }),
+
+  setGameMode: (gameMode) =>
+    set({ gameMode }),
 
   updateEquipment: (slot, updates) =>
     set((state) => ({

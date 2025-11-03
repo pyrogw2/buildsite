@@ -1,4 +1,5 @@
 import ProfessionSelector from './components/ProfessionSelector'
+import GameModeSelector from './components/GameModeSelector'
 import EquipmentPanel from './components/EquipmentPanel'
 import TraitPanel from './components/TraitPanel'
 import SkillBar from './components/SkillBar'
@@ -16,7 +17,10 @@ function App() {
         </header>
 
         <div className="space-y-3">
-          <ProfessionSelector />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <ProfessionSelector />
+            <GameModeSelector />
+          </div>
           <SkillBar />
           <TraitPanel />
           <EquipmentPanel />

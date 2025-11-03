@@ -5,6 +5,9 @@ export type Profession =
 
 export type WeightClass = 'Heavy' | 'Medium' | 'Light';
 
+// Game mode types
+export type GameMode = 'PvE' | 'PvP' | 'WvW';
+
 // Equipment slot types
 export type ArmorSlot = 'Helm' | 'Shoulders' | 'Coat' | 'Gloves' | 'Leggings' | 'Boots';
 export type WeaponSlot = 'MainHand1' | 'OffHand1' | 'MainHand2' | 'OffHand2';
@@ -124,6 +127,7 @@ export interface TraitSelection {
 
 export interface BuildData {
   profession: Profession;
+  gameMode: GameMode;
   equipment: Equipment[];
   skills: SkillSelection;
   traits: TraitSelection;
