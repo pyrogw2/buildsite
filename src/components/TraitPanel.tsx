@@ -41,6 +41,17 @@ export default function TraitPanel() {
     const selectedSpecId = traits[specIdKey];
     const selectedChoices = traits[choicesKey] || [null, null, null];
 
+    // Get all selected specializations from other slots
+    const otherSelectedSpecs = [1, 2, 3]
+      .filter(slot => slot !== slotNum)
+      .map(slot => traits[`spec${slot}` as keyof typeof traits])
+      .filter((id): id is number => typeof id === 'number');
+
+    // Filter out already selected specializations
+    const availableSpecs = specs.filter(
+      spec => !otherSelectedSpecs.includes(spec.id)
+    );
+
     return (
       <div key={slotNum} className="bg-gray-700 rounded-lg p-2">
         <div className="mb-2">
@@ -56,7 +67,7 @@ export default function TraitPanel() {
             className="w-full bg-gray-600 text-white rounded px-2 py-1 text-xs"
           >
             <option value="">Select Specialization</option>
-            {specs.map(spec => (
+            {availableSpecs.map(spec => (
               <option key={spec.id} value={spec.id}>
                 {spec.name} {spec.elite ? '(Elite)' : ''}
               </option>
