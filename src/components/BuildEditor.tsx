@@ -370,6 +370,8 @@ function EquipmentPanelContent() {
   const [runes, setRunes] = useState<GW2Item[]>([]);
   const [relics, setRelics] = useState<GW2Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [armorExpanded, setArmorExpanded] = useState(false);
+  const [trinketsExpanded, setTrinketsExpanded] = useState(false);
 
   useEffect(() => {
     loadItems();
@@ -615,25 +617,48 @@ function EquipmentPanelContent() {
         </div>
       </div>
 
-      <div>
-        <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Armor</h3>
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-          {armorItems.map(renderEquipmentSlot)}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Trinkets</h3>
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-          {trinketItems.map(renderEquipmentSlot)}
-        </div>
-      </div>
-
+      {/* Weapons */}
       <div>
         <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Weapons</h3>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {weaponItems.map(renderEquipmentSlot)}
         </div>
+      </div>
+
+      {/* Armor - Collapsible */}
+      <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <button
+          onClick={() => setArmorExpanded(!armorExpanded)}
+          className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+        >
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Armor</h3>
+          <span className="text-slate-400 text-sm">{armorExpanded ? '−' : '+'}</span>
+        </button>
+        {armorExpanded && (
+          <div className="p-3 pt-0">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+              {armorItems.map(renderEquipmentSlot)}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Trinkets - Collapsible */}
+      <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <button
+          onClick={() => setTrinketsExpanded(!trinketsExpanded)}
+          className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+        >
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Trinkets</h3>
+          <span className="text-slate-400 text-sm">{trinketsExpanded ? '−' : '+'}</span>
+        </button>
+        {trinketsExpanded && (
+          <div className="p-3 pt-0">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+              {trinketItems.map(renderEquipmentSlot)}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
