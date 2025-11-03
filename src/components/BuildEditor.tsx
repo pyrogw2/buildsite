@@ -4,7 +4,8 @@ import { gw2Api } from '../lib/gw2api';
 import type { GW2Skill, GW2Specialization, GW2Trait, GW2Item } from '../types/gw2';
 import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
-import { STAT_COMBOS, INFUSIONS, RUNE_IDS, RELIC_IDS, type StatCombo, type InfusionType } from '../types/gw2';
+import SearchableDropdown from './SearchableDropdown';
+import { STAT_COMBOS, INFUSIONS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, PROFESSION_WEAPONS, TWO_HANDED_WEAPONS, OFF_HAND_WEAPONS, type StatCombo, type InfusionType } from '../types/gw2';
 
 type SectionType = 'skills' | 'traits' | 'equipment';
 type SkillSlot = 'heal' | 'utility1' | 'utility2' | 'utility3' | 'elite';
@@ -364,14 +365,16 @@ function TraitSelector({ specId, selectedChoices, onTraitSelect }: TraitSelector
 
 // Equipment Panel Content (without wrapper)
 function EquipmentPanelContent() {
-  const { equipment, updateEquipment, applyStatToCategory, applyInfusionToCategory, runeId, setRuneId, relicId, setRelicId } = useBuildStore();
+  const { profession, equipment, updateEquipment, applyStatToCategory, applyInfusionToCategory, runeId, setRuneId, relicId, setRelicId } = useBuildStore();
   const [bulkStat, setBulkStat] = useState<StatCombo>('Berserker');
   const [bulkInfusion, setBulkInfusion] = useState<InfusionType>('Mighty');
   const [runes, setRunes] = useState<GW2Item[]>([]);
   const [relics, setRelics] = useState<GW2Item[]>([]);
+  const [sigils, setSigils] = useState<GW2Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [armorExpanded, setArmorExpanded] = useState(false);
   const [trinketsExpanded, setTrinketsExpanded] = useState(false);
+  const [weaponStatsExpanded, setWeaponStatsExpanded] = useState(false);
 
   useEffect(() => {
     loadItems();
@@ -380,21 +383,24 @@ function EquipmentPanelContent() {
   const loadItems = async () => {
     setLoading(true);
     try {
-      // Fetch all runes and relics using static ID lists
-      const [runeItems, relicItems] = await Promise.all([
+      // Fetch all runes, relics, and sigils using static ID lists
+      const [runeItems, relicItems, sigilItems] = await Promise.all([
         gw2Api.getItems(RUNE_IDS),
-        gw2Api.getItems(RELIC_IDS)
+        gw2Api.getItems(RELIC_IDS),
+        gw2Api.getItems(SIGIL_IDS)
       ]);
 
       // Sort by name for better UX
       const sortedRunes = runeItems.sort((a, b) => a.name.localeCompare(b.name));
       const sortedRelics = relicItems.sort((a, b) => a.name.localeCompare(b.name));
+      const sortedSigils = sigilItems.sort((a, b) => a.name.localeCompare(b.name));
 
       setRunes(sortedRunes);
       setRelics(sortedRelics);
-      console.log(`Loaded ${sortedRunes.length} runes and ${sortedRelics.length} relics`);
+      setSigils(sortedSigils);
+      console.log(`Loaded ${sortedRunes.length} runes, ${sortedRelics.length} relics, and ${sortedSigils.length} sigils`);
     } catch (error) {
-      console.error('Failed to load runes/relics:', error);
+      console.error('Failed to load runes/relics/sigils:', error);
     } finally {
       setLoading(false);
     }
@@ -446,6 +452,158 @@ function EquipmentPanelContent() {
     </div>
   );
 
+
+  const renderWeaponSlot = (item: typeof equipment[0]) => {
+    const isOffHand = item.slot === 'OffHand1' || item.slot === 'OffHand2';
+    const mainHandSlot = item.slot === 'OffHand1' ? 'MainHand1' : item.slot === 'OffHand2' ? 'MainHand2' : null;
+    const mainHandWeapon = mainHandSlot ? equipment.find(e => e.slot === mainHandSlot)?.weaponType : null;
+    const isMainHandTwoHanded = mainHandWeapon ? TWO_HANDED_WEAPONS.includes(mainHandWeapon) : false;
+
+    // Get available weapons for this profession
+    const availableWeapons = PROFESSION_WEAPONS[profession] || [];
+
+    // Filter weapons based on slot type
+    let slotWeapons = availableWeapons;
+    if (isOffHand) {
+      // Only show off-hand compatible weapons
+      slotWeapons = availableWeapons.filter(w => OFF_HAND_WEAPONS.includes(w));
+    }
+
+    return (
+      <div key={item.slot} className="space-y-2">
+        {/* Slot Label */}
+        <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
+          {item.slot.replace('MainHand', 'Main Hand ').replace('OffHand', 'Off Hand ')}
+        </div>
+
+        {/* Weapon Card - Simple Layout */}
+        {isOffHand && isMainHandTwoHanded ? (
+          <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
+            <div className="text-xs text-slate-400 italic py-1.5">
+              Two-handed weapon equipped
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 space-y-2">
+            {/* Weapon Dropdown */}
+            <div>
+              <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
+                Weapon
+              </label>
+              <select
+                value={item.weaponType || ''}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  updateEquipment(item.slot, { weaponType: value ? value as typeof slotWeapons[number] : undefined });
+                }}
+                className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+              >
+                <option value="">Select Weapon</option>
+                {slotWeapons.map((weapon) => (
+                  <option key={weapon} value={weapon}>
+                    {weapon}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sigil 1 Dropdown */}
+            <div>
+              <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
+                Sigil 1
+              </label>
+              <SearchableDropdown
+                items={sigils}
+                selectedId={item.sigil1Id}
+                onSelect={(id) => updateEquipment(item.slot, { sigil1Id: id })}
+                getItemId={(s) => s.id}
+                getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                placeholder="Select Sigil"
+                disabled={loading}
+              />
+            </div>
+
+            {/* Sigil 2 Dropdown */}
+            <div>
+              <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
+                Sigil 2
+              </label>
+              <SearchableDropdown
+                items={sigils}
+                selectedId={item.sigil2Id}
+                onSelect={(id) => updateEquipment(item.slot, { sigil2Id: id })}
+                getItemId={(s) => s.id}
+                getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                placeholder="Select Sigil"
+                disabled={loading}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderWeaponStatsSlot = (item: typeof equipment[0]) => {
+    const isOffHand = item.slot === 'OffHand1' || item.slot === 'OffHand2';
+    const mainHandSlot = item.slot === 'OffHand1' ? 'MainHand1' : item.slot === 'OffHand2' ? 'MainHand2' : null;
+    const mainHandWeapon = mainHandSlot ? equipment.find(e => e.slot === mainHandSlot)?.weaponType : null;
+    const isMainHandTwoHanded = mainHandWeapon ? TWO_HANDED_WEAPONS.includes(mainHandWeapon) : false;
+    const isDisabled = isOffHand && isMainHandTwoHanded;
+
+    return (
+      <div key={item.slot} className="flex items-center gap-2">
+        {/* Slot Label */}
+        <div className="w-24 text-xs text-slate-400">
+          {item.slot.replace('MainHand', 'Main Hand ').replace('OffHand', 'Off Hand ')}:
+        </div>
+
+        {isDisabled ? (
+          <div className="flex-1 text-xs text-slate-500 italic">
+            (Two-handed weapon)
+          </div>
+        ) : (
+          <>
+            {/* Stats Dropdown */}
+            <div className="flex-1">
+              <select
+                value={item.stat}
+                onChange={(event) => updateEquipment(item.slot, { stat: event.target.value as StatCombo })}
+                className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+              >
+                {STAT_COMBOS.map((stat) => (
+                  <option key={stat} value={stat}>
+                    {stat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Infusion Dropdown */}
+            <div className="flex-1">
+              <select
+                value={item.infusion1 || ''}
+                onChange={(event) =>
+                  updateEquipment(item.slot, {
+                    infusion1: event.target.value ? (event.target.value as InfusionType) : undefined,
+                  })
+                }
+                className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+              >
+                <option value="">No Infusion</option>
+                {INFUSIONS.map((inf) => (
+                  <option key={inf} value={inf}>
+                    {inf}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
@@ -470,13 +628,13 @@ function EquipmentPanelContent() {
                 onClick={() => applyStatToCategory('armor', bulkStat)}
                 className="rounded-lg border border-slate-700 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 transition hover:border-slate-500"
               >
-                Armor
+                Armor Stats
               </button>
               <button
                 onClick={() => applyStatToCategory('trinkets', bulkStat)}
                 className="rounded-lg border border-slate-700 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 transition hover:border-slate-500"
               >
-                Trinkets
+                Trinket Stats
               </button>
               <button
                 onClick={() => applyStatToCategory('weapons', bulkStat)}
@@ -511,13 +669,13 @@ function EquipmentPanelContent() {
                 onClick={() => applyInfusionToCategory('armor', bulkInfusion)}
                 className="rounded-lg border border-slate-700 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 transition hover:border-slate-500"
               >
-                Armor
+                Armor Stats
               </button>
               <button
                 onClick={() => applyInfusionToCategory('trinkets', bulkInfusion)}
                 className="rounded-lg border border-slate-700 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 transition hover:border-slate-500"
               >
-                Trinkets
+                Trinket Stats
               </button>
               <button
                 onClick={() => applyInfusionToCategory('weapons', bulkInfusion)}
@@ -551,19 +709,15 @@ function EquipmentPanelContent() {
           <div className="space-y-2">
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Runes (6x)</p>
             <div className="flex gap-2">
-              <select
-                value={runeId || ''}
-                onChange={(event) => setRuneId(event.target.value ? parseInt(event.target.value) : undefined)}
-                className="flex-1 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+              <SearchableDropdown
+                items={runes}
+                selectedId={runeId}
+                onSelect={setRuneId}
+                getItemId={(rune) => rune.id}
+                getItemLabel={(rune) => rune.name.replace('Superior Rune of the ', '').replace('Superior Rune of ', '')}
+                placeholder="Select Rune"
                 disabled={loading}
-              >
-                <option value="">Select Rune</option>
-                {runes.map((rune) => (
-                  <option key={rune.id} value={rune.id}>
-                    {rune.name.replace('Superior Rune of the ', '').replace('Superior Rune of ', '')}
-                  </option>
-                ))}
-              </select>
+              />
               {selectedRune && (
                 <Tooltip
                   title={selectedRune.name}
@@ -585,19 +739,15 @@ function EquipmentPanelContent() {
           <div className="space-y-2">
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Relic</p>
             <div className="flex gap-2">
-              <select
-                value={relicId || ''}
-                onChange={(event) => setRelicId(event.target.value ? parseInt(event.target.value) : undefined)}
-                className="flex-1 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+              <SearchableDropdown
+                items={relics}
+                selectedId={relicId}
+                onSelect={setRelicId}
+                getItemId={(relic) => relic.id}
+                getItemLabel={(relic) => relic.name.replace('Relic of the ', '').replace('Relic of ', '')}
+                placeholder="Select Relic"
                 disabled={loading}
-              >
-                <option value="">Select Relic</option>
-                {relics.map((relic) => (
-                  <option key={relic.id} value={relic.id}>
-                    {relic.name.replace('Relic of the ', '').replace('Relic of ', '')}
-                  </option>
-                ))}
-              </select>
+              />
               {selectedRelic && (
                 <Tooltip
                   title={selectedRelic.name}
@@ -621,17 +771,33 @@ function EquipmentPanelContent() {
       <div>
         <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Weapons</h3>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-          {weaponItems.map(renderEquipmentSlot)}
+          {weaponItems.map(renderWeaponSlot)}
         </div>
       </div>
 
-      {/* Armor - Collapsible */}
+      {/* Weapon Stats & Infusions - Collapsible */}
+      <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <button
+          onClick={() => setWeaponStatsExpanded(!weaponStatsExpanded)}
+          className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+        >
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Weapon Stats & Infusions</h3>
+          <span className="text-slate-400 text-sm">{weaponStatsExpanded ? '−' : '+'}</span>
+        </button>
+        {weaponStatsExpanded && (
+          <div className="p-3 space-y-2 border-t border-slate-800">
+            {weaponItems.map(renderWeaponStatsSlot)}
+          </div>
+        )}
+      </div>
+
+      {/* Armor Stats - Collapsible */}
       <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
         <button
           onClick={() => setArmorExpanded(!armorExpanded)}
           className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
         >
-          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Armor</h3>
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Armor Stats</h3>
           <span className="text-slate-400 text-sm">{armorExpanded ? '−' : '+'}</span>
         </button>
         {armorExpanded && (
@@ -643,13 +809,13 @@ function EquipmentPanelContent() {
         )}
       </div>
 
-      {/* Trinkets - Collapsible */}
+      {/* Trinket Stats - Collapsible */}
       <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
         <button
           onClick={() => setTrinketsExpanded(!trinketsExpanded)}
           className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
         >
-          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Trinkets</h3>
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Trinket Stats</h3>
           <span className="text-slate-400 text-sm">{trinketsExpanded ? '−' : '+'}</span>
         </button>
         {trinketsExpanded && (
