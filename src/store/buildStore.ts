@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import type { BuildData, Profession, Equipment, StatCombo, InfusionType, ArmorSlot, TrinketSlot, WeaponSlot, GameMode } from '../types/gw2';
 
-interface BuildStore extends BuildData {
+interface BuildStore extends Omit<BuildData, 'profession'> {
+  profession: Profession | undefined;
   // Actions
   setProfession: (profession: Profession) => void;
   setGameMode: (mode: GameMode) => void;
@@ -13,6 +14,7 @@ interface BuildStore extends BuildData {
   setTrait: (specSlot: 1 | 2 | 3, tier: 0 | 1 | 2, traitId: number | null) => void;
   setRuneId: (runeId: number | undefined) => void;
   setRelicId: (relicId: number | undefined) => void;
+  loadBuild: (build: BuildData) => void;
   resetBuild: () => void;
 }
 
@@ -26,8 +28,8 @@ const initialEquipment: Equipment[] = [
   ...WEAPON_SLOTS.map(slot => ({ slot, stat: 'Berserker' as StatCombo })),
 ];
 
-const initialBuild: BuildData = {
-  profession: 'Guardian',
+const initialBuild: Partial<BuildData> = {
+  profession: undefined,
   gameMode: 'PvE',
   equipment: initialEquipment,
   skills: {},
@@ -36,6 +38,11 @@ const initialBuild: BuildData = {
 
 export const useBuildStore = create<BuildStore>((set) => ({
   ...initialBuild,
+  profession: undefined,
+  gameMode: 'PvE',
+  equipment: initialEquipment,
+  skills: {},
+  traits: {},
 
   setProfession: (profession) =>
     set({ profession, skills: {}, traits: {} }),
@@ -144,6 +151,8 @@ export const useBuildStore = create<BuildStore>((set) => ({
   setRuneId: (runeId) => set({ runeId }),
 
   setRelicId: (relicId) => set({ relicId }),
+
+  loadBuild: (build) => set(build),
 
   resetBuild: () => set(initialBuild),
 }));

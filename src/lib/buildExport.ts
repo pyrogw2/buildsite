@@ -23,8 +23,8 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
       lines.push(`- ${count}x ${stat}`);
     });
 
-    if (build.relic) {
-      lines.push(`- Relic: ${build.relic}`);
+    if (build.relicId) {
+      lines.push(`- Relic: ${build.relicId}`);
     }
     lines.push('');
 
@@ -95,8 +95,8 @@ export function generateTextSummary(build: BuildData): string {
   });
   lines.push('');
 
-  if (build.relic) {
-    lines.push(`RELIC: ${build.relic}`);
+  if (build.relicId) {
+    lines.push(`RELIC: ${build.relicId}`);
     lines.push('');
   }
 

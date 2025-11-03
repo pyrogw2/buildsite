@@ -1,0 +1,5575 @@
+[
+  {
+    "name": "Superior Rune of Balthazar",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91513,
+    "chat_link": "[&AgF5ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Burning Duration",
+        "+50 Condition Damage",
+        "+20% Burning Duration",
+        "+100 Condition Damage",
+        "+20% Burning Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Balthazar"
+    }
+  },
+  {
+    "name": "Superior Rune of Durability",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91444,
+    "chat_link": "[&AgE0ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+5% Boon Duration",
+        "+50 Toughness",
+        "+10% Boon Duration",
+        "+100 Toughness",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Durability"
+    }
+  },
+  {
+    "name": "Superior Rune of Exuberance",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91417,
+    "chat_link": "[&AgEZZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+35 Healing",
+        "+50 Vitality",
+        "+65 Precision",
+        "+100 Vitality",
+        "+125 Power"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Exuberance"
+    }
+  },
+  {
+    "name": "Superior Rune of Fireworks",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91482,
+    "chat_link": "[&AgFaZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+5% Boon Duration",
+        "+50 Power",
+        "+10% Boon Duration",
+        "+100 Power",
+        "+10% Boon Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": ""
+    }
+  },
+  {
+    "name": "Superior Rune of Grenth",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91468,
+    "chat_link": "[&AgFMZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Chill Duration",
+        "+50 Condition Damage",
+        "+20% Chill Duration",
+        "+100 Condition Damage",
+        "+20% Chill Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Grenth"
+    }
+  },
+  {
+    "name": "Superior Rune of Hoelbrak",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91564,
+    "chat_link": "[&AgGsZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Might Duration",
+        "+50 Power",
+        "-10% Incoming Condition Duration",
+        "+100 Power",
+        "+10% Boon Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Hoelbrak"
+    }
+  },
+  {
+    "name": "Superior Rune of Infiltration",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91608,
+    "chat_link": "[&AgHYZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Precision",
+        "+50 Power",
+        "+65 Precision",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Infiltration"
+    }
+  },
+  {
+    "name": "Superior Rune of Lyssa",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91471,
+    "chat_link": "[&AgFPZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Precision",
+        "+5% Condition Duration",
+        "+50 Precision",
+        "+10% Boon Duration",
+        "+100 Precision",
+        "+10% Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Lyssa"
+    }
+  },
+  {
+    "name": "Superior Rune of Melandru",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91566,
+    "chat_link": "[&AgGuZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Vitality",
+        "+50 Toughness",
+        "-10% Incoming Condition Duration",
+        "+100 Toughness",
+        "-10% Incoming Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Melandru"
+    }
+  },
+  {
+    "name": "Superior Rune of Mercy",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91556,
+    "chat_link": "[&AgGkZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Healing Power",
+        "+50 Toughness",
+        "+65 Healing",
+        "+100 Toughness",
+        "+125 Healing"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Mercy"
+    }
+  },
+  {
+    "name": "Superior Rune of Perplexity",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91550,
+    "chat_link": "[&AgGeZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Confusion Duration",
+        "+50 Condition Damage",
+        "+20% Confusion Duration",
+        "+100 Condition Damage",
+        "+20% Confusion Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Perplexity"
+    }
+  },
+  {
+    "name": "Superior Rune of Radiance",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91587,
+    "chat_link": "[&AgHDZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+5% Boon Duration",
+        "+50 Vitality",
+        "+10% Boon Duration",
+        "+100 Vitality",
+        "+10% Boon Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Radiance"
+    }
+  },
+  {
+    "name": "Superior Rune of Rata Sum",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91572,
+    "chat_link": "[&AgG0ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Precision",
+        "+10% Poison Duration",
+        "+50 Precision",
+        "+20% Weakness Duration",
+        "+100 Precision",
+        "+10% Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Rata Sum"
+    }
+  },
+  {
+    "name": "Superior Rune of Resistance",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91411,
+    "chat_link": "[&AgETZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "-5% Incoming Condition Duration",
+        "+50 Toughness",
+        "-10% Incoming Condition Duration",
+        "+100 Toughness",
+        "-10% Incoming Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Resistance"
+    }
+  },
+  {
+    "name": "Superior Rune of Sanctuary",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91605,
+    "chat_link": "[&AgHVZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+5% Boon Duration",
+        "+50 Vitality",
+        "+10% Boon Duration",
+        "+100 Vitality",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Sanctuary"
+    }
+  },
+  {
+    "name": "Superior Rune of Snowfall",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91512,
+    "chat_link": "[&AgF4ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Healing",
+        "+50 Toughness",
+        "+65 Healing",
+        "+100 Toughness",
+        "+25% Movement Speed"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Snowfall"
+    }
+  },
+  {
+    "name": "Superior Rune of Speed",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91401,
+    "chat_link": "[&AgEJZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+10% Swiftness Duration",
+        "+50 Vitality",
+        "+20% Swiftness Duration",
+        "+100 Vitality",
+        "+20% Swiftness Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Speed"
+    }
+  },
+  {
+    "name": "Superior Rune of Strength",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91423,
+    "chat_link": "[&AgEfZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Might Duration",
+        "+50 Power",
+        "+20% Might Duration",
+        "+100 Power",
+        "+20% Might Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Strength"
+    }
+  },
+  {
+    "name": "Superior Rune of Surging",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91591,
+    "chat_link": "[&AgHHZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+5% Boon Duration",
+        "+50 Power",
+        "+10% Boon Duration",
+        "+100 Power",
+        "+25% Movement Speed"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Surging"
+    }
+  },
+  {
+    "name": "Superior Rune of Svanir",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91494,
+    "chat_link": "[&AgFmZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+10% Chill Duration",
+        "+50 Toughness",
+        "+20% Chill Duration",
+        "+100 Toughness",
+        "-66% Incoming Chill Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Svanir"
+    }
+  },
+  {
+    "name": "Superior Rune of the Afflicted",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91460,
+    "chat_link": "[&AgFEZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Poison Duration",
+        "+50 Condition Damage",
+        "+20% Bleeding Duration",
+        "+100 Condition Damage",
+        "+10% Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Afflicted"
+    }
+  },
+  {
+    "name": "Superior Rune of the Aristocracy",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91602,
+    "chat_link": "[&AgHSZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Might Duration",
+        "+50 Condition Damage",
+        "+20% Might Duration",
+        "+100 Condition Damage",
+        "+20% Might Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Aristocracy"
+    }
+  },
+  {
+    "name": "Superior Rune of the Baelfire",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91477,
+    "chat_link": "[&AgFVZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Burning Duration",
+        "+50 Power",
+        "+10% Condition Duration",
+        "+100 Power",
+        "+20% Burning Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Baelfire"
+    }
+  },
+  {
+    "name": "Superior Rune of the Berserker",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91397,
+    "chat_link": "[&AgEFZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+35 Power",
+        "+50 Condition Damage",
+        "+65 Power",
+        "+100 Condition Damage",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Berserker"
+    }
+  },
+  {
+    "name": "Superior Rune of the Brawler",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91425,
+    "chat_link": "[&AgEhZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Toughness",
+        "+50 Power",
+        "+65 Toughness",
+        "+100 Power",
+        "+125 Toughness"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Brawler"
+    }
+  },
+  {
+    "name": "Superior Rune of the Cavalier",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91396,
+    "chat_link": "[&AgEEZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Toughness",
+        "+50 Power",
+        "+65 Toughness",
+        "+100 Power",
+        "+25% Movement Speed"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Cavalier"
+    }
+  },
+  {
+    "name": "Superior Rune of the Centaur",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91599,
+    "chat_link": "[&AgHPZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Swiftness Duration",
+        "+50 Power",
+        "+20% Swiftness Duration",
+        "+100 Power",
+        "+20% Swiftness Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Centaur"
+    }
+  },
+  {
+    "name": "Superior Rune of the Chronomancer",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91565,
+    "chat_link": "[&AgGtZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Precision",
+        "+50 Power",
+        "+65 Precision",
+        "+100 Power",
+        "+10% Boon Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Chronomancer"
+    }
+  },
+  {
+    "name": "Superior Rune of the Citadel",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91588,
+    "chat_link": "[&AgHEZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Fury Duration",
+        "+50 Power",
+        "+20% Fury Duration",
+        "+100 Power",
+        "+20% Fury Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Citadel"
+    }
+  },
+  {
+    "name": "Superior Rune of the Daredevil",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91457,
+    "chat_link": "[&AgFBZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Toughness",
+        "+50 Power",
+        "+65 Toughness",
+        "+100 Power",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Daredevil"
+    }
+  },
+  {
+    "name": "Superior Rune of the Deadeye",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91483,
+    "chat_link": "[&AgFbZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Ferocity",
+        "+50 Power",
+        "+65 Ferocity",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Deadeye"
+    }
+  },
+  {
+    "name": "Superior Rune of the Defender",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91404,
+    "chat_link": "[&AgEMZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Healing",
+        "+50 Toughness",
+        "+65 Healing",
+        "+100 Toughness",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Defender"
+    }
+  },
+  {
+    "name": "Superior Rune of the Dolyak",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91459,
+    "chat_link": "[&AgFDZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Vitality",
+        "+50 Toughness",
+        "+65 Vitality",
+        "+100 Toughness",
+        "+125 Toughness"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Dolyak"
+    }
+  },
+  {
+    "name": "Superior Rune of the Eagle",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91433,
+    "chat_link": "[&AgEpZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Precision",
+        "+35 Ferocity",
+        "+50 Precision",
+        "+65 Ferocity",
+        "+100 Precision",
+        "+125 Ferocity"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Eagle"
+    }
+  },
+  {
+    "name": "Superior Rune of the Earth",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91493,
+    "chat_link": "[&AgFlZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+10% Protection Duration",
+        "+50 Toughness",
+        "+20% Protection Duration",
+        "+100 Toughness",
+        "+125 Healing"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Earth"
+    }
+  },
+  {
+    "name": "Superior Rune of the Elementalist",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91465,
+    "chat_link": "[&AgFJZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Condition Damage",
+        "+50 Power",
+        "+65 Condition Damage",
+        "+100 Power",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Elementalist"
+    }
+  },
+  {
+    "name": "Superior Rune of the Engineer",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91522,
+    "chat_link": "[&AgGCZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Condition Damage",
+        "+50 Toughness",
+        "+65 Condition Damage",
+        "+100 Toughness",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Engineer"
+    }
+  },
+  {
+    "name": "Superior Rune of the Fire",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91489,
+    "chat_link": "[&AgFhZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Might Duration",
+        "+50 Power",
+        "+20% Might Duration",
+        "+100 Power",
+        "+20% Burning Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Fire"
+    }
+  },
+  {
+    "name": "Superior Rune of the Firebrand",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91538,
+    "chat_link": "[&AgGSZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Quickness Duration",
+        "+50 Condition Damage",
+        "+10% Boon Duration",
+        "+100 Condition Damage",
+        "+20% Quickness Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Firebrand"
+    }
+  },
+  {
+    "name": "Superior Rune of the Flame Legion",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91507,
+    "chat_link": "[&AgFzZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Burning Duration",
+        "+50 Power",
+        "+20% Burning Duration",
+        "+100 Power",
+        "+20% Burning Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Flame Legion"
+    }
+  },
+  {
+    "name": "Superior Rune of the Forgeman",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91419,
+    "chat_link": "[&AgEbZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+10% Burning Duration",
+        "+50 Toughness",
+        "+20% Burning Duration",
+        "+100 Toughness",
+        "+20% Burning Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Forgeman"
+    }
+  },
+  {
+    "name": "Superior Rune of the Guardian",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91570,
+    "chat_link": "[&AgGyZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+35 Healing",
+        "+50 Toughness",
+        "+65 Healing",
+        "+100 Toughness",
+        "+125 Toughness"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Guardian"
+    }
+  },
+  {
+    "name": "Superior Rune of the Herald",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91585,
+    "chat_link": "[&AgHBZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Toughness",
+        "+5% Boon Duration",
+        "+50 Toughness",
+        "+10% Boon Duration",
+        "+100 Toughness",
+        "+10% Boon Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Herald"
+    }
+  },
+  {
+    "name": "Superior Rune of the Holosmith",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91560,
+    "chat_link": "[&AgGoZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Vitality",
+        "+50 Power",
+        "+65 Vitality",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Holosmith"
+    }
+  },
+  {
+    "name": "Superior Rune of the Ice",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91580,
+    "chat_link": "[&AgG8ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+10% Chill Duration",
+        "+50 Vitality",
+        "+20% Chill Duration",
+        "+100 Vitality",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Ice"
+    }
+  },
+  {
+    "name": "Superior Rune of the Krait",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91435,
+    "chat_link": "[&AgErZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Bleeding Duration",
+        "+50 Condition Damage",
+        "+20% Bleeding Duration",
+        "+100 Condition Damage",
+        "+20% Bleeding Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Krait"
+    }
+  },
+  {
+    "name": "Superior Rune of the Lich",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91533,
+    "chat_link": "[&AgGNZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+5% Condition Duration",
+        "+50 Vitality",
+        "+10% Condition Duration",
+        "+100 Vitality",
+        "+10% Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Lich"
+    }
+  },
+  {
+    "name": "Superior Rune of the Mad King",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91581,
+    "chat_link": "[&AgG9ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+5% Condition Duration",
+        "+50 Power",
+        "+20% Bleeding Duration",
+        "+100 Power",
+        "+20% Bleeding Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Mad King"
+    }
+  },
+  {
+    "name": "Superior Rune of the Mesmer",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91387,
+    "chat_link": "[&AgH7ZAEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Precision",
+        "+50 Power",
+        "+65 Precision",
+        "+100 Power",
+        "+33% Daze Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Mesmer"
+    }
+  },
+  {
+    "name": "Superior Rune of the Nightmare",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91410,
+    "chat_link": "[&AgESZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Fear Duration",
+        "+50 Condition Damage",
+        "+10% Condition Duration",
+        "+100 Condition Damage",
+        "+10% Condition Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Nightmare"
+    }
+  },
+  {
+    "name": "Superior Rune of the Ogre",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91497,
+    "chat_link": "[&AgFpZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Ferocity",
+        "+50 Power",
+        "+65 Ferocity",
+        "+100 Power",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Ogre"
+    }
+  },
+  {
+    "name": "Superior Rune of the Pack",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91592,
+    "chat_link": "[&AgHIZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+5% Boon Duration",
+        "+50 Power",
+        "+10% Boon Duration",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Pack"
+    }
+  },
+  {
+    "name": "Superior Rune of the Privateer",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91557,
+    "chat_link": "[&AgGlZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+10% Might Duration",
+        "+50 Power",
+        "+20% Might Duration",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Privateer"
+    }
+  },
+  {
+    "name": "Superior Rune of the Ranger",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91541,
+    "chat_link": "[&AgGVZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Precision",
+        "+35 Ferocity",
+        "+50 Precision",
+        "+65 Ferocity",
+        "+100 Precision",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Ranger"
+    }
+  },
+  {
+    "name": "Superior Rune of the Reaper",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91578,
+    "chat_link": "[&AgG6ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Toughness",
+        "+50 Power",
+        "+65 Toughness",
+        "+100 Power",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Reaper"
+    }
+  },
+  {
+    "name": "Superior Rune of the Renegade",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91573,
+    "chat_link": "[&AgG1ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+35 Ferocity",
+        "+50 Condition Damage",
+        "+65 Ferocity",
+        "+100 Condition Damage",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Renegade"
+    }
+  },
+  {
+    "name": "Superior Rune of the Scholar",
+    "description": "<c=@abilitytype>Element: </c>Brilliance<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91595,
+    "chat_link": "[&AgHLZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Ferocity",
+        "+50 Power",
+        "+65 Ferocity",
+        "+100 Power",
+        "+125 Ferocity"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Scholar"
+    }
+  },
+  {
+    "name": "Superior Rune of the Scrapper",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91582,
+    "chat_link": "[&AgG+ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Toughness",
+        "+50 Power",
+        "+65 Toughness",
+        "+100 Power",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Scrapper"
+    }
+  },
+  {
+    "name": "Superior Rune of the Soulbeast",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91510,
+    "chat_link": "[&AgF2ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+35 Power",
+        "+50 Condition Damage",
+        "+65 Power",
+        "+100 Condition Damage",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Soulbeast"
+    }
+  },
+  {
+    "name": "Superior Rune of the Spellbreaker",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91590,
+    "chat_link": "[&AgHGZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Precision",
+        "+50 Power",
+        "+65 Precision",
+        "+100 Power",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Spellbreaker"
+    }
+  },
+  {
+    "name": "Superior Rune of the Thief",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91579,
+    "chat_link": "[&AgG7ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Precision",
+        "+35 Condition Damage",
+        "+50 Precision",
+        "+65 Condition Damage",
+        "+100 Precision",
+        "+125 Precision"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Thief"
+    }
+  },
+  {
+    "name": "Superior Rune of the Trapper",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91508,
+    "chat_link": "[&AgF0ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+5% Condition Duration",
+        "+50 Condition Damage",
+        "+10% Condition Duration",
+        "+100 Condition Damage",
+        "+125 Condition Damage"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Trapper"
+    }
+  },
+  {
+    "name": "Superior Rune of the Trooper",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91551,
+    "chat_link": "[&AgGfZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+35 Toughness",
+        "+50 Vitality",
+        "+65 Toughness",
+        "+100 Vitality",
+        "+125 Toughness"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Trooper"
+    }
+  },
+  {
+    "name": "Superior Rune of the Warrior",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91523,
+    "chat_link": "[&AgGDZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+35 Power",
+        "+50 Vitality",
+        "+65 Power",
+        "+100 Vitality",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Warrior"
+    }
+  },
+  {
+    "name": "Superior Rune of the Wurm",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91593,
+    "chat_link": "[&AgHJZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Vitality",
+        "+35 Ferocity",
+        "+50 Vitality",
+        "+65 Ferocity",
+        "+100 Vitality",
+        "+125 Ferocity"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of the Wurm"
+    }
+  },
+  {
+    "name": "Superior Rune of Thorns",
+    "description": "<c=@abilitytype>Element: </c>Skill<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91381,
+    "chat_link": "[&AgH1ZAEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Poison Duration",
+        "+50 Condition Damage",
+        "+20% Poison Duration",
+        "+100 Condition Damage",
+        "+20% Poison Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Thorns"
+    }
+  },
+  {
+    "name": "Superior Rune of Tormenting",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 0,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91516,
+    "chat_link": "[&AgF8ZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Condition Damage",
+        "+10% Torment Duration",
+        "+50 Condition Damage",
+        "+20% Torment Duration",
+        "+100 Condition Damage",
+        "+20% Torment Duration"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Tormenting"
+    }
+  },
+  {
+    "name": "Superior Rune of Vampirism",
+    "description": "<c=@abilitytype>Element: </c>Potence<br>Double-click to apply to a piece of armor.",
+    "type": "UpgradeComponent",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 540,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 91545,
+    "chat_link": "[&AgGZZQEA]",
+    "icon": "https://render.guildwars2.com/file/3CEECEBACCC4E7D25DBC79C7A4B5B2933AB01DE3/2179567.png",
+    "details": {
+      "type": "Rune",
+      "flags": [
+        "HeavyArmor",
+        "LightArmor",
+        "MediumArmor"
+      ],
+      "infusion_upgrade_flags": [],
+      "bonuses": [
+        "+25 Power",
+        "+35 Vitality",
+        "+50 Power",
+        "+65 Vitality",
+        "+100 Power",
+        "+125 Vitality"
+      ],
+      "attribute_adjustment": 0,
+      "infix_upgrade": {
+        "id": 112,
+        "attributes": []
+      },
+      "suffix": "of Vampirism"
+    }
+  },
+  {
+    "name": "Relic of Agony",
+    "description": "Enemies you interrupt are inflicted with Agony of the Choir.<br><c=@reminder>This trait can only affect enemies with defiance bars once per interval.</c>",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104849,
+    "chat_link": "[&AgGRmQEA]",
+    "icon": "https://render.guildwars2.com/file/7060CF69EFEB7A99150F2F1A7E0E1F1D2D9ED0D2/3629395.png"
+  },
+  {
+    "name": "Relic of Akeem",
+    "description": "When you disable an enemy that is afflicted by 5 or more stacks of confusion or torment, inflict confusion and torment on enemies around the target.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101573,
+    "chat_link": "[&AgHFjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Altruism",
+    "description": "Grant might and fury to nearby allies after using a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104491,
+    "chat_link": "[&AgErmAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Antitoxin",
+    "description": "Outgoing condition cleanses remove an additional condition. <c=@reminder>This can only affect an ally once every 10 seconds.</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101487,
+    "chat_link": "[&AgFvjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Atrocity",
+    "description": "Your lifesteal damage and healing is increased.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 102787,
+    "chat_link": "[&AgGDkQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Bava Nisos",
+    "description": "Upon using a <c=@abilitytype>stance</c> skill, cleanse conditions from yourself.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104848,
+    "chat_link": "[&AgGQmQEA]",
+    "icon": "https://render.guildwars2.com/file/213C437140552326BD633D1AFF150B48DF2EB544/3629396.png"
+  },
+  {
+    "name": "Relic of Bloodstone",
+    "description": "Gain Bloodstone Volatility when you successfully combo a field with a blast finisher. Blasting at the stack threshold triggers an explosion, granting increased damage.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104800,
+    "chat_link": "[&AgFgmQEA]",
+    "icon": "https://render.guildwars2.com/file/A7327A7EDB4705EA05261110526D72AFEAF7DAB4/3629397.png"
+  },
+  {
+    "name": "Relic of Castora",
+    "description": "Healing to other allies is increased while they are below the health threshold.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 105652,
+    "chat_link": "[&AgG0nAEA]",
+    "icon": "https://render.guildwars2.com/file/349EA123E7D870C4199AB268250973FAEC0ADC94/3709379.png"
+  },
+  {
+    "name": "Relic of Cerus",
+    "description": "Upon using an elite skill, summon an Eye of Cerus that emits a rotating line attack, dealing damage and converting boons into conditions.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101500,
+    "chat_link": "[&AgF8jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Dagda",
+    "description": "After using an elite skill, fire a projectile at the target or nearest enemy that damages and inflicts conditions. Damage scales with the recharge of the elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101491,
+    "chat_link": "[&AgFzjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Durability",
+    "description": "Gain protection and regeneration after using a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101504,
+    "chat_link": "[&AgGAjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Dwayna",
+    "description": "Regeneration you apply is more effective.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101514,
+    "chat_link": "[&AgGKjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Evasion",
+    "description": "Gain vigor after evading an attack.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101441,
+    "chat_link": "[&AgFBjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Febe",
+    "description": "When you use a healing skill, grant nearby allies swiftness and remove movement-impairing conditions from them.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101563,
+    "chat_link": "[&AgG7jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Fire",
+    "description": "Gain fire aura after using a healing skill. Fire aura now increases your outgoing strike damage.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104501,
+    "chat_link": "[&AgE1mAEA]",
+    "icon": "https://render.guildwars2.com/file/00E5051DCC0EDD58395DF9CEA3456466EA4FD347/3592834.png"
+  },
+  {
+    "name": "Relic of Fireworks",
+    "description": "Upon dealing strike damage using a weapon skill with a recharge time of 20 seconds or more, deal increased strike damage for a duration. Refreshes duration on stack.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101564,
+    "chat_link": "[&AgG8jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Geysers",
+    "description": "Restore endurance to allies when you grant them vigor.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 103829,
+    "chat_link": "[&AgGVlQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Isgarren",
+    "description": "After evading an enemy's attack, place the Eye of Isgarren on them for a duration. You deal increased strike and condition duration against enemies with the Eye of Isgarren.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101649,
+    "chat_link": "[&AgERjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Karakosa",
+    "description": "Heal other nearby allies when you successfully combo a field with a blast finisher.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101546,
+    "chat_link": "[&AgGqjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Leadership",
+    "description": "Convert conditions into boons on nearby allies after using an elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101461,
+    "chat_link": "[&AgFVjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Lyhr",
+    "description": "Upon healing an ally, shield up to four allies, redirecting a percentage of any strike damage they take to yourself. Allies may only be protected by one shield at a time.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101605,
+    "chat_link": "[&AgHljAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Mabon",
+    "description": "Upon applying might while in combat, gain Mabon's Strength. At 10 stacks, your might stacks become more effective for a duration, after which you lose all might and Mabon's Strength.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101643,
+    "chat_link": "[&AgELjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Mercy",
+    "description": "Revive allies faster and with more health.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101439,
+    "chat_link": "[&AgE/jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Mistburn",
+    "description": "When you grant might to yourself, grant yourself additional might. Gain increased critical-strike chance while at or above the might threshold.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104994,
+    "chat_link": "[&AgEimgEA]",
+    "icon": "https://render.guildwars2.com/file/FFCB62CF19806066D21C0EA1BA43986C0DA2B6F3/3629399.png"
+  },
+  {
+    "name": "Relic of Mosyn",
+    "description": "Remove a nondamaging condition whenever you evade an attack.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101860,
+    "chat_link": "[&AgHkjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Mount Balrior",
+    "description": "After using an elite skill, create an area underneath yourself. Standing in this area increases your outgoing strike damage.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104035,
+    "chat_link": "[&AgFjlgEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Nayos",
+    "description": "Removing a condition from yourself heals you.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101627,
+    "chat_link": "[&AgH7jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Nourys",
+    "description": "Gain stacks of Nourys's Hunger every interval when you remove boons from enemies. Consume 10 stacks to grow larger, dealing increased damage, taking reduced damage, and converting a percentage of outgoing damage into healing.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101503,
+    "chat_link": "[&AgF/jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Peitha",
+    "description": "After shadowstepping or using a deception skill, fire a blade at a nearby enemy after a short delay, applying torment and increasing your strike damage against that target.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101611,
+    "chat_link": "[&AgHrjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Resistance",
+    "description": "Gain resistance after using a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101466,
+    "chat_link": "[&AgFajAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Reunification",
+    "description": "Gain frost aura and light aura after using a healing skill.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 103984,
+    "chat_link": "[&AgEwlgEA]",
+    "icon": "https://render.guildwars2.com/file/DDC5C072A8E0566CFFF1200404E529DADCD27CF3/3441974.png"
+  },
+  {
+    "name": "Relic of Rivers",
+    "description": "Gain alacrity and regeneration at the end of your dodge roll.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 103015,
+    "chat_link": "[&AgFnkgEA]",
+    "icon": "https://render.guildwars2.com/file/4C054AF70F0CE14E46B159686F1AA70A320A1E07/3375221.png"
+  },
+  {
+    "name": "Relic of Sorrow",
+    "description": "After using an elite skill, create an area that protects allies and destroys enemy projectiles.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 103507,
+    "chat_link": "[&AgFTlAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Speed",
+    "description": "Increase movement speed when under the effect of swiftness.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101442,
+    "chat_link": "[&AgFCjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Surging",
+    "description": "Gain shocking aura for 4 seconds after using an elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104274,
+    "chat_link": "[&AgFSlwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Adventurer",
+    "description": "Gain 50% endurance after using a healing skill. <c=@reminder>(Cooldown: 20 Seconds)</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101511,
+    "chat_link": "[&AgGHjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Afflicted",
+    "description": "Create a Death Nova at a foe's location upon their defeat that inflicts poison and bleeding. <c=@reminder>(Cooldown: 10 Seconds)</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101493,
+    "chat_link": "[&AgF1jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Aristocracy",
+    "description": "Gain 3% condition duration for 8 seconds when inflicting weakness or vulnerability on a foe, up to a maximum of 5 stacks. <c=@reminder>(Cooldown: 1 Second)</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101539,
+    "chat_link": "[&AgGjjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Astral Ward",
+    "description": "Gain a Signet of the Astral Ward after using a signet skill. Using a signet skill while this signet is active consumes it to remove conditions from nearby allies and grant them resistance.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101619,
+    "chat_link": "[&AgHzjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Beehive",
+    "description": "After using an elite skill, release a wave of pheromones that causes bees to swarm enemies struck.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 103977,
+    "chat_link": "[&AgEplgEA]",
+    "icon": "https://render.guildwars2.com/file/0D45B8A4A1D8D7FF4BAE196091C76A961D3F9621/3441970.png"
+  },
+  {
+    "name": "Relic of the Biomancer",
+    "description": "Heal yourself when you inflict bleeding or poison on a foe.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 106364,
+    "chat_link": "[&AgF8nwEA]",
+    "icon": "https://render.guildwars2.com/file/5CF5F504B24F210BE209053D2134B89072FC4F29/3709378.png"
+  },
+  {
+    "name": "Relic of the Blightbringer",
+    "description": "Gain stacks of Greer's Virulence when you inflict poison on a foe. After reaching the maximum number of stacks, the next time you inflict poison also inflicts additional conditions on nearby enemies.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 102896,
+    "chat_link": "[&AgHwkQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Brawler",
+    "description": "Deal increased strike damage for a duration when granting protection or resolution to yourself.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101600,
+    "chat_link": "[&AgHgjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Cavalier",
+    "description": "Grant yourself aegis, quickness, swiftness, resistance, and might when striking an enemy with your mount's <c=@abilitytype>engage</c> skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101534,
+    "chat_link": "[&AgGejAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Centaur",
+    "description": "Gain stability when you use a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101607,
+    "chat_link": "[&AgHnjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Chronomancer",
+    "description": "Gain quickness when you use a <c=@abilitytype>well</c> skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101549,
+    "chat_link": "[&AgGtjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Citadel",
+    "description": "After using an elite skill, call down an artillery strike that inflicts stun on the skill target or nearest enemy.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101647,
+    "chat_link": "[&AgEPjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Claw",
+    "description": "Deal increased strike damage for a duration after you disable a foe.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 103574,
+    "chat_link": "[&AgGWlAEA]",
+    "icon": "https://render.guildwars2.com/file/19B5DB56E495C70754A8BE3621CADC0FD7402845/3375220.png"
+  },
+  {
+    "name": "Relic of the Daredevil",
+    "description": "After dodge rolling in combat or evading an attack, your next attack is guaranteed to be a critical hit. <c=@reminder>(Cooldown: 1 Second)</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101644,
+    "chat_link": "[&AgEMjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Deadeye",
+    "description": "Deal increased strike damage for a duration when you use a <c=@abilitytype>cantrip</c> skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101637,
+    "chat_link": "[&AgEFjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Defender",
+    "description": "Heal a percentage of your maximum health after blocking an attack. If you block again within 5 seconds, you heal less each time down to a minimum of 1%.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101513,
+    "chat_link": "[&AgGJjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Demon Queen",
+    "description": "Poison that you apply reduces healing by an additional amount. Disabling a foe applies poison. <br><c=@reminder>Disables include stun, taunt, daze, knockback, pull, knockdown, sink, float, fear, and launch.</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101467,
+    "chat_link": "[&AgFbjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Dragonhunter",
+    "description": "Enemies hit by your trap skills become hunted by you, increasing your strike damage and condition duration against them.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101590,
+    "chat_link": "[&AgHWjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Eagle",
+    "description": "Deal increased strike damage to low-health enemies.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104413,
+    "chat_link": "[&AgHdlwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Earth",
+    "description": "Grant protection and magnetic aura to allies after using an elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104383,
+    "chat_link": "[&AgG/lwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Firebrand",
+    "description": "Upon using the final charge of a mantra skill, gain increased boon duration.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101452,
+    "chat_link": "[&AgFMjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the First Revenant",
+    "description": "Gain incoming condition damage reduction while you have resistance.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 105585,
+    "chat_link": "[&AgFxnAEA]",
+    "icon": "https://render.guildwars2.com/file/7DA30BCFB0E0A04A5D3DFE3D25DAF142D90E1596/3709380.png"
+  },
+  {
+    "name": "Relic of the Flock",
+    "description": "Grant barrier to yourself and nearby allies after you use a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101527,
+    "chat_link": "[&AgGXjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Founding",
+    "description": "Gain barrier when you successfully combo a field with a leap finisher.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101776,
+    "chat_link": "[&AgGQjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Fractal",
+    "description": "When you inflict bleeding on an enemy with 6 or more stacks of bleeding, also inflict burning and torment.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101489,
+    "chat_link": "[&AgFxjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Golemancer",
+    "description": "Summon a golem while in combat.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104416,
+    "chat_link": "[&AgHglwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Herald",
+    "description": "Gain concentration after granting a boon to an ally.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101509,
+    "chat_link": "[&AgGFjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Holosmith",
+    "description": "Create a laser disk after you use an elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104390,
+    "chat_link": "[&AgHGlwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Ice",
+    "description": "After using an elite skill, launch icicles that inflict chilled at nearby enemies.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101608,
+    "chat_link": "[&AgHojAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Krait",
+    "description": "After using an elite skill, emit a wave of corruption that inflicts damaging conditions.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101640,
+    "chat_link": "[&AgEIjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Lich",
+    "description": "Summon a jagged horror while in combat.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104277,
+    "chat_link": "[&AgFVlwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Living City",
+    "description": "Complete each trigger once to gain stacks of Titanic Potential:\n• Use a healing skill\n• Use an elite skill\n• Finish a combo field\n• Disable an enemy\n• Evade an attack\nAt 5 stacks, gain Soul of the Titan, providing increased attributes and all boons for its duration.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104938,
+    "chat_link": "[&AgHqmQEA]",
+    "icon": "https://render.guildwars2.com/file/6CAF0358FBD9DDD84AB3302E2D67329A3AA83DEC/3629398.png"
+  },
+  {
+    "name": "Relic of the Midnight King",
+    "description": "Grant might and fury to nearby allies when you disable an enemy. <br><c=@reminder>Disables include stun, taunt, daze, knockback, pull, knockdown, sink, float, fear, and launch.</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101621,
+    "chat_link": "[&AgH1jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Mirage",
+    "description": "Inflict torment upon successfully evading an attack.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101581,
+    "chat_link": "[&AgHNjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Mist Stranger",
+    "description": "Siphon health whenever you hit a foe.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 106206,
+    "chat_link": "[&AgHengEA]",
+    "icon": "https://render.guildwars2.com/file/2DA75566B948AADFAB0CCF2198F205AF9AE82031/3709381.png"
+  },
+  {
+    "name": "Relic of the Mists Tide",
+    "description": "Cleanse a condition from yourself when you successfully combo a field with a leap or blast finisher.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 103941,
+    "chat_link": "[&AgEFlgEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Monk",
+    "description": "Increase healing effectiveness to allies after granting a boon to an ally.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "HideSuffix",
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101630,
+    "chat_link": "[&AgH+jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Necromancer",
+    "description": "Fear you inflict causes foes to move slower.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101465,
+    "chat_link": "[&AgFZjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Nightmare",
+    "description": "After using an elite skill, send forth a nightmare pulse that inflicts fear and poison on nearby enemies.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101453,
+    "chat_link": "[&AgFNjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Ogre",
+    "description": "Summon a rock dog while in combat.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104334,
+    "chat_link": "[&AgGOlwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Pack",
+    "description": "Grant superspeed to nearby allies after using an elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101447,
+    "chat_link": "[&AgFHjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Phenom",
+    "description": "Upon using a <c=@abilitytype>cantrip</c> or <c=@abilitytype>meditation</c> skill, gain protection.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104733,
+    "chat_link": "[&AgEdmQEA]",
+    "icon": "https://render.guildwars2.com/file/AD0AE5035A197220507642E1169ED55E0C58A29D/3629400.png"
+  },
+  {
+    "name": "Relic of the Pirate Queen",
+    "description": "Gain quickness when you disable a foe.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 106221,
+    "chat_link": "[&AgHtngEA]",
+    "icon": "https://render.guildwars2.com/file/6C7D53936BFC0DFD52BACDD9A2C7F0909E424F0D/3709382.png"
+  },
+  {
+    "name": "Relic of the Privateer",
+    "description": "Summon a parrot while in combat.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104311,
+    "chat_link": "[&AgF3lwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Reaper",
+    "description": "Chill nearby enemies after executing a <c=@abilitytype>shout</c> skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101472,
+    "chat_link": "[&AgFgjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Scoundrel",
+    "description": "Gain increased critical-hit chance for a duration after inflicting blindness or weakness.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 106355,
+    "chat_link": "[&AgFznwEA]",
+    "icon": "https://render.guildwars2.com/file/0B58A2B6F00D9657EE141001A8AA240DDBDE300D/3709383.png"
+  },
+  {
+    "name": "Relic of the Scourge",
+    "description": "Upon applying barrier to an ally, gain increased condition duration. <c=@reminder>When this triggers, refresh the duration of all stacks.</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101634,
+    "chat_link": "[&AgECjQEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Sorcerer",
+    "description": "When you inflict crippled, chilled, or immobile, you also inflict vulnerability.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101908,
+    "chat_link": "[&AgEUjgEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Steamshrieker",
+    "description": "Burn nearby enemies when you successfully combo a water field with a blast or leap finisher.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104022,
+    "chat_link": "[&AgFWlgEA]",
+    "icon": "https://render.guildwars2.com/file/23B0F0A5BF05E05C9F527BF7EB4962C9F49C6F42/3441975.png"
+  },
+  {
+    "name": "Relic of the Stormsinger",
+    "description": "After using a movement skill, your next attack creates an arc of chain lightning that strikes nearby enemies.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 103262,
+    "chat_link": "[&AgFekwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Sunless",
+    "description": "Using an elite skill summons a pool on the target enemy that inflicts poison and cripple. Pool duration scales with the recharge of the elite skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101541,
+    "chat_link": "[&AgGljAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Thief",
+    "description": "Upon striking an enemy with a weapon skill that has a recharge or resource cost, gain increased strike damage. <c=@reminder>When this triggers, refresh the duration of all stacks.</c>",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101580,
+    "chat_link": "[&AgHMjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Trooper",
+    "description": "Remove a condition from affected allies after using a <c=@abilitytype>shout</c> skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101554,
+    "chat_link": "[&AgGyjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Twin Generals",
+    "description": "Gain might and weaken nearby enemies when you use a healing skill. Gain additional might for each enemy struck.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 101767,
+    "chat_link": "[&AgGHjQEA]",
+    "icon": "https://render.guildwars2.com/file/CCEC5A2802D7B7D6C891EA730B5733ADD912B902/3302019.png"
+  },
+  {
+    "name": "Relic of the Unseen Invasion",
+    "description": "Grant yourself and nearby allies superspeed when you enter or exit stealth.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101571,
+    "chat_link": "[&AgHDjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Warrior",
+    "description": "Weapon swap recharge time is reduced.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101545,
+    "chat_link": "[&AgGpjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Water",
+    "description": "Cleanse conditions from yourself and nearby allies after using a healing skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101474,
+    "chat_link": "[&AgFijAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Wayfinder",
+    "description": "Gain increased movement speed, which is further increased while out of combat. When you enter combat, gain a burst of speed.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 101943,
+    "chat_link": "[&AgE3jgEA]",
+    "icon": "https://render.guildwars2.com/file/7D28503433AD96CEA902BBCD0411C9BE1D2505F4/3302020.png"
+  },
+  {
+    "name": "Relic of the Weaver",
+    "description": "Upon using a <c=@abilitytype>stance</c> skill, deal increased strike damage for a duration.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101526,
+    "chat_link": "[&AgGWjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Wizard's Tower",
+    "description": "After using an elite skill, shield yourself with a projectile-reflecting barrier while summoning a wave that pulls enemies toward you.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101586,
+    "chat_link": "[&AgHSjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of the Zephyrite",
+    "description": "Summon crystals that apply protection and resolution to allies after using an elite skill. Crystal duration scales with the recharge of the used skill.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101618,
+    "chat_link": "[&AgHyjAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Thorns",
+    "description": "Gain stacking condition damage when you are hit by a poisoned foe. <c=@reminder>When this triggers, it refreshes the duration of all stacks.</c>",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 104424,
+    "chat_link": "[&AgHolwEA]",
+    "icon": "https://render.guildwars2.com/file/B6166933459C27FE500FCC23B572A7AE2A0F4DDA/3592841.png"
+  },
+  {
+    "name": "Relic of Vampirism",
+    "description": "Siphon life from nearby foes when you use a healing skill. Restore a portion of your maximum health upon killing a foe.",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "NoSalvage",
+      "NoSell",
+      "AccountBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 104249,
+    "chat_link": "[&AgE5lwEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Vass",
+    "description": "After using a healing or elixir skill, your next few attacks inflict poison. <c=@reminder>Healing skills can only trigger this effect once every interval.</c>",
+    "type": "Relic",
+    "level": 80,
+    "rarity": "Legendary",
+    "vendor_value": 640,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse",
+      "DeleteWarning"
+    ],
+    "restrictions": [],
+    "id": 101492,
+    "chat_link": "[&AgF0jAEA]",
+    "icon": "https://render.guildwars2.com/file/08DED07BF6DF37E69A08D1C49D9C45D81BD8A5CA/3255567.png"
+  },
+  {
+    "name": "Relic of Zakiros",
+    "description": "While you are under the effects of fury, convert a percentage of your outgoing critical-strike damage into healing.",
+    "type": "Relic",
+    "level": 60,
+    "rarity": "Exotic",
+    "vendor_value": 200,
+    "game_types": [
+      "Activity",
+      "Wvw",
+      "Dungeon",
+      "Pve"
+    ],
+    "flags": [
+      "AccountBound",
+      "SoulBindOnUse"
+    ],
+    "restrictions": [],
+    "id": 101955,
+    "chat_link": "[&AgFDjgEA]",
+    "icon": "https://render.guildwars2.com/file/5A5B5D3A4D9DD01F0A115030270A0A6EA353CC65/3302021.png"
+  }
+]

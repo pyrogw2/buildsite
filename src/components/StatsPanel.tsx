@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type { StatCombo, InfusionType, GW2Item } from '../types/gw2';
+import { BASE_HEALTH, PROFESSION_WEIGHT_CLASS, BASE_ARMOR } from '../types/gw2';
 
 type AttributeKey =
   | 'Power'
@@ -38,43 +39,75 @@ const INFUSION_BONUSES: Record<InfusionType, Partial<Record<AttributeKey, number
   Concentration: { BoonDuration: 5 },
 };
 
-const STAT_ATTRIBUTE_MAP: Record<StatCombo, Partial<Record<AttributeKey, number>>> = {
-  Berserker: { Power: 115, Precision: 85, Ferocity: 85 },
-  Assassin: { Power: 85, Precision: 115, Ferocity: 85 },
-  Marauder: { Power: 100, Precision: 85, Vitality: 85, Ferocity: 70 },
-  Viper: { Power: 90, Precision: 75, ConditionDamage: 115, Expertise: 75 },
-  Sinister: { Power: 90, Precision: 90, ConditionDamage: 115 },
-  Celestial: {
-    Power: 55,
-    Precision: 55,
-    Toughness: 55,
-    Vitality: 55,
-    ConditionDamage: 55,
-    HealingPower: 55,
-    Expertise: 55,
-    BoonDuration: 55,
-    Ferocity: 40,
-  },
-  Diviner: { Power: 100, Precision: 75, Ferocity: 70, BoonDuration: 75 },
-  Harrier: { Power: 90, HealingPower: 115, BoonDuration: 90 },
-  Minstrel: { Toughness: 115, Vitality: 90, HealingPower: 90, BoonDuration: 75 },
-  Magi: { HealingPower: 115, Precision: 90, Vitality: 90 },
-  Soldier: { Power: 100, Toughness: 100, Vitality: 100 },
-  Cavalier: { Power: 90, Toughness: 115, Ferocity: 85 },
-  Nomad: { Toughness: 115, Vitality: 115, HealingPower: 70 },
-  Trailblazer: { ConditionDamage: 110, Toughness: 95, Vitality: 95, Expertise: 80 },
-  Seraph: { Precision: 100, ConditionDamage: 90, HealingPower: 75, BoonDuration: 75 },
-  Commander: { Power: 95, Precision: 80, Toughness: 80, BoonDuration: 80 },
-  Vigilant: { Power: 95, Toughness: 95, BoonDuration: 80 },
-  Crusader: { Power: 95, Toughness: 95, HealingPower: 80 },
-  Marshal: { Power: 95, ConditionDamage: 95, HealingPower: 85, Precision: 70 },
-  Grieving: { Power: 100, ConditionDamage: 105, Precision: 75, Ferocity: 70 },
-  Plaguedoctor: { ConditionDamage: 95, Vitality: 95, HealingPower: 95, Expertise: 70 },
-  Giver: { Toughness: 95, HealingPower: 90, BoonDuration: 90 },
-  Dragon: { Power: 110, Precision: 100, Ferocity: 80, Vitality: 70 },
-  Ritualist: { ConditionDamage: 95, Expertise: 95, Vitality: 80, BoonDuration: 80 },
-  Demolisher: { Power: 105, Precision: 95, Ferocity: 95, Toughness: 70 },
+// Stat distribution for each stat combo (in order of priority)
+// Format: [major stat, minor stat 1, minor stat 2, minor stat 3 (if 4-stat)]
+const STAT_COMBOS: Record<StatCombo, AttributeKey[]> = {
+  Berserker: ['Power', 'Precision', 'Ferocity'],
+  Assassin: ['Precision', 'Power', 'Ferocity'],
+  Marauder: ['Power', 'Precision', 'Vitality', 'Ferocity'],
+  Viper: ['Power', 'ConditionDamage', 'Precision', 'Expertise'],
+  Sinister: ['ConditionDamage', 'Power', 'Precision'],
+  Celestial: ['Power', 'Precision', 'Toughness', 'Vitality', 'ConditionDamage', 'HealingPower', 'Expertise', 'BoonDuration', 'Ferocity'],
+  Diviner: ['Power', 'BoonDuration', 'Precision', 'Ferocity'],
+  Harrier: ['Power', 'HealingPower', 'BoonDuration'],
+  Minstrel: ['Toughness', 'HealingPower', 'Vitality', 'BoonDuration'],
+  Magi: ['HealingPower', 'Precision', 'Vitality'],
+  Soldier: ['Power', 'Toughness', 'Vitality'],
+  Cavalier: ['Toughness', 'Power', 'Ferocity'],
+  Nomad: ['Toughness', 'Vitality', 'HealingPower'],
+  Trailblazer: ['Toughness', 'ConditionDamage', 'Vitality', 'Expertise'],
+  Seraph: ['Precision', 'ConditionDamage', 'BoonDuration', 'HealingPower'],
+  Commander: ['Power', 'Precision', 'Toughness', 'BoonDuration'],
+  Vigilant: ['Power', 'Toughness', 'BoonDuration', 'Expertise'],
+  Crusader: ['Power', 'Toughness', 'Ferocity', 'HealingPower'],
+  Marshal: ['Power', 'HealingPower', 'Precision', 'ConditionDamage'],
+  Grieving: ['Power', 'ConditionDamage', 'Precision', 'Ferocity'],
+  Plaguedoctor: ['Vitality', 'ConditionDamage', 'HealingPower', 'BoonDuration'],
+  Giver: ['Toughness', 'BoonDuration', 'HealingPower'],
+  Dragon: ['Power', 'Ferocity', 'Precision', 'Vitality'],
+  Ritualist: ['Vitality', 'ConditionDamage', 'BoonDuration', 'Expertise'],
+  Demolisher: ['Power', 'Precision', 'Toughness', 'Ferocity'],
+  Zealot: ['Power', 'Precision', 'HealingPower'],
+  Valkyrie: ['Power', 'Vitality', 'Ferocity'],
+  Rampager: ['Precision', 'Power', 'ConditionDamage'],
+  Knight: ['Toughness', 'Power', 'Precision'],
+  Sentinel: ['Vitality', 'Power', 'Toughness'],
+  Shaman: ['Vitality', 'ConditionDamage', 'HealingPower'],
+  Carrion: ['ConditionDamage', 'Power', 'Vitality'],
+  Rabid: ['ConditionDamage', 'Precision', 'Toughness'],
+  Dire: ['ConditionDamage', 'Toughness', 'Vitality'],
+  Cleric: ['HealingPower', 'Power', 'Toughness'],
+  Apothecary: ['HealingPower', 'Toughness', 'ConditionDamage'],
+  Wanderer: ['Power', 'Vitality', 'Toughness', 'BoonDuration'],
 };
+
+// Stat multipliers per slot (based on GW2 ascended gear)
+// For 3-stat: [major, minor, minor]
+// For 4-stat: [major, major, minor, minor]
+const SLOT_MULTIPLIERS: Record<string, number[]> = {
+  // Armor
+  'Helm': [0.47, 0.47, 0.26, 0.26],
+  'Shoulders': [0.35, 0.35, 0.19, 0.19],
+  'Coat': [1.05, 1.05, 0.58, 0.58],
+  'Gloves': [0.35, 0.35, 0.19, 0.19],
+  'Leggings': [0.70, 0.70, 0.39, 0.39],
+  'Boots': [0.35, 0.35, 0.19, 0.19],
+  // Trinkets
+  'Backpack': [1.16, 1.16, 0.62, 0.62],
+  'Accessory1': [0.80, 0.80, 0.43, 0.43],
+  'Accessory2': [0.80, 0.80, 0.43, 0.43],
+  'Amulet': [1.16, 1.16, 0.62, 0.62],
+  'Ring1': [0.93, 0.93, 0.49, 0.49],
+  'Ring2': [0.93, 0.93, 0.49, 0.49],
+  // Weapons - treating as 2H for now (staff/greatsword/etc)
+  // TODO: detect 1H vs 2H weapons properly
+  'MainHand1': [1.87, 1.87, 1.03, 1.03],
+  'OffHand1': [0.52, 0.52, 0.31, 0.31],
+  'MainHand2': [1.87, 1.87, 1.03, 1.03],
+  'OffHand2': [0.52, 0.52, 0.31, 0.31],
+};
+
+const BASE_STAT_VALUE = 115; // Base major stat value for armor
 
 const ATTRIBUTES: Array<{
   key: AttributeKey;
@@ -89,7 +122,7 @@ const ATTRIBUTES: Array<{
   { key: 'ConditionDamage', label: 'Condition Damage', accent: 'bg-red-500' },
   { key: 'HealingPower', label: 'Healing Power', accent: 'bg-teal-400' },
   { key: 'Expertise', label: 'Expertise', accent: 'bg-indigo-500' },
-  { key: 'BoonDuration', label: 'Boon Duration', accent: 'bg-lime-400' },
+  { key: 'BoonDuration', label: 'Concentration', accent: 'bg-lime-400' },
 ];
 
 const formatNumber = (value: number) => Math.round(value).toLocaleString();
@@ -124,7 +157,7 @@ function parseRuneBonus(bonus: string): { attribute: AttributeKey; value: number
 }
 
 export default function StatsPanel() {
-  const { equipment, runeId } = useBuildStore();
+  const { equipment, runeId, profession } = useBuildStore();
   const [runeItem, setRuneItem] = useState<GW2Item | null>(null);
 
   useEffect(() => {
@@ -137,12 +170,37 @@ export default function StatsPanel() {
 
   const totals = useMemo(() => {
     const acc = equipment.reduce<Record<AttributeKey, number>>((acc, item) => {
-      // Add stat combo contributions
-      const contributions = STAT_ATTRIBUTE_MAP[item.stat as StatCombo];
-      if (contributions) {
-        Object.entries(contributions).forEach(([key, value]) => {
-          const attribute = key as AttributeKey;
-          acc[attribute] += value ?? 0;
+      // Only count weapon set 1 (not both weapon sets)
+      if (item.slot === 'MainHand2' || item.slot === 'OffHand2') {
+        return acc;
+      }
+
+      // Get stat combo and slot multipliers
+      const statCombo = STAT_COMBOS[item.stat as StatCombo];
+      const multipliers = SLOT_MULTIPLIERS[item.slot];
+
+      if (statCombo && multipliers) {
+        // Determine if this is 3-stat or 4-stat combo
+        const is4Stat = statCombo.length === 4;
+        const is3Stat = statCombo.length === 3;
+
+        // Apply stats based on priority and slot multipliers
+        statCombo.forEach((attribute, index) => {
+          let multiplier = 0;
+
+          if (is3Stat) {
+            // 3-stat: [major, minor, minor]
+            multiplier = index === 0 ? multipliers[0] : multipliers[2];
+          } else if (is4Stat) {
+            // 4-stat: [major, major, minor, minor]
+            multiplier = index < 2 ? multipliers[0] : multipliers[2];
+          } else {
+            // Celestial (9-stat) or other - use multipliers directly
+            multiplier = multipliers[Math.min(index, multipliers.length - 1)];
+          }
+
+          const value = Math.round(BASE_STAT_VALUE * multiplier);
+          acc[attribute] += value;
         });
       }
 
@@ -185,27 +243,39 @@ export default function StatsPanel() {
     return ATTRIBUTES.reduce((max, attribute) => Math.max(max, totals[attribute.key]), 0);
   }, [totals]);
 
-  // Derived stats calculations
-  const derivedStats = useMemo(() => {
-    // Critical Chance (%) = 5 + [(Precision - 1000) / 21]
-    const critChance = 5 + (totals.Precision - 1000) / 21;
+  // Calculate derived stat for a given attribute
+  const getDerivedStat = (attributeKey: AttributeKey, value: number): string | null => {
+    if (!profession) return null;
 
-    // Critical Damage (%) = 150 + (Ferocity / 15)
-    const critDamage = 150 + totals.Ferocity / 15;
+    const weightClass = PROFESSION_WEIGHT_CLASS[profession];
+    const baseHealth = BASE_HEALTH[profession];
+    const baseArmor = BASE_ARMOR[weightClass];
 
-    // Condition Duration (%) = Expertise / 15
-    const conditionDuration = totals.Expertise / 15;
-
-    // Boon Duration (%) = Concentration / 15
-    const boonDuration = totals.BoonDuration / 15;
-
-    return {
-      critChance: Math.min(100, Math.max(0, critChance)),
-      critDamage: Math.max(150, critDamage),
-      conditionDuration: Math.min(100, Math.max(0, conditionDuration)),
-      boonDuration: Math.min(100, Math.max(0, boonDuration)),
-    };
-  }, [totals]);
+    switch (attributeKey) {
+      case 'Toughness':
+        // Armor = Base Armor + Total Toughness
+        const armor = baseArmor + value;
+        return `Armor: ${formatNumber(armor)}`;
+      case 'Vitality':
+        // Base health already includes base vitality, so only add equipment bonus
+        const health = baseHealth + (value - 1000) * 10;
+        return `Health: ${formatNumber(health)}`;
+      case 'Precision':
+        const critChance = Math.min(100, Math.max(0, 4 + (value - 1000) / 21));
+        return `Crit Chance: ${critChance.toFixed(1)}%`;
+      case 'Ferocity':
+        const critDamage = 150 + value / 15;
+        return `Crit Damage: ${critDamage.toFixed(1)}%`;
+      case 'Expertise':
+        const conditionDuration = Math.min(100, value / 15);
+        return `Condition Duration: +${conditionDuration.toFixed(1)}%`;
+      case 'BoonDuration':
+        const boonDuration = Math.min(100, value / 15);
+        return `Boon Duration: +${boonDuration.toFixed(1)}%`;
+      default:
+        return null;
+    }
+  };
 
   return (
     <aside className="rounded-[28px] border border-slate-800/80 bg-slate-900/70 p-6 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.9)]">
@@ -223,6 +293,7 @@ export default function StatsPanel() {
         {ATTRIBUTES.map((attribute) => {
           const value = totals[attribute.key];
           const percent = maxValue ? Math.min(100, (value / maxValue) * 100) : 0;
+          const derivedStat = getDerivedStat(attribute.key, value);
 
           return (
             <div key={attribute.key} className="space-y-2">
@@ -236,32 +307,14 @@ export default function StatsPanel() {
                   style={{ width: `${percent}%` }}
                 />
               </div>
+              {derivedStat && (
+                <div className="text-[11px] text-slate-400 pl-0.5">
+                  {derivedStat}
+                </div>
+              )}
             </div>
           );
         })}
-      </div>
-
-      {/* Derived Stats Section */}
-      <div className="mt-6 border-t border-slate-800/60 pt-6">
-        <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Derived Stats</h3>
-        <div className="mt-4 space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-slate-200">Critical Chance</span>
-            <span className="font-semibold text-white">{derivedStats.critChance.toFixed(1)}%</span>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-slate-200">Critical Damage</span>
-            <span className="font-semibold text-white">{derivedStats.critDamage.toFixed(1)}%</span>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-slate-200">Condition Duration</span>
-            <span className="font-semibold text-white">{derivedStats.conditionDuration.toFixed(1)}%</span>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-slate-200">Boon Duration</span>
-            <span className="font-semibold text-white">{derivedStats.boonDuration.toFixed(1)}%</span>
-          </div>
-        </div>
       </div>
     </aside>
   );

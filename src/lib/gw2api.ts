@@ -10,6 +10,33 @@ interface CacheEntry<T> {
 
 class GW2ApiClient {
   private cache: Map<string, CacheEntry<any>> = new Map();
+  private staticData: Record<string, any> = {};
+  private staticDataLoaded = false;
+
+  private async loadStaticData(): Promise<void> {
+    if (this.staticDataLoaded) return;
+
+    try {
+      const base = import.meta.env.BASE_URL;
+      const [skills, specializations, traits, items] = await Promise.all([
+        fetch(`${base}data/skills.json`).then(r => r.ok ? r.json() : null),
+        fetch(`${base}data/specializations.json`).then(r => r.ok ? r.json() : null),
+        fetch(`${base}data/traits.json`).then(r => r.ok ? r.json() : null),
+        fetch(`${base}data/items.json`).then(r => r.ok ? r.json() : null),
+      ]);
+
+      if (skills) this.staticData.skills = skills;
+      if (specializations) this.staticData.specializations = specializations;
+      if (traits) this.staticData.traits = traits;
+      if (items) this.staticData.items = items;
+
+      this.staticDataLoaded = true;
+      console.log('✅ Static data loaded successfully');
+    } catch (error) {
+      console.warn('⚠️  Failed to load static data, falling back to API:', error);
+      this.staticDataLoaded = true; // Mark as loaded to avoid retrying
+    }
+  }
 
   private async fetchWithCache<T>(endpoint: string): Promise<T> {
     const cacheKey = endpoint;
@@ -72,6 +99,19 @@ class GW2ApiClient {
 
   // Fetch all skills for a profession
   async getSkills(profession?: string): Promise<GW2Skill[]> {
+    // Try to load from static data first
+    await this.loadStaticData();
+
+    if (this.staticData.skills && profession) {
+      const skills = this.staticData.skills[profession];
+      if (skills) {
+        console.log(`📦 Loaded ${skills.length} ${profession} skills from static data`);
+        return skills;
+      }
+    }
+
+    // Fall back to API if static data not available
+    console.log(`🌐 Fetching skills from API for ${profession || 'all professions'}`);
     const allSkillIds = await this.fetchWithCache<number[]>('/skills');
 
     // Fetch in batches of 200 (API limit)
@@ -111,6 +151,21 @@ class GW2ApiClient {
 
   // Fetch all specializations for a profession
   async getSpecializations(profession?: string): Promise<GW2Specialization[]> {
+    // Try to load from static data first
+    await this.loadStaticData();
+
+    if (this.staticData.specializations) {
+      const specs = this.staticData.specializations;
+      console.log(`📦 Loaded ${specs.length} specializations from static data`);
+
+      if (profession) {
+        return specs.filter((s: GW2Specialization) => s.profession === profession);
+      }
+      return specs;
+    }
+
+    // Fall back to API if static data not available
+    console.log(`🌐 Fetching specializations from API`);
     const allSpecIds = await this.fetchWithCache<number[]>('/specializations');
     const specs = await this.fetchWithCache<GW2Specialization[]>(
       `/specializations?ids=${allSpecIds.join(',')}`
@@ -137,6 +192,21 @@ class GW2ApiClient {
 
   // Fetch items (runes, relics) by IDs
   async getItems(itemIds: readonly number[]): Promise<GW2Item[]> {
+    // Try to load from static data first
+    await this.loadStaticData();
+
+    if (this.staticData.items) {
+      const items = this.staticData.items.filter((item: GW2Item) =>
+        itemIds.includes(item.id)
+      );
+      if (items.length === itemIds.length) {
+        console.log(`📦 Loaded ${items.length} items from static data`);
+        return items;
+      }
+    }
+
+    // Fall back to API if static data not available or incomplete
+    console.log(`🌐 Fetching items from API`);
     const idsString = itemIds.join(',');
     return await this.fetchWithCache<GW2Item[]>(`/items?ids=${idsString}`);
   }

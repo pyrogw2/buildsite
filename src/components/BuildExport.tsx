@@ -1,44 +1,16 @@
 import { useState } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { getShareableUrl } from '../lib/buildEncoder';
-import { generateDiscordMarkdown, generateTextSummary } from '../lib/buildExport';
 
 export default function BuildExport() {
   const buildData = useBuildStore();
   const [copied, setCopied] = useState<string | null>(null);
-  const [discordMarkdown, setDiscordMarkdown] = useState<string>('');
-  const [showMarkdown, setShowMarkdown] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   const handleCopyUrl = () => {
-    const url = getShareableUrl(buildData);
+    const url = getShareableUrl(buildData as any);
     navigator.clipboard.writeText(url);
     setCopied('url');
-    setTimeout(() => setCopied(null), 2000);
-  };
-
-  const handleGenerateDiscord = async () => {
-    try {
-      const url = getShareableUrl(buildData);
-      const markdown = await generateDiscordMarkdown(buildData, url);
-      setDiscordMarkdown(markdown);
-      setShowMarkdown(true);
-    } catch (error) {
-      console.error('Failed to generate Discord markdown:', error);
-      alert('Failed to generate Discord markdown. Please try again.');
-    }
-  };
-
-  const handleCopyDiscord = () => {
-    navigator.clipboard.writeText(discordMarkdown);
-    setCopied('discord');
-    setTimeout(() => setCopied(null), 2000);
-  };
-
-  const handleCopyText = () => {
-    const text = generateTextSummary(buildData);
-    navigator.clipboard.writeText(text);
-    setCopied('text');
     setTimeout(() => setCopied(null), 2000);
   };
 
@@ -80,54 +52,6 @@ export default function BuildExport() {
                 className="inline-flex items-center gap-2 rounded-full border border-sky-500/60 bg-sky-500/10 px-4 py-2 text-sm font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
               >
                 <span>{copied === 'url' ? '✓ Copied' : 'Copy link'}</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-base font-semibold text-white">Discord markdown</h3>
-                <p className="text-sm text-slate-400">Post-ready formatting for guild channels.</p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={handleGenerateDiscord}
-                  className="rounded-full border border-indigo-500/60 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-200 transition hover:border-indigo-400 hover:bg-indigo-500/20"
-                >
-                  Generate
-                </button>
-                {showMarkdown && (
-                  <button
-                    onClick={handleCopyDiscord}
-                    className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-200 transition hover:border-emerald-400 hover:bg-emerald-500/20"
-                  >
-                    {copied === 'discord' ? '✓ Copied' : 'Copy'}
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {showMarkdown && discordMarkdown && (
-              <div className="mt-4 rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                <pre className="text-xs text-slate-300">
-                  {discordMarkdown}
-                </pre>
-              </div>
-            )}
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-base font-semibold text-white">Text summary</h3>
-                <p className="text-sm text-slate-400">Copy a quick overview for notes or forums.</p>
-              </div>
-              <button
-                onClick={handleCopyText}
-                className="rounded-full border border-purple-500/60 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:border-purple-400 hover:bg-purple-500/20"
-              >
-                {copied === 'text' ? '✓ Copied' : 'Copy text'}
               </button>
             </div>
           </div>

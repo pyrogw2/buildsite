@@ -65,11 +65,24 @@ export default function BuildEditor({ activeSection }: BuildEditorProps) {
 function SkillBarContent() {
   const { profession, skills, traits, setSkill } = useBuildStore();
   const [availableSkills, setAvailableSkills] = useState<GW2Skill[]>([]);
+  const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadSkills();
+    if (profession) {
+      loadSkills();
+      loadSpecs();
+    }
   }, [profession]);
+
+  const loadSpecs = async () => {
+    try {
+      const allSpecs = await gw2Api.getSpecializations(profession!);
+      setSpecs(allSpecs);
+    } catch (error) {
+      console.error('Failed to load specializations:', error);
+    }
+  };
 
   const loadSkills = async () => {
     setLoading(true);
@@ -83,10 +96,20 @@ function SkillBarContent() {
       );
 
       // Deduplicate skills by NAME (not ID) to handle PvE/PvP versions
-      // Keep the first occurrence of each skill name
-      const uniqueSkills = Array.from(
-        new Map(filteredSkills.map(skill => [skill.name, skill])).values()
-      );
+      // Prefer skills without specialization (core skills) over those with specialization
+      const skillsByName = new Map<string, GW2Skill>();
+      filteredSkills.forEach(skill => {
+        const existing = skillsByName.get(skill.name);
+        if (!existing) {
+          skillsByName.set(skill.name, skill);
+        } else {
+          // Prefer skills without specialization
+          if (!skill.specialization && existing.specialization) {
+            skillsByName.set(skill.name, skill);
+          }
+        }
+      });
+      const uniqueSkills = Array.from(skillsByName.values());
 
       setAvailableSkills(uniqueSkills);
     } catch (error) {
@@ -97,20 +120,43 @@ function SkillBarContent() {
   };
 
   const getSkillsForSlot = (slotType: string): GW2Skill[] => {
-    // Get selected elite specializations
+    // Get selected elite specializations (only elite specs, not core specs)
     const selectedEliteSpecs = [traits.spec1, traits.spec2, traits.spec3]
-      .filter((id): id is number => typeof id === 'number');
+      .filter((id): id is number => typeof id === 'number')
+      .filter(id => {
+        const spec = specs.find(s => s.id === id);
+        return spec && spec.elite;
+      });
 
     const filteredSkills = availableSkills.filter((skill) => {
       if (skill.slot?.toLowerCase() !== slotType.toLowerCase()) return false;
 
-      // For Elite slot, show ALL elites (core + elite spec)
-      // Since availableSkills is already filtered by profession, this is safe
+      // For Elite slot: show core elites + elite spec elites that are selected
       if (slotType === 'Elite') {
-        return true;
+        // No specialization = core elite, always show
+        if (!skill.specialization) return true;
+
+        // If specs haven't loaded yet, show all elites to avoid empty state
+        if (specs.length === 0) return true;
+
+        // Check if the skill's specialization is an elite spec
+        const skillSpec = specs.find(s => s.id === skill.specialization);
+
+        // If we can't find the spec in our list, show it (safety fallback)
+        if (!skillSpec) return true;
+
+        // If it's a core spec (not elite), always show it
+        if (!skillSpec.elite) return true;
+
+        // Elite spec skill - show if selected
+        if (selectedEliteSpecs.includes(skill.specialization)) {
+          return true;
+        }
+
+        return false;
       }
 
-      // For other slots, filter by specialization
+      // For other slots: filter by specialization
       if (skill.specialization) {
         return selectedEliteSpecs.includes(skill.specialization);
       }
@@ -184,10 +230,13 @@ function TraitPanelContent() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadSpecializations();
+    if (profession) {
+      loadSpecializations();
+    }
   }, [profession]);
 
   const loadSpecializations = async () => {
+    if (!profession) return;
     setLoading(true);
     try {
       const allSpecs = await gw2Api.getSpecializations(profession);
@@ -398,7 +447,6 @@ function EquipmentPanelContent() {
       setRunes(sortedRunes);
       setRelics(sortedRelics);
       setSigils(sortedSigils);
-      console.log(`Loaded ${sortedRunes.length} runes, ${sortedRelics.length} relics, and ${sortedSigils.length} sigils`);
     } catch (error) {
       console.error('Failed to load runes/relics/sigils:', error);
     } finally {
@@ -460,13 +508,13 @@ function EquipmentPanelContent() {
     const isMainHandTwoHanded = mainHandWeapon ? TWO_HANDED_WEAPONS.includes(mainHandWeapon) : false;
 
     // Get available weapons for this profession
-    const availableWeapons = PROFESSION_WEAPONS[profession] || [];
+    const availableWeapons = profession ? PROFESSION_WEAPONS[profession] || [] : [];
 
     // Filter weapons based on slot type
     let slotWeapons = availableWeapons;
     if (isOffHand) {
       // Only show off-hand compatible weapons
-      slotWeapons = availableWeapons.filter(w => OFF_HAND_WEAPONS.includes(w));
+      slotWeapons = availableWeapons.filter((w: string) => OFF_HAND_WEAPONS.includes(w as any));
     }
 
     return (
@@ -499,7 +547,7 @@ function EquipmentPanelContent() {
                 className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
               >
                 <option value="">Select Weapon</option>
-                {slotWeapons.map((weapon) => (
+                {slotWeapons.map((weapon: string) => (
                   <option key={weapon} value={weapon}>
                     {weapon}
                   </option>
@@ -512,15 +560,34 @@ function EquipmentPanelContent() {
               <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
                 Sigil 1
               </label>
-              <SearchableDropdown
-                items={sigils}
-                selectedId={item.sigil1Id}
-                onSelect={(id) => updateEquipment(item.slot, { sigil1Id: id })}
-                getItemId={(s) => s.id}
-                getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
-                placeholder="Select Sigil"
-                disabled={loading}
-              />
+              <div className="flex gap-2">
+                <SearchableDropdown
+                  items={sigils}
+                  selectedId={item.sigil1Id}
+                  onSelect={(id) => updateEquipment(item.slot, { sigil1Id: id })}
+                  getItemId={(s) => s.id}
+                  getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                  placeholder="Select Sigil"
+                  disabled={loading}
+                />
+                {item.sigil1Id && (() => {
+                  const selectedSigil = sigils.find(s => s.id === item.sigil1Id);
+                  return selectedSigil && (
+                    <Tooltip
+                      title={selectedSigil.name}
+                      content={selectedSigil.description || ''}
+                      icon={selectedSigil.icon}
+                      bonuses={selectedSigil.details?.bonuses}
+                      rarity={selectedSigil.rarity}
+                      itemType={selectedSigil.details?.type || 'Upgrade Component'}
+                    >
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900 flex-shrink-0">
+                        <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
+                      </div>
+                    </Tooltip>
+                  );
+                })()}
+              </div>
             </div>
 
             {/* Sigil 2 Dropdown */}
@@ -528,15 +595,34 @@ function EquipmentPanelContent() {
               <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
                 Sigil 2
               </label>
-              <SearchableDropdown
-                items={sigils}
-                selectedId={item.sigil2Id}
-                onSelect={(id) => updateEquipment(item.slot, { sigil2Id: id })}
-                getItemId={(s) => s.id}
-                getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
-                placeholder="Select Sigil"
-                disabled={loading}
-              />
+              <div className="flex gap-2">
+                <SearchableDropdown
+                  items={sigils}
+                  selectedId={item.sigil2Id}
+                  onSelect={(id) => updateEquipment(item.slot, { sigil2Id: id })}
+                  getItemId={(s) => s.id}
+                  getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                  placeholder="Select Sigil"
+                  disabled={loading}
+                />
+                {item.sigil2Id && (() => {
+                  const selectedSigil = sigils.find(s => s.id === item.sigil2Id);
+                  return selectedSigil && (
+                    <Tooltip
+                      title={selectedSigil.name}
+                      content={selectedSigil.description || ''}
+                      icon={selectedSigil.icon}
+                      bonuses={selectedSigil.details?.bonuses}
+                      rarity={selectedSigil.rarity}
+                      itemType={selectedSigil.details?.type || 'Upgrade Component'}
+                    >
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900 flex-shrink-0">
+                        <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
+                      </div>
+                    </Tooltip>
+                  );
+                })()}
+              </div>
             </div>
           </div>
         )}
@@ -612,17 +698,15 @@ function EquipmentPanelContent() {
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div className="space-y-2">
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Stats</p>
-            <select
-              value={bulkStat}
-              onChange={(event) => setBulkStat(event.target.value as StatCombo)}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
-            >
-              {STAT_COMBOS.map((stat) => (
-                <option key={stat} value={stat}>
-                  {stat}
-                </option>
-              ))}
-            </select>
+            <SearchableDropdown
+              items={STAT_COMBOS.map(stat => ({ id: stat, name: stat }))}
+              selectedId={bulkStat}
+              onSelect={(id) => setBulkStat(id as StatCombo)}
+              getItemId={(item) => item.id}
+              getItemLabel={(item) => item.name}
+              placeholder="Select Stat Combo"
+              disabled={loading}
+            />
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => applyStatToCategory('armor', bulkStat)}
@@ -653,17 +737,15 @@ function EquipmentPanelContent() {
 
           <div className="space-y-2">
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500">Infusions</p>
-            <select
-              value={bulkInfusion}
-              onChange={(event) => setBulkInfusion(event.target.value as InfusionType)}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
-            >
-              {INFUSIONS.map((inf) => (
-                <option key={inf} value={inf}>
-                  {inf}
-                </option>
-              ))}
-            </select>
+            <SearchableDropdown
+              items={INFUSIONS.map(inf => ({ id: inf, name: inf }))}
+              selectedId={bulkInfusion}
+              onSelect={(id) => setBulkInfusion(id as InfusionType)}
+              getItemId={(item) => item.id}
+              getItemLabel={(item) => item.name}
+              placeholder="Select Infusion"
+              disabled={loading}
+            />
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => applyInfusionToCategory('armor', bulkInfusion)}

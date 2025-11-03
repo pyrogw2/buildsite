@@ -5,7 +5,7 @@ import { STAT_COMBOS, INFUSIONS, type StatCombo, type InfusionType } from '../ty
 export default function EquipmentPanel() {
   const { equipment, updateEquipment, applyStatToCategory, applyInfusionToCategory } = useBuildStore();
   const [bulkStat, setBulkStat] = useState<StatCombo>('Berserker');
-  const [bulkInfusion, setBulkInfusion] = useState<InfusionType>('Mighty +9 Agony');
+  const [bulkInfusion, setBulkInfusion] = useState<InfusionType>('Mighty');
   const [expanded, setExpanded] = useState(true);
 
   const armorItems = equipment.filter(e =>

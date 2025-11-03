@@ -1,0 +1,10 @@
+{
+  "generated": "2025-11-03T19:37:33.207Z",
+  "version": "1.0.0",
+  "files": [
+    "skills.json",
+    "specializations.json",
+    "traits.json",
+    "items.json"
+  ]
+}

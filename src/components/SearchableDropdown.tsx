@@ -1,16 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 
-interface SearchableDropdownProps<T> {
+interface SearchableDropdownProps<T, K = number> {
   items: T[];
-  selectedId?: number;
-  onSelect: (id: number | undefined) => void;
-  getItemId: (item: T) => number;
+  selectedId?: K;
+  onSelect: (id: K | undefined) => void;
+  getItemId: (item: T) => K;
   getItemLabel: (item: T) => string;
   placeholder?: string;
   disabled?: boolean;
 }
 
-export default function SearchableDropdown<T>({
+export default function SearchableDropdown<T, K = number>({
   items,
   selectedId,
   onSelect,
@@ -18,7 +18,7 @@ export default function SearchableDropdown<T>({
   getItemLabel,
   placeholder = 'Select...',
   disabled = false,
-}: SearchableDropdownProps<T>) {
+}: SearchableDropdownProps<T, K>) {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -97,7 +97,7 @@ export default function SearchableDropdown<T>({
     }
   };
 
-  const handleSelect = (id: number) => {
+  const handleSelect = (id: K) => {
     onSelect(id);
     setIsOpen(false);
     setSearchTerm('');
@@ -159,7 +159,7 @@ export default function SearchableDropdown<T>({
 
               return (
                 <button
-                  key={itemId}
+                  key={String(itemId)}
                   onClick={() => handleSelect(itemId)}
                   className={`w-full px-3 py-2 text-left text-xs transition ${
                     isHighlighted

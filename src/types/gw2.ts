@@ -5,6 +5,39 @@ export type Profession =
 
 export type WeightClass = 'Heavy' | 'Medium' | 'Light';
 
+// Base health pools at level 80
+export const BASE_HEALTH: Record<Profession, number> = {
+  Warrior: 19212,
+  Necromancer: 19212,
+  Revenant: 15922,
+  Engineer: 15922,
+  Ranger: 15922,
+  Mesmer: 15922,
+  Guardian: 11645,
+  Thief: 11645,
+  Elementalist: 11645,
+};
+
+// Weight class by profession
+export const PROFESSION_WEIGHT_CLASS: Record<Profession, WeightClass> = {
+  Guardian: 'Heavy',
+  Warrior: 'Heavy',
+  Revenant: 'Heavy',
+  Engineer: 'Medium',
+  Ranger: 'Medium',
+  Thief: 'Medium',
+  Elementalist: 'Light',
+  Mesmer: 'Light',
+  Necromancer: 'Light',
+};
+
+// Base armor by weight class (Ascended tier)
+export const BASE_ARMOR: Record<WeightClass, number> = {
+  Light: 967,
+  Medium: 1118,
+  Heavy: 1271,
+};
+
 // Game mode types
 export type GameMode = 'PvE' | 'PvP' | 'WvW';
 
@@ -48,7 +81,10 @@ export const STAT_COMBOS = [
   'Celestial', 'Diviner', 'Harrier', 'Minstrel', 'Magi',
   'Soldier', 'Cavalier', 'Nomad', 'Trailblazer', 'Seraph',
   'Commander', 'Vigilant', 'Crusader', 'Marshal', 'Grieving',
-  'Plaguedoctor', 'Giver', 'Dragon', 'Ritualist', 'Demolisher'
+  'Plaguedoctor', 'Giver', 'Dragon', 'Ritualist', 'Demolisher',
+  'Zealot', 'Valkyrie', 'Rampager', 'Knight', 'Sentinel',
+  'Shaman', 'Carrion', 'Rabid', 'Dire', 'Cleric', 'Apothecary',
+  'Wanderer'
 ] as const;
 
 export type StatCombo = typeof STAT_COMBOS[number];

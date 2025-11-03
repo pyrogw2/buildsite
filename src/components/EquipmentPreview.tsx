@@ -1,7 +1,7 @@
 import { useBuildStore } from '../store/buildStore';
 
 export default function EquipmentPreview() {
-  const { equipment, relic } = useBuildStore();
+  const { equipment, relicId } = useBuildStore();
 
   const armorItems = equipment.filter(e =>
     ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots'].includes(e.slot)
@@ -70,13 +70,13 @@ export default function EquipmentPreview() {
       </div>
 
       {/* Relic Section */}
-      {relic && (
+      {relicId && (
         <div className="rounded-3xl border border-slate-800/80 bg-slate-950/80 p-6">
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
             Relic
           </h3>
           <div className="rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2">
-            <div className="text-sm font-medium text-slate-200">{relic}</div>
+            <div className="text-sm font-medium text-slate-200">{relicId}</div>
           </div>
         </div>
       )}

@@ -39,17 +39,18 @@ const PROFESSION_GLOW: Record<Profession, string> = {
 
 export default function ProfessionSelector() {
   const { profession, setProfession } = useBuildStore();
-  const accent = PROFESSION_HEX[profession];
+  const accent = profession ? PROFESSION_HEX[profession] : '#64748b';
+  const glow = profession ? PROFESSION_GLOW[profession] : 'from-slate-800/30 via-slate-700/60 to-slate-600';
 
   return (
     <div>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Profession</p>
-          <h2 className="mt-2 text-base font-semibold text-white">Choose your legend</h2>
+          <h2 className="mt-2 text-base font-semibold text-white">Choose your class</h2>
         </div>
         <div
-          className={`h-12 w-12 rounded-2xl border border-slate-800 bg-gradient-to-br ${PROFESSION_GLOW[profession]}`}
+          className={`h-12 w-12 rounded-2xl border border-slate-800 bg-gradient-to-br ${glow}`}
           style={{ boxShadow: `0 0 18px -6px ${accent}55` }}
         />
       </div>
@@ -60,11 +61,17 @@ export default function ProfessionSelector() {
         </label>
         <select
           id="profession-select"
-          value={profession}
-          onChange={(event) => setProfession(event.target.value as Profession)}
+          value={profession || ''}
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value) setProfession(value as Profession);
+          }}
           className="w-full rounded-2xl border border-slate-800 bg-slate-950/70 px-4 py-3 text-sm font-medium text-white shadow-[0_12px_30px_-24px_rgba(14,21,37,1)] transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-500"
           style={{ boxShadow: `0 0 0 1px ${accent}20 inset` }}
         >
+          <option value="" disabled>
+            Select a profession...
+          </option>
           {PROFESSIONS.map((professionOption) => (
             <option key={professionOption} value={professionOption}>
               {professionOption}
