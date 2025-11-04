@@ -181,6 +181,17 @@ function SkillBarContent() {
     const selectedSkill = availableSkills.find((skill) => skill.id === selectedSkillId);
     const selectedSkillDetails = selectedSkill ? resolveSkillMode(selectedSkill, gameMode) : undefined;
 
+    // Debug logging
+    if (selectedSkill?.name === 'Well of Corruption') {
+      console.log('Well of Corruption debug:', {
+        gameMode,
+        hasModes: !!selectedSkill.modes,
+        hasWvw: !!selectedSkill.modes?.wvw,
+        selectedSkillDetails,
+        wvwRecharge: selectedSkillDetails?.facts?.find(f => f.type === 'Recharge')?.value
+      });
+    }
+
     return (
       <div key={slot} className="flex flex-col items-center gap-2">
         <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">{SLOT_LABELS[slot]}</span>
@@ -189,6 +200,8 @@ function SkillBarContent() {
             title={selectedSkill.name}
             content={selectedSkillDetails?.description || ''}
             icon={selectedSkill.icon}
+            facts={selectedSkillDetails?.facts}
+            modeData={selectedSkill.modes}
           >
             <div>
               <SkillPicker
@@ -401,7 +414,14 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
             const traitDetails = resolveTraitMode(trait, gameMode);
 
             return (
-              <Tooltip key={trait.id} title={trait.name} content={traitDetails?.description || ''} icon={trait.icon}>
+              <Tooltip
+                key={trait.id}
+                title={trait.name}
+                content={traitDetails?.description || ''}
+                icon={trait.icon}
+                facts={traitDetails?.facts}
+                modeData={trait.modes}
+              >
                 <button
                   onClick={() => onTraitSelect(tierIndex as 0 | 1 | 2, trait.id)}
                   className={`group relative flex h-12 w-12 items-center justify-center rounded-xl border-2 transition ${

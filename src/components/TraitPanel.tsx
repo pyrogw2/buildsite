@@ -211,7 +211,14 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
             const traitDetails = resolveTraitMode(trait, gameMode);
 
             return (
-              <Tooltip key={trait.id} title={trait.name} content={traitDetails?.description || ''} icon={trait.icon}>
+              <Tooltip
+                key={trait.id}
+                title={trait.name}
+                content={traitDetails?.description || ''}
+                icon={trait.icon}
+                facts={traitDetails?.facts}
+                modeData={trait.modes}
+              >
                 <button
                   onClick={() => onTraitSelect(tierIndex as 0 | 1 | 2, trait.id)}
                   className={`flex w-full items-start gap-2 rounded-2xl border-2 px-2 py-2 text-left transition ${

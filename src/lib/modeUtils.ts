@@ -26,7 +26,19 @@ export const resolveMode = <T>(bundle: ModeBundle<T>, gameMode?: GameMode): T =>
   if (key === 'default') {
     return bundle.default;
   }
-  return bundle[key] ?? bundle.default;
+  const result = bundle[key] ?? bundle.default;
+
+  // Debug logging
+  if ((result as any)?.facts?.some((f: any) => f.type === 'Recharge')) {
+    const recharge = (result as any).facts.find((f: any) => f.type === 'Recharge')?.value;
+    const bundleHasWvw = !!bundle.wvw;
+    const wvwRecharge = (bundle.wvw as any)?.facts?.find((f: any) => f.type === 'Recharge')?.value;
+    if (recharge === 32 || recharge === 40) {
+      console.log('resolveMode debug:', { key, bundleHasWvw, wvwRecharge, resultRecharge: recharge });
+    }
+  }
+
+  return result;
 };
 
 export const resolveSkillMode = (

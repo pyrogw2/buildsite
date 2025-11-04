@@ -21,6 +21,7 @@ export default function SkillBar() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(true);
 
+
   useEffect(() => {
     loadSkills();
   }, [profession]);
@@ -60,6 +61,8 @@ export default function SkillBar() {
               title={selectedSkill.name}
               content={selectedSkillDetails?.description || ''}
               icon={selectedSkill.icon}
+              facts={selectedSkillDetails?.facts}
+              modeData={selectedSkill.modes}
             >
               <div
                 className={`relative flex h-14 w-14 items-center justify-center rounded-xl border cursor-pointer border-yellow-400 bg-slate-900 hover:border-yellow-300`}

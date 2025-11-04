@@ -29,6 +29,7 @@ class GW2ApiClient {
   private staticDataLoaded = false;
   private skillOverrideLookup: Map<number, SkillModeOverrideInfo> = new Map();
   private processedSplitProfessions: Set<string> = new Set();
+  private hasCompetitiveSplits = false;
 
   private normalizeSkill(skill: GW2Skill): GW2SkillWithModes {
     const { description, facts, traited_facts, pve, pvp, wvw, ...rest } = skill;
@@ -38,7 +39,7 @@ class GW2ApiClient {
       traited_facts,
     };
 
-    return {
+    const normalized = {
       ...rest,
       modes: {
         default: defaultMode,
@@ -47,6 +48,18 @@ class GW2ApiClient {
         wvw: wvw ? mergeModeData(defaultMode, wvw) : undefined,
       },
     };
+
+    // Debug logging for Well of Corruption
+    if (skill.name === 'Well of Corruption') {
+      console.log('Normalizing Well of Corruption:', {
+        hasWvwInput: !!wvw,
+        wvwInputRecharge: wvw?.facts?.find((f: any) => f.type === 'Recharge')?.value,
+        hasWvwOutput: !!normalized.modes.wvw,
+        wvwOutputRecharge: normalized.modes.wvw?.facts?.find(f => f.type === 'Recharge')?.value,
+      });
+    }
+
+    return normalized;
   }
 
   private normalizeTrait(trait: GW2Trait): GW2TraitWithModes {
@@ -73,13 +86,18 @@ class GW2ApiClient {
 
     try {
       const base = import.meta.env.BASE_URL;
-      const [skills, specializations, traits, items] = await Promise.all([
+      const [metadata, skills, specializations, traits, items] = await Promise.all([
+        fetch(`${base}data/metadata.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/skills.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/specializations.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/traits.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/items.json`).then(r => r.ok ? r.json() : null),
       ]);
 
+      if (metadata) {
+        this.hasCompetitiveSplits = metadata.withCompetitiveSplits === true;
+        console.log(`📊 Competitive splits: ${this.hasCompetitiveSplits ? 'enabled' : 'disabled'}`);
+      }
       if (skills) this.staticData.skills = skills;
       if (specializations) this.staticData.specializations = specializations;
       if (traits) this.staticData.traits = traits;
@@ -190,9 +208,15 @@ class GW2ApiClient {
 
   // Fetch a single skill by ID
   async getSkill(id: number): Promise<GW2SkillWithModes> {
-    const cachedOverride = this.skillOverrideLookup.get(id);
-    if (cachedOverride) {
-      return this.resolveOverrideSkill(cachedOverride);
+    // Load static data to check if we have competitive splits
+    await this.loadStaticData();
+
+    // Only use override lookup if we don't have competitive splits
+    if (!this.hasCompetitiveSplits) {
+      const cachedOverride = this.skillOverrideLookup.get(id);
+      if (cachedOverride) {
+        return this.resolveOverrideSkill(cachedOverride);
+      }
     }
 
     const skill = await this.fetchWithCache<GW2Skill>(`/skills/${id}`);
@@ -201,9 +225,12 @@ class GW2ApiClient {
     const profession = normalized.professions?.[0];
     if (profession && !this.processedSplitProfessions.has(profession)) {
       await this.getSkills(profession);
-      const refreshedOverride = this.skillOverrideLookup.get(id);
-      if (refreshedOverride) {
-        return this.resolveOverrideSkill(refreshedOverride);
+      // Only check for refreshed overrides if we don't have competitive splits
+      if (!this.hasCompetitiveSplits) {
+        const refreshedOverride = this.skillOverrideLookup.get(id);
+        if (refreshedOverride) {
+          return this.resolveOverrideSkill(refreshedOverride);
+        }
       }
     }
 
@@ -220,10 +247,18 @@ class GW2ApiClient {
       if (skills) {
         console.log(`📦 Loaded ${skills.length} ${profession} skills from static data`);
         const normalized = skills.map((skill: GW2Skill) => this.normalizeSkill(skill));
-        const { skills: mergedSkills, overrideLookup } = mergeSkillModeOverrides(normalized);
-        this.registerSkillOverrides(overrideLookup);
+
+        // Only merge skill mode overrides if we don't have wiki-scraped competitive splits
+        // (merging breaks the wiki-scraped data)
+        if (!this.hasCompetitiveSplits) {
+          const { skills: mergedSkills, overrideLookup } = mergeSkillModeOverrides(normalized);
+          this.registerSkillOverrides(overrideLookup);
+          this.processedSplitProfessions.add(profession);
+          return mergedSkills;
+        }
+
         this.processedSplitProfessions.add(profession);
-        return mergedSkills;
+        return normalized;
       }
     }
 
@@ -241,36 +276,67 @@ class GW2ApiClient {
       skills.push(...batchSkills.map(skill => this.normalizeSkill(skill)));
     }
 
-    const { skills: mergedSkills, overrideLookup } = mergeSkillModeOverrides(skills);
-    this.registerSkillOverrides(overrideLookup);
+    // Only merge skill mode overrides if we don't have wiki-scraped competitive splits
+    let finalSkills = skills;
+    if (!this.hasCompetitiveSplits) {
+      const { skills: mergedSkills, overrideLookup } = mergeSkillModeOverrides(skills);
+      this.registerSkillOverrides(overrideLookup);
+      finalSkills = mergedSkills;
+    }
 
     if (profession) {
       this.processedSplitProfessions.add(profession);
       // Case-insensitive profession filter
       const profLower = profession.toLowerCase();
-      return mergedSkills.filter(s =>
+      return finalSkills.filter(s =>
         s.professions && s.professions.some(p => p.toLowerCase() === profLower)
       );
     }
 
-    mergedSkills.forEach(skill => {
+    finalSkills.forEach(skill => {
       skill.professions?.forEach(prof => this.processedSplitProfessions.add(prof));
     });
 
-    return mergedSkills;
+    return finalSkills;
   }
 
   // Fetch a single trait by ID
   async getTrait(id: number): Promise<GW2TraitWithModes> {
+    // Try to load from static data first
+    await this.loadStaticData();
+
+    if (this.staticData.traits) {
+      const trait = this.staticData.traits.find((t: GW2Trait) => t.id === id);
+      if (trait) {
+        return this.normalizeTrait(trait);
+      }
+    }
+
+    // Fall back to API if not in static data
     const trait = await this.fetchWithCache<GW2Trait>(`/traits/${id}`);
     return this.normalizeTrait(trait);
   }
 
   // Fetch traits for a specialization
   async getTraits(specializationId: number): Promise<GW2TraitWithModes[]> {
+    // Try to load from static data first
+    await this.loadStaticData();
+
     const spec = await this.getSpecialization(specializationId);
     const traitIds = [...spec.minor_traits, ...spec.major_traits];
 
+    if (this.staticData.traits) {
+      const traits = this.staticData.traits.filter((t: GW2Trait) =>
+        traitIds.includes(t.id)
+      );
+      if (traits.length === traitIds.length) {
+        console.log(`📦 Loaded ${traits.length} traits from static data for spec ${specializationId}`);
+        return traits.map((trait: GW2Trait) => this.normalizeTrait(trait));
+      }
+    }
+
+    // Fall back to API if static data not available or incomplete
+    console.log(`🌐 Fetching traits from API for spec ${specializationId}`);
     const traits = await this.fetchWithCache<GW2Trait[]>(
       `/traits?ids=${traitIds.join(',')}`
     );
