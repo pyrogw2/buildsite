@@ -4,6 +4,7 @@ import { gw2Api } from '../lib/gw2api';
 import type { StatCombo, InfusionType, GW2Item } from '../types/gw2';
 import { BASE_HEALTH, PROFESSION_WEIGHT_CLASS, BASE_ARMOR, TWO_HANDED_WEAPONS } from '../types/gw2';
 import { ASCENDED_ARMOR_STATS, ASCENDED_TRINKET_STATS, ASCENDED_WEAPON_STATS, type SlotStatValues } from '../lib/statTables';
+import Tooltip from './Tooltip';
 
 type AttributeKey =
   | 'Power'
@@ -85,17 +86,19 @@ const STAT_COMBOS: Record<StatCombo, AttributeKey[]> = {
 const ATTRIBUTES: Array<{
   key: AttributeKey;
   label: string;
+  shortLabel: string;
   accent: string;
+  icon: string;
 }> = [
-  { key: 'Power', label: 'Power', accent: 'bg-sky-500' },
-  { key: 'Toughness', label: 'Toughness', accent: 'bg-amber-500' },
-  { key: 'Vitality', label: 'Vitality', accent: 'bg-emerald-500' },
-  { key: 'Precision', label: 'Precision', accent: 'bg-fuchsia-500' },
-  { key: 'Ferocity', label: 'Ferocity', accent: 'bg-orange-500' },
-  { key: 'ConditionDamage', label: 'Condition Damage', accent: 'bg-red-500' },
-  { key: 'HealingPower', label: 'Healing Power', accent: 'bg-teal-400' },
-  { key: 'Expertise', label: 'Expertise', accent: 'bg-indigo-500' },
-  { key: 'BoonDuration', label: 'Concentration', accent: 'bg-lime-400' },
+  { key: 'Power', label: 'Power', shortLabel: 'Power', accent: 'bg-sky-500', icon: 'https://wiki.guildwars2.com/images/2/23/Power.png' },
+  { key: 'Toughness', label: 'Toughness', shortLabel: 'Tough', accent: 'bg-amber-500', icon: 'https://wiki.guildwars2.com/images/1/12/Toughness.png' },
+  { key: 'Vitality', label: 'Vitality', shortLabel: 'Vit', accent: 'bg-emerald-500', icon: 'https://wiki.guildwars2.com/images/b/be/Vitality.png' },
+  { key: 'Precision', label: 'Precision', shortLabel: 'Prec', accent: 'bg-fuchsia-500', icon: 'https://wiki.guildwars2.com/images/e/ee/Precision.png' },
+  { key: 'Ferocity', label: 'Ferocity', shortLabel: 'Fero', accent: 'bg-orange-500', icon: 'https://wiki.guildwars2.com/images/f/f1/Ferocity.png' },
+  { key: 'ConditionDamage', label: 'Condition Damage', shortLabel: 'Condi', accent: 'bg-red-500', icon: 'https://wiki.guildwars2.com/images/5/54/Condition_Damage.png' },
+  { key: 'HealingPower', label: 'Healing Power', shortLabel: 'Healing P', accent: 'bg-teal-400', icon: 'https://wiki.guildwars2.com/images/8/81/Healing_Power.png' },
+  { key: 'Expertise', label: 'Expertise', shortLabel: 'Exp', accent: 'bg-indigo-500', icon: 'https://wiki.guildwars2.com/images/3/38/Condition_Duration.png' },
+  { key: 'BoonDuration', label: 'Concentration', shortLabel: 'Conc', accent: 'bg-lime-400', icon: 'https://wiki.guildwars2.com/images/4/44/Boon_Duration.png' },
 ];
 
 const formatNumber = (value: number) => Math.round(value).toLocaleString();
@@ -139,8 +142,9 @@ function parseRuneBonus(bonus: string): { attribute: AttributeKey; value: number
 }
 
 export default function StatsPanel() {
-  const { equipment, runeId, profession } = useBuildStore();
+  const { equipment, runeId, relicId, profession } = useBuildStore();
   const [runeItem, setRuneItem] = useState<GW2Item | null>(null);
+  const [relicItem, setRelicItem] = useState<GW2Item | null>(null);
 
   useEffect(() => {
     if (runeId) {
@@ -149,6 +153,14 @@ export default function StatsPanel() {
       setRuneItem(null);
     }
   }, [runeId]);
+
+  useEffect(() => {
+    if (relicId) {
+      gw2Api.getItem(relicId).then(setRelicItem).catch(console.error);
+    } else {
+      setRelicItem(null);
+    }
+  }, [relicId]);
 
   const totals = useMemo(() => {
     const armorStats = ASCENDED_ARMOR_STATS as Record<string, SlotStatValues>;
@@ -233,12 +245,8 @@ export default function StatsPanel() {
     return totals;
   }, [equipment, runeItem]);
 
-  const maxValue = useMemo(() => {
-    return ATTRIBUTES.reduce((max, attribute) => Math.max(max, totals[attribute.key]), 0);
-  }, [totals]);
-
   // Calculate derived stat for a given attribute
-  const getDerivedStat = (attributeKey: AttributeKey, value: number): string | null => {
+  const getDerivedStat = (attributeKey: AttributeKey, value: number): { label: string; value: string } | null => {
     if (!profession) return null;
 
     const weightClass = PROFESSION_WEIGHT_CLASS[profession];
@@ -249,66 +257,324 @@ export default function StatsPanel() {
       case 'Toughness':
         // Armor = Base Armor + Total Toughness
         const armor = baseArmor + value;
-        return `Armor: ${formatNumber(armor)}`;
+        return { label: 'Armor', value: formatNumber(armor) };
       case 'Vitality':
         // Base health already includes base vitality, so only add equipment bonus
         const health = baseHealth + (value - 1000) * 10;
-        return `Health: ${formatNumber(health)}`;
+        return { label: 'HP', value: formatNumber(health) };
       case 'Precision':
         const critChance = Math.min(100, Math.max(0, 4 + (value - 1000) / 21));
-        return `Crit Chance: ${critChance.toFixed(1)}%`;
+        return { label: 'Crit ch', value: `${critChance.toFixed(2)}%` };
       case 'Ferocity':
         const critDamage = 150 + value / 15;
-        return `Crit Damage: ${critDamage.toFixed(1)}%`;
+        return { label: 'Crit dm', value: `${critDamage.toFixed(2)}%` };
       case 'Expertise':
         const conditionDuration = Math.min(100, value / 15);
-        return `Condition Duration: +${conditionDuration.toFixed(1)}%`;
+        return { label: 'Condi Dur', value: `${conditionDuration.toFixed(2)}%` };
       case 'BoonDuration':
         const boonDuration = Math.min(100, value / 15);
-        return `Boon Duration: +${boonDuration.toFixed(1)}%`;
+        return { label: 'Boon Dur', value: `${boonDuration.toFixed(2)}%` };
       default:
         return null;
     }
   };
 
+  // Calculate effective power and effective HP
+  const effectiveStats = useMemo(() => {
+    if (!profession) return null;
+
+    const power = totals.Power;
+    const ferocity = totals.Ferocity;
+    const critChance = Math.min(100, Math.max(0, 4 + (totals.Precision - 1000) / 21)) / 100;
+    const critDamage = (150 + ferocity / 15) / 100;
+
+    // Effective Power = Power * (1 + Crit Chance * (Crit Damage - 1))
+    const effectivePower = power * (1 + critChance * (critDamage - 1));
+
+    // Effective HP = HP * (1 + Armor / 1000)
+    const weightClass = PROFESSION_WEIGHT_CLASS[profession];
+    const baseHealth = BASE_HEALTH[profession];
+    const baseArmor = BASE_ARMOR[weightClass];
+    const health = baseHealth + (totals.Vitality - 1000) * 10;
+    const armor = baseArmor + totals.Toughness;
+    const effectiveHP = health * (1 + armor / 1000);
+
+    return {
+      effectivePower: formatNumber(effectivePower),
+      effectiveHP: formatNumber(effectiveHP),
+    };
+  }, [totals, profession]);
+
+  // Organize attributes into two columns: base stats and derived stats
+  const leftColumnAttrs = [
+    { key: 'Power', label: 'Power' },
+    { key: 'Toughness', label: 'Tough' },
+    { key: 'Vitality', label: 'Vit' },
+    { key: 'Precision', label: 'Prec' },
+    { key: 'Ferocity', label: 'Fero' },
+    { key: 'ConditionDamage', label: 'Condi' },
+    { key: 'Expertise', label: 'Exp' },
+    { key: 'BoonDuration', label: 'Conc' },
+  ];
+
+  // Fetch sigils for gear summary
+  const [sigilItems, setSigilItems] = useState<Map<number, GW2Item>>(new Map());
+
+  useEffect(() => {
+    const sigilIds = new Set<number>();
+    equipment.forEach((item) => {
+      if (item.sigil1Id) sigilIds.add(item.sigil1Id);
+      if (item.sigil2Id) sigilIds.add(item.sigil2Id);
+    });
+
+    if (sigilIds.size > 0) {
+      gw2Api.getItems([...sigilIds]).then((items) => {
+        const map = new Map<number, GW2Item>();
+        items.forEach(item => map.set(item.id, item));
+        setSigilItems(map);
+      }).catch(console.error);
+    }
+  }, [equipment]);
+
+  // Calculate gear summary
+  const gearSummary = useMemo(() => {
+    const weapons: Array<{ text: string; sigil1Id?: number; sigil2Id?: number }> = [];
+    const armorStats: Record<string, number> = {};
+    const trinketStats: Record<string, number> = {};
+
+    equipment.forEach((item) => {
+      // Weapons
+      if (item.slot === 'MainHand1' && item.weaponType && item.stat) {
+        const isTwoHanded = TWO_HANDED_WEAPONS.includes(item.weaponType);
+        weapons.push({
+          text: `${item.weaponType} - ${item.stat}${isTwoHanded ? ' (2H)' : ''}`,
+          sigil1Id: item.sigil1Id,
+          sigil2Id: item.sigil2Id,
+        });
+      } else if (item.slot === 'OffHand1' && item.weaponType && item.stat) {
+        weapons.push({
+          text: `${item.weaponType} - ${item.stat}`,
+          sigil1Id: item.sigil1Id,
+        });
+      } else if (item.slot === 'MainHand2' && item.weaponType && item.stat) {
+        const isTwoHanded = TWO_HANDED_WEAPONS.includes(item.weaponType);
+        weapons.push({
+          text: `${item.weaponType} - ${item.stat}${isTwoHanded ? ' (2H)' : ''}`,
+          sigil1Id: item.sigil1Id,
+          sigil2Id: item.sigil2Id,
+        });
+      } else if (item.slot === 'OffHand2' && item.weaponType && item.stat) {
+        weapons.push({
+          text: `${item.weaponType} - ${item.stat}`,
+          sigil1Id: item.sigil1Id,
+        });
+      }
+
+      // Armor
+      if (['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots'].includes(item.slot) && item.stat) {
+        armorStats[item.stat] = (armorStats[item.stat] || 0) + 1;
+      }
+
+      // Trinkets
+      if (['Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'].includes(item.slot) && item.stat) {
+        trinketStats[item.stat] = (trinketStats[item.stat] || 0) + 1;
+      }
+    });
+
+    return { weapons, armorStats, trinketStats };
+  }, [equipment]);
+
   return (
     <aside className="rounded-[28px] border border-slate-800/80 bg-slate-900/70 p-6 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.9)]">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Attributes</p>
-          <h2 className="mt-2 text-lg font-semibold text-white">Stat Summary</h2>
+      {/* Header */}
+      <div>
+        <p className="text-sm font-medium text-white">Attributes</p>
+      </div>
+
+      {/* Two-column layout */}
+      <div className="mt-4 grid grid-cols-2 gap-x-12 gap-y-2.5">
+        {/* Left column - base stats */}
+        <div className="space-y-2.5">
+          {leftColumnAttrs.map((attr) => {
+            const attribute = ATTRIBUTES.find(a => a.key === attr.key as AttributeKey);
+            if (!attribute) return null;
+            const value = totals[attribute.key];
+
+            return (
+              <div key={attribute.key} className="flex items-center justify-between gap-2" title={attribute.label}>
+                <img src={attribute.icon} alt={attribute.label} className="w-4 h-4 flex-shrink-0 cursor-help" />
+                <span className="text-xs text-white font-medium">{formatNumber(value)}</span>
+              </div>
+            );
+          })}
         </div>
-        <div className="rounded-full border border-slate-700 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-slate-400">
-          Ascended est.
+
+        {/* Right column - derived stats */}
+        <div className="space-y-2.5">
+          {leftColumnAttrs.map((attr) => {
+            const attribute = ATTRIBUTES.find(a => a.key === attr.key as AttributeKey);
+            if (!attribute) return null;
+            const value = totals[attribute.key];
+            const derivedStat = getDerivedStat(attribute.key, value);
+
+            if (!derivedStat) {
+              // For stats without derived values (Power, Condi, Exp, Conc), show Healing Power or empty
+              if (attribute.key === 'ConditionDamage') {
+                const healingPower = ATTRIBUTES.find(a => a.key === 'HealingPower');
+                const healValue = totals.HealingPower;
+                return (
+                  <div key={`${attribute.key}-healing`} className="flex items-center justify-between gap-2" title="Healing Power">
+                    <img src={healingPower?.icon} alt="Healing Power" className="w-4 h-4 flex-shrink-0 cursor-help" />
+                    <span className="text-xs text-white font-medium">{formatNumber(healValue)}</span>
+                  </div>
+                );
+              }
+              // Show icon with placeholder when no derived stat available
+              return (
+                <div key={`${attribute.key}-empty`} className="flex items-center justify-between gap-2" title={attribute.label}>
+                  <img src={attribute.icon} alt={attribute.label} className="w-4 h-4 flex-shrink-0 opacity-30 cursor-help" />
+                  <span className="text-xs text-slate-600 font-medium">—</span>
+                </div>
+              );
+            }
+
+            return (
+              <div key={`${attribute.key}-derived`} className="flex items-center justify-between gap-2" title={derivedStat.label}>
+                <img src={attribute.icon} alt={attribute.label} className="w-4 h-4 flex-shrink-0 cursor-help" />
+                <span className="text-xs text-white font-medium">{derivedStat.value}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="mt-6 space-y-4">
-        {ATTRIBUTES.map((attribute) => {
-          const value = totals[attribute.key];
-          const percent = maxValue ? Math.min(100, (value / maxValue) * 100) : 0;
-          const derivedStat = getDerivedStat(attribute.key, value);
+      {/* Effective stats */}
+      {effectiveStats && (
+        <div className="mt-6 pt-4 border-t border-slate-800/60 grid grid-cols-2 gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-400">Eff Power</span>
+            <span className="text-xs text-white font-medium ml-auto">{effectiveStats.effectivePower}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-400">Eff HP</span>
+            <span className="text-xs text-white font-medium ml-auto">{effectiveStats.effectiveHP}</span>
+          </div>
+        </div>
+      )}
 
-          return (
-            <div key={attribute.key} className="space-y-2">
-              <div className="flex items-center justify-between text-sm text-slate-300">
-                <span className="font-medium text-slate-200">{attribute.label}</span>
-                <span className="font-semibold text-white">{formatNumber(value)}</span>
+      {/* Gear Summary */}
+      <div className="mt-6 pt-4 border-t border-slate-800/60 space-y-3">
+        <p className="text-sm font-medium text-white">Gear Summary</p>
+
+        {/* Weapons */}
+        {gearSummary.weapons.length > 0 && (
+          <div className="space-y-1">
+            {gearSummary.weapons.map((weapon, idx) => (
+              <div key={idx} className="flex items-center gap-1.5 text-xs text-slate-300">
+                <span>{weapon.text}</span>
+                {(weapon.sigil1Id || weapon.sigil2Id) && (
+                  <div className="flex gap-1 ml-auto">
+                    {weapon.sigil1Id && sigilItems.get(weapon.sigil1Id) && (
+                      <Tooltip
+                        title={sigilItems.get(weapon.sigil1Id)!.name}
+                        content={sigilItems.get(weapon.sigil1Id)!.description || ''}
+                        icon={sigilItems.get(weapon.sigil1Id)!.icon}
+                        rarity={sigilItems.get(weapon.sigil1Id)!.rarity}
+                        itemType={sigilItems.get(weapon.sigil1Id)!.type}
+                      >
+                        <img src={sigilItems.get(weapon.sigil1Id)!.icon} alt="" className="w-4 h-4 rounded flex-shrink-0 cursor-help" />
+                      </Tooltip>
+                    )}
+                    {weapon.sigil2Id && sigilItems.get(weapon.sigil2Id) && (
+                      <Tooltip
+                        title={sigilItems.get(weapon.sigil2Id)!.name}
+                        content={sigilItems.get(weapon.sigil2Id)!.description || ''}
+                        icon={sigilItems.get(weapon.sigil2Id)!.icon}
+                        rarity={sigilItems.get(weapon.sigil2Id)!.rarity}
+                        itemType={sigilItems.get(weapon.sigil2Id)!.type}
+                      >
+                        <img src={sigilItems.get(weapon.sigil2Id)!.icon} alt="" className="w-4 h-4 rounded flex-shrink-0 cursor-help" />
+                      </Tooltip>
+                    )}
+                  </div>
+                )}
               </div>
-              <div className="h-2.5 rounded-full bg-slate-800/80">
-                <div
-                  className={`h-2.5 rounded-full ${attribute.accent}`}
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-              {derivedStat && (
-                <div className="text-[11px] text-slate-400 pl-0.5">
-                  {derivedStat}
-                </div>
-              )}
+            ))}
+          </div>
+        )}
+
+        {/* Separator */}
+        {gearSummary.weapons.length > 0 && (relicItem || runeItem) && (
+          <div className="border-t border-slate-800/40" />
+        )}
+
+        {/* Relic */}
+        {relicItem && (
+          <Tooltip
+            title={relicItem.name}
+            content={relicItem.description || ''}
+            icon={relicItem.icon}
+            bonuses={relicItem.details?.bonuses}
+            rarity={relicItem.rarity}
+            itemType={relicItem.type}
+          >
+            <div className="flex items-center gap-1.5 text-xs text-slate-300 cursor-help hover:text-white transition-colors">
+              <img src={relicItem.icon} alt={relicItem.name} className="w-4 h-4 rounded flex-shrink-0" />
+              <span>Relic: {relicItem.name.replace('Relic of the ', '')}</span>
             </div>
-          );
-        })}
+          </Tooltip>
+        )}
+
+        {/* Runes */}
+        {runeItem && (
+          <Tooltip
+            title={runeItem.name}
+            content={runeItem.description || ''}
+            icon={runeItem.icon}
+            bonuses={runeItem.details?.bonuses}
+            rarity={runeItem.rarity}
+            itemType={runeItem.type}
+          >
+            <div className="flex items-center gap-1.5 text-xs text-slate-300 cursor-help hover:text-white transition-colors">
+              <img src={runeItem.icon} alt={runeItem.name} className="w-4 h-4 rounded flex-shrink-0" />
+              <span>Runes: {runeItem.name.replace('Superior Rune of ', '')}</span>
+            </div>
+          </Tooltip>
+        )}
+
+        {/* Separator */}
+        {(relicItem || runeItem) && Object.keys(gearSummary.armorStats).length > 0 && (
+          <div className="border-t border-slate-800/40" />
+        )}
+
+        {/* Armor */}
+        {Object.keys(gearSummary.armorStats).length > 0 && (
+          <div className="space-y-1">
+            <div className="text-xs text-slate-400">Armor:</div>
+            {Object.entries(gearSummary.armorStats).map(([stat, count]) => (
+              <div key={stat} className="text-xs text-slate-300 pl-2">
+                {count}x {stat}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Separator */}
+        {Object.keys(gearSummary.armorStats).length > 0 && Object.keys(gearSummary.trinketStats).length > 0 && (
+          <div className="border-t border-slate-800/40" />
+        )}
+
+        {/* Trinkets */}
+        {Object.keys(gearSummary.trinketStats).length > 0 && (
+          <div className="space-y-1">
+            <div className="text-xs text-slate-400">Trinkets:</div>
+            {Object.entries(gearSummary.trinketStats).map(([stat, count]) => (
+              <div key={stat} className="text-xs text-slate-300 pl-2">
+                {count}x {stat}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </aside>
   );

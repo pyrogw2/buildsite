@@ -460,6 +460,7 @@ function EquipmentPanelContent() {
   const [armorExpanded, setArmorExpanded] = useState(false);
   const [trinketsExpanded, setTrinketsExpanded] = useState(false);
   const [weaponStatsExpanded, setWeaponStatsExpanded] = useState(false);
+  const [openSigilSlot, setOpenSigilSlot] = useState<string | null>(null);
 
   useEffect(() => {
     loadItems();
@@ -598,83 +599,155 @@ function EquipmentPanelContent() {
               </select>
             </div>
 
-            {/* Sigil 1 Dropdown */}
+            {/* Sigil 1 */}
             <div>
               <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
                 Sigil 1
               </label>
-              <div className="flex gap-2">
-                <SearchableDropdown
-                  items={sigils}
-                  selectedId={item.sigil1Id}
-                  onSelect={(id) => updateEquipment(item.slot, { sigil1Id: id })}
-                  getItemId={(s) => s.id}
-                  getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
-                  placeholder="Select Sigil"
-                  disabled={loading}
-                />
-                {item.sigil1Id && (() => {
-                  const selectedSigil = sigils.find(s => s.id === item.sigil1Id);
-                  return selectedSigil && (
-                    <Tooltip
-                      title={selectedSigil.name}
-                      content={selectedSigil.description || ''}
-                      icon={selectedSigil.icon}
-                      bonuses={selectedSigil.details?.bonuses}
-                      rarity={selectedSigil.rarity}
-                      itemType={selectedSigil.details?.type || 'Upgrade Component'}
-                    >
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900 flex-shrink-0">
-                        <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
-                      </div>
-                    </Tooltip>
+              <div className="relative">
+                {(() => {
+                  const selectedSigil = item.sigil1Id ? sigils.find(s => s.id === item.sigil1Id) : null;
+                  const sigilSlotId = `${item.slot}-sigil1`;
+                  const isOpen = openSigilSlot === sigilSlotId;
+
+                  return (
+                    <>
+                      {/* Clickable Button */}
+                      {selectedSigil ? (
+                        <Tooltip
+                          title={selectedSigil.name}
+                          content={selectedSigil.description || ''}
+                          icon={selectedSigil.icon}
+                          rarity={selectedSigil.rarity}
+                          itemType={selectedSigil.type}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => setOpenSigilSlot(isOpen ? null : sigilSlotId)}
+                            className="flex items-center gap-2 w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-slate-600 transition"
+                            disabled={loading}
+                          >
+                            <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
+                            <span className="flex-1 text-left truncate">
+                              {selectedSigil.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                            </span>
+                            <span className="text-slate-500">▼</span>
+                          </button>
+                        </Tooltip>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setOpenSigilSlot(isOpen ? null : sigilSlotId)}
+                          className="flex items-center gap-2 w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-slate-600 transition"
+                          disabled={loading}
+                        >
+                          <div className="flex h-6 w-6 items-center justify-center rounded border border-slate-700 bg-slate-900/50">
+                            <span className="text-[10px] text-slate-600">?</span>
+                          </div>
+                          <span className="flex-1 text-left text-slate-500">Select Sigil</span>
+                          <span className="text-slate-500">▼</span>
+                        </button>
+                      )}
+
+                      {/* Dropdown Overlay */}
+                      {isOpen && (
+                        <div className="absolute z-50 mt-1 w-full">
+                          <SearchableDropdown
+                            items={sigils}
+                            selectedId={item.sigil1Id}
+                            onSelect={(id) => {
+                              updateEquipment(item.slot, { sigil1Id: id });
+                              setOpenSigilSlot(null);
+                            }}
+                            getItemId={(s) => s.id}
+                            getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                            placeholder="Search sigils..."
+                            disabled={loading}
+                            autoFocus={true}
+                          />
+                        </div>
+                      )}
+                    </>
                   );
                 })()}
               </div>
             </div>
 
-            {/* Sigil 2 Dropdown */}
-            <div>
-              <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
-                Sigil 2
-              </label>
-              <div className="flex gap-2">
-                <SearchableDropdown
-                  items={sigils}
-                  selectedId={allowSecondSigil ? item.sigil2Id : undefined}
-                  onSelect={(id) => {
-                    if (!allowSecondSigil) return;
-                    updateEquipment(item.slot, { sigil2Id: id });
-                  }}
-                  getItemId={(s) => s.id}
-                  getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
-                  placeholder="Select Sigil"
-                  disabled={loading || !allowSecondSigil}
-                />
-                {allowSecondSigil && item.sigil2Id && (() => {
-                  const selectedSigil = sigils.find(s => s.id === item.sigil2Id);
-                  return selectedSigil && (
-                    <Tooltip
-                      title={selectedSigil.name}
-                      content={selectedSigil.description || ''}
-                      icon={selectedSigil.icon}
-                      bonuses={selectedSigil.details?.bonuses}
-                      rarity={selectedSigil.rarity}
-                      itemType={selectedSigil.details?.type || 'Upgrade Component'}
-                    >
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900 flex-shrink-0">
-                        <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
-                      </div>
-                    </Tooltip>
-                  );
-                })()}
+            {/* Sigil 2 - Only show for 2-handed weapons */}
+            {allowSecondSigil && (
+              <div>
+                <label className="text-[9px] uppercase tracking-[0.3em] text-slate-500 mb-1 block">
+                  Sigil 2
+                </label>
+                <div className="relative">
+                  {(() => {
+                    const selectedSigil = item.sigil2Id ? sigils.find(s => s.id === item.sigil2Id) : null;
+                    const sigilSlotId = `${item.slot}-sigil2`;
+                    const isOpen = openSigilSlot === sigilSlotId;
+
+                    return (
+                      <>
+                        {/* Clickable Button */}
+                        {selectedSigil ? (
+                          <Tooltip
+                            title={selectedSigil.name}
+                            content={selectedSigil.description || ''}
+                            icon={selectedSigil.icon}
+                            rarity={selectedSigil.rarity}
+                            itemType={selectedSigil.type}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => setOpenSigilSlot(isOpen ? null : sigilSlotId)}
+                              className="flex items-center gap-2 w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-slate-600 transition"
+                              disabled={loading}
+                            >
+                              <img src={selectedSigil.icon} alt={selectedSigil.name} className="h-6 w-6 rounded" />
+                              <span className="flex-1 text-left truncate">
+                                {selectedSigil.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                              </span>
+                              <span className="text-slate-500">▼</span>
+                            </button>
+                          </Tooltip>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setOpenSigilSlot(isOpen ? null : sigilSlotId)}
+                            className="flex items-center gap-2 w-full rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-slate-600 transition"
+                            disabled={loading}
+                          >
+                            <div className="flex h-6 w-6 items-center justify-center rounded border border-slate-700 bg-slate-900/50">
+                              <span className="text-[10px] text-slate-600">?</span>
+                            </div>
+                            <span className="flex-1 text-left text-slate-500">Select Sigil</span>
+                            <span className="text-slate-500">▼</span>
+                          </button>
+                        )}
+
+                        {/* Dropdown Overlay */}
+                        {isOpen && (
+                          <div className="absolute z-50 mt-1 w-full">
+                            <SearchableDropdown
+                              items={sigils}
+                              selectedId={item.sigil2Id}
+                              onSelect={(id) => {
+                                updateEquipment(item.slot, { sigil2Id: id });
+                                setOpenSigilSlot(null);
+                              }}
+                              getItemId={(s) => s.id}
+                              getItemLabel={(s) => s.name.replace('Superior Sigil of the ', '').replace('Superior Sigil of ', '')}
+                              placeholder="Search sigils..."
+                              disabled={loading}
+                              autoFocus={true}
+                            />
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
               </div>
-              {!allowSecondSigil && (
-                <p className="mt-1 text-[10px] text-slate-500">
-                  Second sigil available on two-handed weapons only.
-                </p>
-              )}
-            </div>
+            )}
           </div>
         )}
       </div>

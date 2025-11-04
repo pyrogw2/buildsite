@@ -8,6 +8,7 @@ interface SearchableDropdownProps<T, K = number> {
   getItemLabel: (item: T) => string;
   placeholder?: string;
   disabled?: boolean;
+  autoFocus?: boolean;
 }
 
 export default function SearchableDropdown<T, K = number>({
@@ -18,6 +19,7 @@ export default function SearchableDropdown<T, K = number>({
   getItemLabel,
   placeholder = 'Select...',
   disabled = false,
+  autoFocus = false,
 }: SearchableDropdownProps<T, K>) {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -60,6 +62,13 @@ export default function SearchableDropdown<T, K = number>({
       }
     }
   }, [highlightedIndex, isOpen]);
+
+  // Auto-focus input when component mounts if autoFocus prop is true
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen) {
