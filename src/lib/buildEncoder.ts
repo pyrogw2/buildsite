@@ -6,7 +6,7 @@ const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elem
 // Game mode enum (2 bits, 0-2)
 const GAME_MODES = ['PvE', 'PvP', 'WvW'];
 // Equipment slots (4 bits, 0-15)
-const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Back', 'MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
+const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack', 'MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
 
 /**
  * Convert Uint8Array to base64 string efficiently
