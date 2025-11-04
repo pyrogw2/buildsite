@@ -227,20 +227,28 @@ async function lookupIds() {
       }
     }
 
-    // Sort by name
-    foundRunes.sort((a, b) => a.name.localeCompare(b.name));
-    foundRelics.sort((a, b) => a.name.localeCompare(b.name));
+    // Deduplicate by name (keep only first/lowest ID occurrence to avoid PvP/WvW splits)
+    const uniqueRunes = Array.from(
+      new Map(foundRunes.map(r => [r.name, r])).values()
+    );
+    const uniqueRelics = Array.from(
+      new Map(foundRelics.map(r => [r.name, r])).values()
+    );
 
-    console.log(`\n\nFound ${foundRunes.length}/${RUNE_NAMES.length} Superior Runes:`);
+    // Sort by name
+    uniqueRunes.sort((a, b) => a.name.localeCompare(b.name));
+    uniqueRelics.sort((a, b) => a.name.localeCompare(b.name));
+
+    console.log(`\n\nFound ${uniqueRunes.length}/${RUNE_NAMES.length} Superior Runes (${foundRunes.length} total, ${foundRunes.length - uniqueRunes.length} duplicates removed):`);
     console.log('export const RUNE_IDS = [');
-    foundRunes.forEach(rune => {
+    uniqueRunes.forEach(rune => {
       console.log(`  ${rune.id}, // ${rune.name.replace('Superior Rune of the ', '').replace('Superior Rune of ', '')}`);
     });
     console.log('] as const;\n');
 
-    console.log(`\nFound ${foundRelics.length}/${RELIC_NAMES.length} Relics:`);
+    console.log(`\nFound ${uniqueRelics.length}/${RELIC_NAMES.length} Relics (${foundRelics.length} total, ${foundRelics.length - uniqueRelics.length} duplicates removed):`);
     console.log('export const RELIC_IDS = [');
-    foundRelics.forEach(relic => {
+    uniqueRelics.forEach(relic => {
       console.log(`  ${relic.id}, // ${relic.name.replace('Relic of the ', '').replace('Relic of ', '')}`);
     });
     console.log('] as const;');

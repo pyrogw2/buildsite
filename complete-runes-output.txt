@@ -1,0 +1,204 @@
+Extracting all 99 rune IDs from wiki...
+  [1/99] Found: Superior Rune of Fireworks -> 89999
+  [2/99] Found: Superior Rune of Surging -> 76813
+  [3/99] Found: Superior Rune of the Pack -> 24702
+  [4/99] Found: Superior Rune of the Citadel -> 24741
+  [5/99] Found: Superior Rune of Strength -> 24714
+  [6/99] Found: Superior Rune of the Privateer -> 24782
+  [7/99] Found: Superior Rune of Hoelbrak -> 24729
+  [8/99] Found: Superior Rune of the Fire -> 24747
+  [9/99] Found: Superior Rune of the Centaur -> 24788
+  [10/99] Found: Superior Rune of the Mad King -> 36044
+  [11/99] Found: Superior Rune of the Flame Legion -> 24797
+  [12/99] Found: Superior Rune of the Baelfire -> 24854
+  [13/99] Found: Superior Rune of the Elementalist -> 24800
+  [14/99] Found: Superior Rune of the Scholar -> 24836
+  [15/99] Found: Superior Rune of the Deadeye -> 82791
+  [16/99] Found: Superior Rune of the Ogre -> 24756
+  [17/99] Found: Superior Rune of Infiltration -> 24703
+  [18/99] Found: Superior Rune of the Spellbreaker -> 84749
+  [19/99] Found: Superior Rune of the Mesmer -> 24803
+  [20/99] Found: Superior Rune of the Chronomancer -> 73399
+  [21/99] Found: Superior Rune of the Reaper -> 70829
+  [22/99] Found: Superior Rune of the Daredevil -> 72852
+  [23/99] Found: Superior Rune of the Scrapper -> 71276
+  [24/99] Found: Superior Rune of the Brawler -> 24833
+  [25/99] Found: Superior Rune of the Cavalier -> 83367
+  [26/99] Found: Superior Rune of Vampirism -> 24711
+  [27/99] Found: Superior Rune of the Holosmith -> 82633
+  [28/99] Found: Superior Rune of Lyssa -> 24776
+  [29/99] Found: Superior Rune of Rata Sum -> 24726
+  [30/99] Found: Superior Rune of the Thief -> 24818
+  [31/99] Found: Superior Rune of the Eagle -> 24723
+  [32/99] Found: Superior Rune of the Ranger -> 24815
+  [33/99] Found: Superior Rune of the Herald -> 76100
+  [34/99] Found: Superior Rune of Durability -> 73653
+  [35/99] Found: Superior Rune of the Earth -> 24744
+  [36/99] Found: Superior Rune of Svanir -> 24794
+  [37/99] Found: Superior Rune of the Forgeman -> 24851
+  [38/99] Found: Superior Rune of the Engineer -> 24812
+  [39/99] Found: Superior Rune of Melandru -> 24771
+  [40/99] Found: Superior Rune of the Dolyak -> 24699
+  [41/99] Found: Superior Rune of Mercy -> 24708
+  [42/99] Found: Superior Rune of the Defender -> 67912
+  [43/99] Found: Superior Rune of the Guardian -> 24824
+  [44/99] Found: Superior Rune of Resistance -> 49460
+  [45/99] Found: Superior Rune of Snowfall -> 68437
+  [46/99] Found: Superior Rune of Sanctuary -> 24857
+  [47/99] Found: Superior Rune of Radiance -> 67342
+  [48/99] Found: Superior Rune of Speed -> 24720
+  [49/99] Found: Superior Rune of the Lich -> 24688
+  [50/99] Found: Superior Rune of the Ice -> 24753
+  [51/99] Found: Superior Rune of the Wurm -> 24791
+  [52/99] Found: Superior Rune of the Warrior -> 24821
+  [53/99] Found: Superior Rune of the Trooper -> 24827
+  [54/99] Found: Superior Rune of Exuberance -> 44951
+  [55/99] Found: Superior Rune of the Aristocracy -> 24845
+  [56/99] Found: Superior Rune of the Firebrand -> 83338
+  [57/99] Found: Superior Rune of the Trapper -> 67339
+  [58/99] Found: Superior Rune of the Nightmare -> 24848
+  [59/99] Found: Superior Rune of the Krait -> 24762
+  [60/99] Found: Superior Rune of Balthazar -> 24765
+  [61/99] Found: Superior Rune of Grenth -> 24779
+  [62/99] Found: Superior Rune of Perplexity -> 44957
+  [63/99] Found: Superior Rune of Thorns -> 72912
+  [64/99] Found: Superior Rune of the Afflicted -> 24687
+  [65/99] Found: Superior Rune of Tormenting -> 44956
+  [66/99] Found: Superior Rune of the Renegade -> 83502
+  [67/99] Found: Superior Rune of the Berserker -> 71425
+  [68/99] Found: Superior Rune of the Soulbeast -> 83964
+  [69/99] Found: Superior Rune of the Adventurer -> 24830
+  [70/99] Found: Superior Rune of the Undead -> 24757
+  [71/99] Found: Superior Rune of the Mirage -> 84127
+  [72/99] Found: Superior Rune of the Necromancer -> 24806
+  [73/99] Found: Superior Rune of Scavenging -> 24738
+  [74/99] Found: Superior Rune of Antitoxin -> 48907
+  [75/99] Found: Superior Rune of the Sunless -> 47908
+  [76/99] Found: Superior Rune of Orr -> 24860
+  [77/99] Found: Superior Rune of Rage -> 24717
+  [78/99] Found: Superior Rune of the Air -> 24750
+  [79/99] Found: Superior Rune of Evasion -> 67344
+  [80/99] Found: Superior Rune of the Dragonhunter -> 74978
+  [81/99] Found: Superior Rune of the Golemancer -> 24785
+  [82/99] Found: Superior Rune of the Rebirth -> 84171
+  [83/99] Found: Superior Rune of Altruism -> 38206
+  [84/99] Found: Superior Rune of the Monk -> 24842
+  [85/99] Found: Superior Rune of the Water -> 24839
+  [86/99] Found: Superior Rune of the Grove -> 24735
+  [87/99] Found: Superior Rune of Dwayna -> 24768
+  [88/99] Found: Superior Rune of the Scourge -> 83663
+  [89/99] Found: Superior Rune of the Druid -> 70450
+  [90/99] Found: Superior Rune of the Flock -> 24696
+  [91/99] Found: Superior Rune of Nature's Bounty -> 81091
+  [92/99] Found: Superior Rune of the Traveler -> 24691
+  [93/99] Found: Superior Rune of Leadership -> 70600
+  [94/99] Found: Superior Rune of the Tempest -> 76166
+  [95/99] Found: Superior Rune of the Weaver -> 83423
+  [96/99] Found: Superior Rune of Divinity -> 24732
+  [97/99] Found: Superior Rune of the Revenant -> 69370
+  [98/99] Found: Superior Rune of the Zephyrite -> 88118
+  [99/99] Found: Superior Rune of the Stars -> 85713
+
+Complete! Found 99/99 runes
+
+export const RUNE_IDS = [
+  89999, // Fireworks
+  76813, // Surging
+  24702, // Pack
+  24741, // Citadel
+  24714, // Strength
+  24782, // Privateer
+  24729, // Hoelbrak
+  24747, // Fire
+  24788, // Centaur
+  36044, // Mad King
+  24797, // Flame Legion
+  24854, // Baelfire
+  24800, // Elementalist
+  24836, // Scholar
+  82791, // Deadeye
+  24756, // Ogre
+  24703, // Infiltration
+  84749, // Spellbreaker
+  24803, // Mesmer
+  73399, // Chronomancer
+  70829, // Reaper
+  72852, // Daredevil
+  71276, // Scrapper
+  24833, // Brawler
+  83367, // Cavalier
+  24711, // Vampirism
+  82633, // Holosmith
+  24776, // Lyssa
+  24726, // Rata Sum
+  24818, // Thief
+  24723, // Eagle
+  24815, // Ranger
+  76100, // Herald
+  73653, // Durability
+  24744, // Earth
+  24794, // Svanir
+  24851, // Forgeman
+  24812, // Engineer
+  24771, // Melandru
+  24699, // Dolyak
+  24708, // Mercy
+  67912, // Defender
+  24824, // Guardian
+  49460, // Resistance
+  68437, // Snowfall
+  24857, // Sanctuary
+  67342, // Radiance
+  24720, // Speed
+  24688, // Lich
+  24753, // Ice
+  24791, // Wurm
+  24821, // Warrior
+  24827, // Trooper
+  44951, // Exuberance
+  24845, // Aristocracy
+  83338, // Firebrand
+  67339, // Trapper
+  24848, // Nightmare
+  24762, // Krait
+  24765, // Balthazar
+  24779, // Grenth
+  44957, // Perplexity
+  72912, // Thorns
+  24687, // Afflicted
+  44956, // Tormenting
+  83502, // Renegade
+  71425, // Berserker
+  83964, // Soulbeast
+  24830, // Adventurer
+  24757, // Undead
+  84127, // Mirage
+  24806, // Necromancer
+  24738, // Scavenging
+  48907, // Antitoxin
+  47908, // Sunless
+  24860, // Orr
+  24717, // Rage
+  24750, // Air
+  67344, // Evasion
+  74978, // Dragonhunter
+  24785, // Golemancer
+  84171, // Rebirth
+  38206, // Altruism
+  24842, // Monk
+  24839, // Water
+  24735, // Grove
+  24768, // Dwayna
+  83663, // Scourge
+  70450, // Druid
+  24696, // Flock
+  81091, // Nature's Bounty
+  24691, // Traveler
+  70600, // Leadership
+  76166, // Tempest
+  83423, // Weaver
+  24732, // Divinity
+  69370, // Revenant
+  88118, // Zephyrite
+  85713, // Stars
+] as const;

@@ -616,7 +616,7 @@ function EquipmentPanelContent() {
                       {selectedSigil ? (
                         <Tooltip
                           title={selectedSigil.name}
-                          content={selectedSigil.description || ''}
+                          content={selectedSigil.details?.infix_upgrade?.buff?.description || selectedSigil.description || ''}
                           icon={selectedSigil.icon}
                           rarity={selectedSigil.rarity}
                           itemType={selectedSigil.type}
@@ -691,7 +691,7 @@ function EquipmentPanelContent() {
                         {selectedSigil ? (
                           <Tooltip
                             title={selectedSigil.name}
-                            content={selectedSigil.description || ''}
+                            content={selectedSigil.details?.infix_upgrade?.buff?.description || selectedSigil.description || ''}
                             icon={selectedSigil.icon}
                             rarity={selectedSigil.rarity}
                             itemType={selectedSigil.type}

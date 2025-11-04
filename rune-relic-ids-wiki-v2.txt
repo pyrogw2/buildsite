@@ -1,0 +1,345 @@
+Extracting rune IDs from wiki pages...
+  Found: Superior Rune of Fireworks -> 89999
+  Found: Superior Rune of Surging -> 76813
+  Found: Superior Rune of the Pack -> 24702
+  Found: Superior Rune of the Citadel -> 24741
+  Found: Superior Rune of Strength -> 24714
+  Found: Superior Rune of the Privateer -> 24782
+  Found: Superior Rune of Hoelbrak -> 24729
+  Found: Superior Rune of the Fire -> 24747
+  Found: Superior Rune of the Centaur -> 24788
+  Found: Superior Rune of the Mad King -> 36044
+  Found: Superior Rune of the Flame Legion -> 24797
+  Found: Superior Rune of the Baelfire -> 24854
+  Found: Superior Rune of the Elementalist -> 24800
+  Found: Superior Rune of the Scholar -> 24836
+  Found: Superior Rune of the Deadeye -> 82791
+  Found: Superior Rune of the Ogre -> 24756
+  Found: Superior Rune of Infiltration -> 24703
+  Found: Superior Rune of the Spellbreaker -> 84749
+  Found: Superior Rune of the Mesmer -> 24803
+  Found: Superior Rune of the Chronomancer -> 73399
+  Found: Superior Rune of the Reaper -> 70829
+  Found: Superior Rune of the Daredevil -> 72852
+  Found: Superior Rune of the Scrapper -> 71276
+  Found: Superior Rune of the Brawler -> 24833
+  Found: Superior Rune of the Cavalier -> 83367
+  Found: Superior Rune of Vampirism -> 24711
+  Found: Superior Rune of the Holosmith -> 82633
+  Found: Superior Rune of Lyssa -> 24776
+  Found: Superior Rune of Rata Sum -> 24726
+  Found: Superior Rune of the Thief -> 24818
+  Found: Superior Rune of the Eagle -> 24723
+  Found: Superior Rune of the Ranger -> 24815
+  Found: Superior Rune of the Herald -> 76100
+  Found: Superior Rune of Durability -> 73653
+  Found: Superior Rune of the Earth -> 24744
+  Found: Superior Rune of Svanir -> 24794
+  Found: Superior Rune of the Forgeman -> 24851
+  Found: Superior Rune of the Engineer -> 24812
+  Found: Superior Rune of Melandru -> 24771
+  Found: Superior Rune of the Dolyak -> 24699
+  Found: Superior Rune of Mercy -> 24708
+  Found: Superior Rune of the Defender -> 67912
+  Found: Superior Rune of the Guardian -> 24824
+  Found: Superior Rune of Resistance -> 49460
+  Found: Superior Rune of Snowfall -> 68437
+  Found: Superior Rune of Sanctuary -> 24857
+  Found: Superior Rune of Radiance -> 67342
+  Found: Superior Rune of Speed -> 24720
+  Found: Superior Rune of the Lich -> 24688
+  Found: Superior Rune of the Ice -> 24753
+  Found: Superior Rune of the Wurm -> 24791
+  Found: Superior Rune of the Warrior -> 24821
+  Found: Superior Rune of the Trooper -> 24827
+  Found: Superior Rune of Exuberance -> 44951
+  Found: Superior Rune of the Aristocracy -> 24845
+  Found: Superior Rune of the Firebrand -> 83338
+  Found: Superior Rune of the Trapper -> 67339
+  Found: Superior Rune of the Nightmare -> 24848
+  Found: Superior Rune of the Krait -> 24762
+  Found: Superior Rune of Balthazar -> 24765
+  Found: Superior Rune of Grenth -> 24779
+  Found: Superior Rune of Perplexity -> 44957
+  Found: Superior Rune of Thorns -> 72912
+  Found: Superior Rune of the Afflicted -> 24687
+  Found: Superior Rune of Tormenting -> 44956
+  Found: Superior Rune of the Renegade -> 83502
+  Found: Superior Rune of the Berserker -> 71425
+  Found: Superior Rune of the Soulbeast -> 83964
+
+Extracting relic IDs from wiki pages...
+  Found: Relic of Agony -> 104849
+  Found: Relic of Akeem -> 100432
+  Found: Relic of Altruism -> 104256
+  Found: Relic of Antitoxin -> 100390
+  Found: Relic of Atrocity -> 102245
+  Found: Relic of Bava Nisos -> 104848
+  Found: Relic of Bloodstone -> 104800
+  Found: Relic of Castora -> 105652
+  Found: Relic of Cerus -> 100074
+  Found: Relic of Dagda -> 100942
+  Found: Relic of Durability -> 100455
+  MISSING: Relic of Dwayna
+  Found: Relic of Evasion -> 100614
+  Found: Relic of Febe -> 101116
+  Found: Relic of Fire -> 104501
+  Found: Relic of Fireworks -> 100947
+  Found: Relic of Geysers -> 103763
+  Found: Relic of Isgarren -> 99997
+  Found: Relic of Karakosa -> 101268
+  Found: Relic of Leadership -> 100625
+  Found: Relic of Lyhr -> 100461
+  Found: Relic of Mabon -> 100115
+  Found: Relic of Mercy -> 100429
+  Found: Relic of Mistburn -> 104994
+  Found: Relic of Mosyn -> 101801
+  Found: Relic of Mount Balrior -> 103872
+  Found: Relic of Nayos -> 101198
+  Found: Relic of Nourys -> 101191
+  Found: Relic of Peitha -> 100177
+  Found: Relic of Resistance -> 100794
+  Found: Relic of Reunification -> 103984
+  Found: Relic of Rivers -> 103015
+  Found: Relic of Sorrow -> 103424
+  Found: Relic of Speed -> 100148
+  Found: Relic of Surging -> 100063
+  Found: Relic of the Adventurer -> 100561
+  Found: Relic of the Afflicted -> 100693
+  Found: Relic of the Aristocracy -> 100849
+  Found: Relic of the Astral Ward -> 100388
+  Found: Relic of the Beehive -> 103977
+  Found: Relic of the Biomancer -> 106364
+  Found: Relic of the Blightbringer -> 102199
+  Found: Relic of the Brawler -> 100527
+  Found: Relic of the Cavalier -> 100542
+  Found: Relic of the Centaur -> 100385
+  Found: Relic of the Chronomancer -> 100450
+  Found: Relic of the Citadel -> 100448
+  Found: Relic of the Claw -> 103574
+  Found: Relic of the Daredevil -> 100345
+  Found: Relic of the Deadeye -> 100924
+  Found: Relic of the Defender -> 100934
+  Found: Relic of the Demon Queen -> 101166
+  Found: Relic of the Dragonhunter -> 100090
+  Found: Relic of the Eagle -> 104241
+  Found: Relic of the Earth -> 100435
+  Found: Relic of the Firebrand -> 100453
+  Found: Relic of the First Revenant -> 105585
+  Found: Relic of the Flock -> 99965
+  Found: Relic of the Founding -> 101737
+  Found: Relic of the Fractal -> 100153
+  Found: Relic of the Golemancer -> 100403
+  Found: Relic of the Herald -> 100219
+  Found: Relic of the Holosmith -> 100908
+  Found: Relic of the Ice -> 100048
+  Found: Relic of the Krait -> 100230
+  Found: Relic of the Lich -> 100238
+  Found: Relic of the Living City -> 104928
+  Found: Relic of the Midnight King -> 101139
+  Found: Relic of the Mirage -> 100158
+  Found: Relic of the Mist Stranger -> 106206
+  Found: Relic of the Mists Tide -> 103901
+  Found: Relic of the Monk -> 100031
+  Found: Relic of the Necromancer -> 100580
+  Found: Relic of the Nightmare -> 100579
+  Found: Relic of the Ogre -> 100311
+  Found: Relic of the Pack -> 100752
+  Found: Relic of the Phenom -> 104733
+  Found: Relic of the Pirate Queen -> 106221
+  Found: Relic of the Privateer -> 100479
+  Found: Relic of the Reaper -> 100739
+  Found: Relic of the Scoundrel -> 106355
+  Found: Relic of the Scourge -> 100368
+  Found: Relic of the Sorcerer -> 101863
+  Found: Relic of the Steamshrieker -> 104022
+  Found: Relic of the Stormsinger -> 102595
+  Found: Relic of the Sunless -> 100400
+  Found: Relic of the Thief -> 100916
+  Found: Relic of the Trooper -> 100411
+  Found: Relic of the Twin Generals -> 101767
+  Found: Relic of the Unseen Invasion -> 100694
+  Found: Relic of the Warrior -> 100144
+  Found: Relic of the Water -> 100659
+  Found: Relic of the Wayfinder -> 101943
+  Found: Relic of the Weaver -> 100194
+  Found: Relic of the Wizard's Tower -> 100557
+  Found: Relic of the Zephyrite -> 100893
+  Found: Relic of Thorns -> 104424
+  Found: Relic of Vampirism -> 100676
+  Found: Relic of Vass -> 100775
+  Found: Relic of Zakiros -> 101955
+
+// Generated IDs from wiki pages
+export const RUNE_IDS = [
+  89999, // Fireworks
+  76813, // Surging
+  24702, // Pack
+  24741, // Citadel
+  24714, // Strength
+  24782, // Privateer
+  24729, // Hoelbrak
+  24747, // Fire
+  24788, // Centaur
+  36044, // Mad King
+  24797, // Flame Legion
+  24854, // Baelfire
+  24800, // Elementalist
+  24836, // Scholar
+  82791, // Deadeye
+  24756, // Ogre
+  24703, // Infiltration
+  84749, // Spellbreaker
+  24803, // Mesmer
+  73399, // Chronomancer
+  70829, // Reaper
+  72852, // Daredevil
+  71276, // Scrapper
+  24833, // Brawler
+  83367, // Cavalier
+  24711, // Vampirism
+  82633, // Holosmith
+  24776, // Lyssa
+  24726, // Rata Sum
+  24818, // Thief
+  24723, // Eagle
+  24815, // Ranger
+  76100, // Herald
+  73653, // Durability
+  24744, // Earth
+  24794, // Svanir
+  24851, // Forgeman
+  24812, // Engineer
+  24771, // Melandru
+  24699, // Dolyak
+  24708, // Mercy
+  67912, // Defender
+  24824, // Guardian
+  49460, // Resistance
+  68437, // Snowfall
+  24857, // Sanctuary
+  67342, // Radiance
+  24720, // Speed
+  24688, // Lich
+  24753, // Ice
+  24791, // Wurm
+  24821, // Warrior
+  24827, // Trooper
+  44951, // Exuberance
+  24845, // Aristocracy
+  83338, // Firebrand
+  67339, // Trapper
+  24848, // Nightmare
+  24762, // Krait
+  24765, // Balthazar
+  24779, // Grenth
+  44957, // Perplexity
+  72912, // Thorns
+  24687, // Afflicted
+  44956, // Tormenting
+  83502, // Renegade
+  71425, // Berserker
+  83964, // Soulbeast
+] as const;
+
+export const RELIC_IDS = [
+  104849, // Agony
+  100432, // Akeem
+  104256, // Altruism
+  100390, // Antitoxin
+  102245, // Atrocity
+  104848, // Bava Nisos
+  104800, // Bloodstone
+  105652, // Castora
+  100074, // Cerus
+  100942, // Dagda
+  100455, // Durability
+  100614, // Evasion
+  101116, // Febe
+  104501, // Fire
+  100947, // Fireworks
+  103763, // Geysers
+  99997, // Isgarren
+  101268, // Karakosa
+  100625, // Leadership
+  100461, // Lyhr
+  100115, // Mabon
+  100429, // Mercy
+  104994, // Mistburn
+  101801, // Mosyn
+  103872, // Mount Balrior
+  101198, // Nayos
+  101191, // Nourys
+  100177, // Peitha
+  100794, // Resistance
+  103984, // Reunification
+  103015, // Rivers
+  103424, // Sorrow
+  100148, // Speed
+  100063, // Surging
+  100561, // Adventurer
+  100693, // Afflicted
+  100849, // Aristocracy
+  100388, // Astral Ward
+  103977, // Beehive
+  106364, // Biomancer
+  102199, // Blightbringer
+  100527, // Brawler
+  100542, // Cavalier
+  100385, // Centaur
+  100450, // Chronomancer
+  100448, // Citadel
+  103574, // Claw
+  100345, // Daredevil
+  100924, // Deadeye
+  100934, // Defender
+  101166, // Demon Queen
+  100090, // Dragonhunter
+  104241, // Eagle
+  100435, // Earth
+  100453, // Firebrand
+  105585, // First Revenant
+  99965, // Flock
+  101737, // Founding
+  100153, // Fractal
+  100403, // Golemancer
+  100219, // Herald
+  100908, // Holosmith
+  100048, // Ice
+  100230, // Krait
+  100238, // Lich
+  104928, // Living City
+  101139, // Midnight King
+  100158, // Mirage
+  106206, // Mist Stranger
+  103901, // Mists Tide
+  100031, // Monk
+  100580, // Necromancer
+  100579, // Nightmare
+  100311, // Ogre
+  100752, // Pack
+  104733, // Phenom
+  106221, // Pirate Queen
+  100479, // Privateer
+  100739, // Reaper
+  106355, // Scoundrel
+  100368, // Scourge
+  101863, // Sorcerer
+  104022, // Steamshrieker
+  102595, // Stormsinger
+  100400, // Sunless
+  100916, // Thief
+  100411, // Trooper
+  101767, // Twin Generals
+  100694, // Unseen Invasion
+  100144, // Warrior
+  100659, // Water
+  101943, // Wayfinder
+  100194, // Weaver
+  100557, // Wizard's Tower
+  100893, // Zephyrite
+  104424, // Thorns
+  100676, // Vampirism
+  100775, // Vass
+  101955, // Zakiros
+] as const;

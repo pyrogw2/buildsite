@@ -536,6 +536,10 @@ export interface GW2Item {
         attribute: string;
         modifier: number;
       }>;
+      buff?: {
+        skill_id: number;
+        description: string;
+      };
     };
   };
 }

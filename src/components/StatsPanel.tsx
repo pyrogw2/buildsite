@@ -477,7 +477,7 @@ export default function StatsPanel() {
                     {weapon.sigil1Id && sigilItems.get(weapon.sigil1Id) && (
                       <Tooltip
                         title={sigilItems.get(weapon.sigil1Id)!.name}
-                        content={sigilItems.get(weapon.sigil1Id)!.description || ''}
+                        content={sigilItems.get(weapon.sigil1Id)!.details?.infix_upgrade?.buff?.description || sigilItems.get(weapon.sigil1Id)!.description || ''}
                         icon={sigilItems.get(weapon.sigil1Id)!.icon}
                         rarity={sigilItems.get(weapon.sigil1Id)!.rarity}
                         itemType={sigilItems.get(weapon.sigil1Id)!.type}
@@ -488,7 +488,7 @@ export default function StatsPanel() {
                     {weapon.sigil2Id && sigilItems.get(weapon.sigil2Id) && (
                       <Tooltip
                         title={sigilItems.get(weapon.sigil2Id)!.name}
-                        content={sigilItems.get(weapon.sigil2Id)!.description || ''}
+                        content={sigilItems.get(weapon.sigil2Id)!.details?.infix_upgrade?.buff?.description || sigilItems.get(weapon.sigil2Id)!.description || ''}
                         icon={sigilItems.get(weapon.sigil2Id)!.icon}
                         rarity={sigilItems.get(weapon.sigil2Id)!.rarity}
                         itemType={sigilItems.get(weapon.sigil2Id)!.type}

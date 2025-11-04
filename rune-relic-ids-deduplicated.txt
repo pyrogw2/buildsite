@@ -1,0 +1,216 @@
+Fetching all item IDs...
+Total items: 71141
+Searching through 356 batches for matching names...
+Processed 10/356 batches... (0/68 runes, 0/100 relics found)
+Processed 20/356 batches... (0/68 runes, 0/100 relics found)
+Processed 30/356 batches... (0/68 runes, 0/100 relics found)
+Processed 40/356 batches... (0/68 runes, 0/100 relics found)
+Processed 50/356 batches... (0/68 runes, 0/100 relics found)
+Processed 60/356 batches... (0/68 runes, 0/100 relics found)
+Processed 70/356 batches... (0/68 runes, 0/100 relics found)
+Processed 80/356 batches... (0/68 runes, 0/100 relics found)
+Processed 90/356 batches... (42/68 runes, 0/100 relics found)
+Processed 100/356 batches... (42/68 runes, 0/100 relics found)
+Processed 110/356 batches... (42/68 runes, 0/100 relics found)
+Processed 120/356 batches... (42/68 runes, 0/100 relics found)
+Processed 130/356 batches... (42/68 runes, 0/100 relics found)
+Processed 140/356 batches... (43/68 runes, 0/100 relics found)
+Processed 150/356 batches... (43/68 runes, 0/100 relics found)
+Processed 160/356 batches... (43/68 runes, 0/100 relics found)
+Processed 170/356 batches... (46/68 runes, 0/100 relics found)
+Processed 180/356 batches... (46/68 runes, 0/100 relics found)
+Processed 190/356 batches... (47/68 runes, 0/100 relics found)
+Processed 200/356 batches... (47/68 runes, 0/100 relics found)
+Processed 210/356 batches... (47/68 runes, 0/100 relics found)
+Processed 220/356 batches... (49/68 runes, 0/100 relics found)
+Processed 230/356 batches... (54/68 runes, 0/100 relics found)
+Processed 240/356 batches... (58/68 runes, 0/100 relics found)
+Processed 250/356 batches... (60/68 runes, 0/100 relics found)
+Processed 260/356 batches... (60/68 runes, 0/100 relics found)
+Processed 270/356 batches... (62/68 runes, 1/100 relics found)
+Processed 280/356 batches... (67/68 runes, 1/100 relics found)
+Processed 290/356 batches... (67/68 runes, 1/100 relics found)
+Processed 300/356 batches... (68/68 runes, 1/100 relics found)
+Processed 310/356 batches... (136/68 runes, 1/100 relics found)
+Processed 320/356 batches... (136/68 runes, 1/100 relics found)
+Processed 330/356 batches... (136/68 runes, 1/100 relics found)
+Processed 340/356 batches... (136/68 runes, 141/100 relics found)
+Processed 350/356 batches... (136/68 runes, 192/100 relics found)
+
+
+Found 68/68 Superior Runes (136 total, 68 duplicates removed):
+export const RUNE_IDS = [
+  91513, // Balthazar
+  91444, // Durability
+  91417, // Exuberance
+  91482, // Fireworks
+  91468, // Grenth
+  91564, // Hoelbrak
+  91608, // Infiltration
+  91471, // Lyssa
+  91566, // Melandru
+  91556, // Mercy
+  91550, // Perplexity
+  91587, // Radiance
+  91572, // Rata Sum
+  91411, // Resistance
+  91605, // Sanctuary
+  91512, // Snowfall
+  91401, // Speed
+  91423, // Strength
+  91591, // Surging
+  91494, // Svanir
+  91460, // Afflicted
+  91602, // Aristocracy
+  91477, // Baelfire
+  91397, // Berserker
+  91425, // Brawler
+  91396, // Cavalier
+  91599, // Centaur
+  91565, // Chronomancer
+  91588, // Citadel
+  91457, // Daredevil
+  91483, // Deadeye
+  91404, // Defender
+  91459, // Dolyak
+  91433, // Eagle
+  91493, // Earth
+  91465, // Elementalist
+  91522, // Engineer
+  91489, // Fire
+  91538, // Firebrand
+  91507, // Flame Legion
+  91419, // Forgeman
+  91570, // Guardian
+  91585, // Herald
+  91560, // Holosmith
+  91580, // Ice
+  91435, // Krait
+  91533, // Lich
+  91581, // Mad King
+  91387, // Mesmer
+  91410, // Nightmare
+  91497, // Ogre
+  91592, // Pack
+  91557, // Privateer
+  91541, // Ranger
+  91578, // Reaper
+  91573, // Renegade
+  91595, // Scholar
+  91582, // Scrapper
+  91510, // Soulbeast
+  91590, // Spellbreaker
+  91579, // Thief
+  91508, // Trapper
+  91551, // Trooper
+  91523, // Warrior
+  91593, // Wurm
+  91381, // Thorns
+  91516, // Tormenting
+  91545, // Vampirism
+] as const;
+
+
+Found 100/100 Relics (199 total, 99 duplicates removed):
+export const RELIC_IDS = [
+  104849, // Agony
+  101573, // Akeem
+  104491, // Altruism
+  101487, // Antitoxin
+  102787, // Atrocity
+  104848, // Bava Nisos
+  104800, // Bloodstone
+  105652, // Castora
+  101500, // Cerus
+  101491, // Dagda
+  101504, // Durability
+  101514, // Dwayna
+  101441, // Evasion
+  101563, // Febe
+  104501, // Fire
+  101564, // Fireworks
+  103829, // Geysers
+  101649, // Isgarren
+  101546, // Karakosa
+  101461, // Leadership
+  101605, // Lyhr
+  101643, // Mabon
+  101439, // Mercy
+  104994, // Mistburn
+  101860, // Mosyn
+  104035, // Mount Balrior
+  101627, // Nayos
+  101503, // Nourys
+  101611, // Peitha
+  101466, // Resistance
+  103984, // Reunification
+  103015, // Rivers
+  103507, // Sorrow
+  101442, // Speed
+  104274, // Surging
+  101511, // Adventurer
+  101493, // Afflicted
+  101539, // Aristocracy
+  101619, // Astral Ward
+  103977, // Beehive
+  106364, // Biomancer
+  102896, // Blightbringer
+  101600, // Brawler
+  101534, // Cavalier
+  101607, // Centaur
+  101549, // Chronomancer
+  101647, // Citadel
+  103574, // Claw
+  101644, // Daredevil
+  101637, // Deadeye
+  101513, // Defender
+  101467, // Demon Queen
+  101590, // Dragonhunter
+  104413, // Eagle
+  104383, // Earth
+  101452, // Firebrand
+  105585, // First Revenant
+  101527, // Flock
+  101776, // Founding
+  101489, // Fractal
+  104416, // Golemancer
+  101509, // Herald
+  104390, // Holosmith
+  101608, // Ice
+  101640, // Krait
+  104277, // Lich
+  104938, // Living City
+  101621, // Midnight King
+  101581, // Mirage
+  106206, // Mist Stranger
+  103941, // Mists Tide
+  101630, // Monk
+  101465, // Necromancer
+  101453, // Nightmare
+  104334, // Ogre
+  101447, // Pack
+  104733, // Phenom
+  106221, // Pirate Queen
+  104311, // Privateer
+  101472, // Reaper
+  106355, // Scoundrel
+  101634, // Scourge
+  101908, // Sorcerer
+  104022, // Steamshrieker
+  103262, // Stormsinger
+  101541, // Sunless
+  101580, // Thief
+  101554, // Trooper
+  101767, // Twin Generals
+  101571, // Unseen Invasion
+  101545, // Warrior
+  101474, // Water
+  101943, // Wayfinder
+  101526, // Weaver
+  101586, // Wizard's Tower
+  101618, // Zephyrite
+  104424, // Thorns
+  104249, // Vampirism
+  101492, // Vass
+  101955, // Zakiros
+] as const;

@@ -1,0 +1,168 @@
+Extracting all 81 sigil IDs from wiki...
+  [1/81] Found: Superior Sigil of Accuracy -> 24618
+  [2/81] Found: Superior Sigil of Force -> 24615
+  [3/81] Found: Superior Sigil of Bursting -> 44944
+  [4/81] Found: Superior Sigil of Malice -> 44950
+  [5/81] Found: Superior Sigil of Concentration -> 72339
+  [6/81] Found: Superior Sigil of Transference -> 74326
+  [7/81] Found: Superior Sigil of Agony -> 24612
+  [8/81] Found: Superior Sigil of Smoldering -> 24624
+  [9/81] Found: Superior Sigil of Chilling -> 24630
+  [10/81] Found: Superior Sigil of Hobbling -> 24627
+  [11/81] Found: Superior Sigil of Venom -> 24632
+  [12/81] Found: Superior Sigil of Demons -> 24583
+  [13/81] Found: Superior Sigil of Peril -> 24621
+  [14/81] Found: Superior Sigil of Debility -> 24636
+  [15/81] Found: Superior Sigil of Paralyzation -> 24639
+  [16/81] Found: Superior Sigil of Centaur Slaying -> 24645
+  [17/81] Found: Superior Sigil of Demon Slaying -> 24664
+  [18/81] Found: Superior Sigil of Destroyer Slaying -> 24654
+  [19/81] Found: Superior Sigil of Sorrow -> 24684
+  [20/81] Found: Superior Sigil of Elemental Slaying -> 24661
+  [21/81] Found: Superior Sigil of Smothering -> 24675
+  [22/81] Found: Superior Sigil of Ghost Slaying -> 24809
+  [23/81] Found: Superior Sigil of Grawl Slaying -> 24648
+  [24/81] Found: Superior Sigil of Hologram Slaying -> 91339
+  [25/81] Found: Superior Sigil of Icebrood Slaying -> 24651
+  [26/81] Found: Superior Sigil of Mad Scientists -> 24672
+  [27/81] Found: Superior Sigil of Justice -> 24678
+  [28/81] Found: Superior Sigil of Karka Slaying -> 37912
+  [29/81] Found: Superior Sigil of Serpent Slaying -> 24658
+  [30/81] Found: Superior Sigil of Dreams -> 24681
+  [31/81] Found: Superior Sigil of the Night -> 36053
+  [32/81] Found: Superior Sigil of Ogre Slaying -> 24655
+  [33/81] Found: Superior Sigil of Wrath -> 24667
+  [34/81] Found: Superior Sigil of Impact -> 24868
+  [35/81] Found: Superior Sigil of Undead Slaying -> 24642
+  [36/81] Found: Superior Sigil of Nullification -> 24572
+  [37/81] Found: Superior Sigil of Purity -> 24571
+  [38/81] Found: Superior Sigil of Frailty -> 24567
+  [39/81] Found: Superior Sigil of Ice -> 24555
+  [40/81] Found: Superior Sigil of Incapacitation -> 67343
+  [41/81] Found: Superior Sigil of Air -> 24554
+  [42/81] Found: Superior Sigil of Fire -> 24548
+  [43/81] Found: Superior Sigil of Blood -> 24570
+  [44/81] Found: Superior Sigil of Generosity -> 38294
+  [45/81] Found: Superior Sigil of Rage -> 24561
+  [46/81] Found: Superior Sigil of Strength -> 24562
+  [47/81] Found: Superior Sigil of Water -> 24551
+  [48/81] Found: Superior Sigil of Blight -> 67913
+  [49/81] Found: Superior Sigil of Earth -> 24560
+  [50/81] Found: Superior Sigil of Torment -> 48911
+  [51/81] Found: Superior Sigil of Frenzy -> 82876
+  [52/81] Found: Superior Sigil of Luck -> 24591
+  [53/81] Found: Superior Sigil of Speed -> 24589
+  [54/81] Found: Superior Sigil of Stamina -> 24592
+  [55/81] Found: Superior Sigil of Bounty -> 81045
+  [56/81] Found: Superior Sigil of Corruption -> 24578
+  [57/81] Found: Superior Sigil of Cruelty -> 67341
+  [58/81] Found: Superior Sigil of Benevolence -> 24584
+  [59/81] Found: Superior Sigil of Life -> 24582
+  [60/81] Found: Superior Sigil of Bloodlust -> 24575
+  [61/81] Found: Superior Sigil of Perception -> 24580
+  [62/81] Found: Superior Sigil of Momentum -> 49457
+  [63/81] Found: Superior Sigil of the Stars -> 86170
+  [64/81] Found: Superior Sigil of Agility -> 72092
+  [65/81] Found: Superior Sigil of Battle -> 24601
+  [66/81] Found: Superior Sigil of Cleansing -> 67340
+  [67/81] Found: Superior Sigil of Doom -> 24609
+  [68/81] Found: Superior Sigil of Energy -> 24607
+  [69/81] Found: Superior Sigil of Geomancy -> 24605
+  [70/81] Found: Superior Sigil of Hydromancy -> 24597
+  [71/81] Found: Superior Sigil of Leeching -> 24599
+  [72/81] Found: Superior Sigil of Mischief -> 68436
+  [73/81] Found: Superior Sigil of Renewal -> 44947
+  [74/81] Found: Superior Sigil of Vision -> 24600
+  [75/81] Found: Superior Sigil of Absorption -> 72872
+  [76/81] Found: Superior Sigil of Celerity -> 24865
+  [77/81] Found: Superior Sigil of Draining -> 70825
+  [78/81] Found: Superior Sigil of Rending -> 73532
+  [79/81] Found: Superior Sigil of Restoration -> 24594
+  [80/81] Found: Superior Sigil of Ruthlessness -> 71130
+  [81/81] Found: Superior Sigil of Severance -> 84505
+
+Complete! Found 81/81 sigils
+
+export const SIGIL_IDS = [
+  24618, // Accuracy
+  24615, // Force
+  44944, // Bursting
+  44950, // Malice
+  72339, // Concentration
+  74326, // Transference
+  24612, // Agony
+  24624, // Smoldering
+  24630, // Chilling
+  24627, // Hobbling
+  24632, // Venom
+  24583, // Demons
+  24621, // Peril
+  24636, // Debility
+  24639, // Paralyzation
+  24645, // Centaur Slaying
+  24664, // Demon Slaying
+  24654, // Destroyer Slaying
+  24684, // Sorrow
+  24661, // Elemental Slaying
+  24675, // Smothering
+  24809, // Ghost Slaying
+  24648, // Grawl Slaying
+  91339, // Hologram Slaying
+  24651, // Icebrood Slaying
+  24672, // Mad Scientists
+  24678, // Justice
+  37912, // Karka Slaying
+  24658, // Serpent Slaying
+  24681, // Dreams
+  36053, // Night
+  24655, // Ogre Slaying
+  24667, // Wrath
+  24868, // Impact
+  24642, // Undead Slaying
+  24572, // Nullification
+  24571, // Purity
+  24567, // Frailty
+  24555, // Ice
+  67343, // Incapacitation
+  24554, // Air
+  24548, // Fire
+  24570, // Blood
+  38294, // Generosity
+  24561, // Rage
+  24562, // Strength
+  24551, // Water
+  67913, // Blight
+  24560, // Earth
+  48911, // Torment
+  82876, // Frenzy
+  24591, // Luck
+  24589, // Speed
+  24592, // Stamina
+  81045, // Bounty
+  24578, // Corruption
+  67341, // Cruelty
+  24584, // Benevolence
+  24582, // Life
+  24575, // Bloodlust
+  24580, // Perception
+  49457, // Momentum
+  86170, // Stars
+  72092, // Agility
+  24601, // Battle
+  67340, // Cleansing
+  24609, // Doom
+  24607, // Energy
+  24605, // Geomancy
+  24597, // Hydromancy
+  24599, // Leeching
+  68436, // Mischief
+  44947, // Renewal
+  24600, // Vision
+  72872, // Absorption
+  24865, // Celerity
+  70825, // Draining
+  73532, // Rending
+  24594, // Restoration
+  71130, // Ruthlessness
+  84505, // Severance
+] as const;
