@@ -179,7 +179,7 @@ Exclude (conditional/stacking):
 **Formulas Implemented:**
 - Health: `Base Health + (Vitality - 1000) × 10`
 - Armor: `Base Armor + Toughness + Shield Bonus`
-- Crit Chance: `4% + (Precision - 1000) / 21` (capped 0-100%)
+- Crit Chance: `5% + (Precision - 1000) / 21` (capped 0-100%) **[FIXED: was 4%]**
 - Crit Damage: `150% + Ferocity / 15`
 - Condition Duration: `Expertise / 15` (capped 100%)
 - Boon Duration: `Concentration / 15` (capped 100%)
