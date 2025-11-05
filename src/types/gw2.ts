@@ -66,16 +66,17 @@ export const WEAPON_TYPES = [
 export type WeaponType = typeof WEAPON_TYPES[number];
 
 // Profession weapon availability (land weapons only for now)
+// Data sourced from GW2 API /v2/professions endpoint
 export const PROFESSION_WEAPONS: Record<Profession, WeaponType[]> = {
-  Guardian: ['Greatsword', 'Hammer', 'Longbow', 'Staff', 'Sword', 'Mace', 'Scepter', 'Focus', 'Shield', 'Torch', 'Spear'],
-  Warrior: ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Sword', 'Axe', 'Mace', 'Dagger', 'Shield', 'Warhorn', 'Spear'],
-  Engineer: ['Hammer', 'Rifle', 'Sword', 'Mace', 'Pistol', 'Shield', 'Torch', 'Spear'],
-  Ranger: ['Greatsword', 'Hammer', 'Longbow', 'Short Bow', 'Staff', 'Sword', 'Axe', 'Mace', 'Dagger', 'Shield', 'Torch', 'Warhorn', 'Spear'],
-  Thief: ['Rifle', 'Short Bow', 'Staff', 'Sword', 'Dagger', 'Pistol', 'Spear'],
-  Elementalist: ['Staff', 'Hammer', 'Sword', 'Dagger', 'Scepter', 'Warhorn', 'Spear'],
-  Mesmer: ['Greatsword', 'Staff', 'Sword', 'Dagger', 'Scepter', 'Pistol', 'Focus', 'Torch', 'Spear'],
-  Necromancer: ['Greatsword', 'Staff', 'Axe', 'Dagger', 'Scepter', 'Focus', 'Torch', 'Warhorn', 'Spear'],
-  Revenant: ['Greatsword', 'Staff', 'Sword', 'Axe', 'Mace', 'Focus', 'Shield', 'Torch', 'Spear'],
+  Guardian: ['Greatsword', 'Hammer', 'Longbow', 'Staff', 'Sword', 'Mace', 'Scepter', 'Axe', 'Pistol', 'Focus', 'Shield', 'Torch', 'Spear'],
+  Warrior: ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Staff', 'Sword', 'Axe', 'Mace', 'Dagger', 'Pistol', 'Shield', 'Torch', 'Warhorn', 'Spear'],
+  Engineer: ['Hammer', 'Rifle', 'Short Bow', 'Sword', 'Mace', 'Pistol', 'Shield', 'Spear'],
+  Ranger: ['Greatsword', 'Hammer', 'Longbow', 'Short Bow', 'Staff', 'Sword', 'Axe', 'Mace', 'Dagger', 'Torch', 'Warhorn', 'Spear'],
+  Thief: ['Rifle', 'Short Bow', 'Staff', 'Sword', 'Axe', 'Dagger', 'Scepter', 'Pistol', 'Spear'],
+  Elementalist: ['Hammer', 'Staff', 'Sword', 'Dagger', 'Scepter', 'Pistol', 'Focus', 'Warhorn', 'Spear'],
+  Mesmer: ['Greatsword', 'Rifle', 'Staff', 'Sword', 'Axe', 'Dagger', 'Scepter', 'Pistol', 'Focus', 'Shield', 'Torch', 'Spear'],
+  Necromancer: ['Greatsword', 'Staff', 'Sword', 'Axe', 'Dagger', 'Scepter', 'Pistol', 'Focus', 'Torch', 'Warhorn', 'Spear'],
+  Revenant: ['Greatsword', 'Hammer', 'Short Bow', 'Staff', 'Sword', 'Axe', 'Mace', 'Scepter', 'Shield', 'Spear'],
 };
 
 // Which weapons can go in off-hand
