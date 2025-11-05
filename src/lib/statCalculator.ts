@@ -19,7 +19,6 @@
 
 import type {
   Profession,
-  WeightClass,
   GameMode,
   Equipment,
   StatCombo,
@@ -40,7 +39,6 @@ import {
   ASCENDED_WEAPON_STATS,
   type SlotStatValues,
 } from './statTables';
-import { getModeData } from './modeUtils';
 
 // ============================================================================
 // Type Definitions
@@ -438,8 +436,8 @@ function calculateRuneStats(runeItem: GW2Item | null): Partial<BaseAttributes> {
  * TODO: Implement sigil whitelist and parsing
  */
 function calculateSigilStats(
-  equipment: Equipment[],
-  sigilItems: Map<number, GW2Item>
+  _equipment: Equipment[],
+  _sigilItems: Map<number, GW2Item>
 ): Partial<BaseAttributes> {
   const stats = createEmptyAttributes();
 
@@ -454,9 +452,9 @@ function calculateSigilStats(
  * TODO: Implement trait parsing with mode support
  */
 function calculateTraitStats(
-  selectedTraits: number[],
-  allTraits: GW2Trait[],
-  gameMode: GameMode
+  _selectedTraits: number[],
+  _allTraits: GW2Trait[],
+  _gameMode: GameMode
 ): Partial<BaseAttributes> {
   const stats = createEmptyAttributes();
 
@@ -471,9 +469,9 @@ function calculateTraitStats(
  * TODO: Implement skill parsing with mode support
  */
 function calculateSkillStats(
-  selectedSkills: number[],
-  allSkills: GW2Skill[],
-  gameMode: GameMode
+  _selectedSkills: number[],
+  _allSkills: GW2Skill[],
+  _gameMode: GameMode
 ): Partial<BaseAttributes> {
   const stats = createEmptyAttributes();
 
