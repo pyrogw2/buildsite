@@ -87,12 +87,24 @@ export function generateTextSummary(build: BuildData): string {
   lines.push(`=== ${build.profession} Build ===`);
   lines.push('');
 
+  // Infusion ID to name mapping
+  const infusionNames: Record<number, string> = {
+    43254: 'Mighty Infusion',
+    43255: 'Precise Infusion',
+    43253: 'Malign Infusion',
+    87218: 'Expertise Infusion',
+    43251: 'Resilient Infusion',
+    43252: 'Vital Infusion',
+    43250: 'Healing Infusion',
+    86986: 'Concentration Infusion',
+  };
+
   // Equipment
   lines.push('EQUIPMENT:');
   build.equipment.forEach(item => {
     const parts: string[] = [item.slot, item.stat];
     if (item.upgrade) parts.push(item.upgrade);
-    if (item.infusion1) parts.push(item.infusion1);
+    if (item.infusion1) parts.push(infusionNames[item.infusion1] || `Infusion ${item.infusion1}`);
     lines.push(`  ${parts.join(' - ')}`);
   });
   lines.push('');

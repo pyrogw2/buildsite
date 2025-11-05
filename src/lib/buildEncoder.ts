@@ -11,8 +11,6 @@ const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amul
 const STATS = ['Berserker', 'Assassin', 'Harrier', 'Commander', 'Minstrel', 'Marauder', 'Marshal', 'Viper', 'Sinister', 'Grieving', 'Trailblazer', 'Seraph', 'Celestial', 'Diviner', 'Vigilant', 'Crusader', 'Wanderer', 'Nomad', 'Sentinel', 'Dire', 'Rabid', 'Magi', 'Apothecary', 'Cleric', 'Giver', 'Knight', 'Cavalier', 'Soldier', 'Shaman', 'Settler', 'Zealot', 'Valkyrie', 'Rampager', 'Carrion', 'Sinister', 'Plaguedoctor', 'Ritualist', 'Dragon', 'Spellbreaker', 'Wanderer'];
 // Weapon types (5 bits, 0-31)
 const WEAPONS = ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Axe', 'Dagger', 'Mace', 'Pistol', 'Scepter', 'Sword', 'Focus', 'Shield', 'Torch', 'Warhorn', 'Spear', 'Trident', 'Harpoon Gun'];
-// Infusion types (4 bits, 0-15)
-const INFUSIONS = ['Power', 'Precision', 'Toughness', 'Vitality', 'Condition Damage', 'Expertise', 'Concentration', 'Healing Power', 'Agony Resistance', 'WvW Infusion'];
 
 /**
  * Convert Uint8Array to base64 string efficiently
@@ -126,16 +124,10 @@ export function encodeBuild(build: BuildData): string {
       writeVarInt(bytes, eq.sigil1Id || 0);
       writeVarInt(bytes, eq.sigil2Id || 0);
 
-      // Use indices for infusions (fallback to string)
+      // Infusions - write as item IDs
       for (const infKey of ['infusion1', 'infusion2', 'infusion3'] as const) {
-        const inf = eq[infKey];
-        const infIdx = inf ? INFUSIONS.indexOf(inf) : -1;
-        if (infIdx >= 0) {
-          bytes.push(infIdx + 1);
-        } else {
-          bytes.push(0);
-          writeString(bytes, inf || '');
-        }
+        const infId = eq[infKey] || 0;
+        writeVarInt(bytes, infId);
       }
     }
 
@@ -231,15 +223,10 @@ export function decodeBuild(encoded: string): BuildData {
         const sigil1Id = readVarInt(decompressed, offset);
         const sigil2Id = readVarInt(decompressed, offset);
 
-        // Read infusions (index or string)
-        const inf1Byte = decompressed[offset.value++];
-        const infusion1 = inf1Byte > 0 ? INFUSIONS[inf1Byte - 1] : readString(decompressed, offset);
-
-        const inf2Byte = decompressed[offset.value++];
-        const infusion2 = inf2Byte > 0 ? INFUSIONS[inf2Byte - 1] : readString(decompressed, offset);
-
-        const inf3Byte = decompressed[offset.value++];
-        const infusion3 = inf3Byte > 0 ? INFUSIONS[inf3Byte - 1] : readString(decompressed, offset);
+        // Read infusions as item IDs
+        const infusion1 = readVarInt(decompressed, offset);
+        const infusion2 = readVarInt(decompressed, offset);
+        const infusion3 = readVarInt(decompressed, offset);
 
         build.equipment.push({
           slot: SLOTS[slotIdx] as any,

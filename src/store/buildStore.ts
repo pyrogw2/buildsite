@@ -1,14 +1,14 @@
 import { create } from 'zustand';
-import type { BuildData, Profession, Equipment, StatCombo, InfusionType, ArmorSlot, TrinketSlot, WeaponSlot, GameMode } from '../types/gw2';
+import type { BuildData, Profession, Equipment, StatCombo, ArmorSlot, TrinketSlot, WeaponSlot, GameMode } from '../types/gw2';
 
 interface BuildStore extends Omit<BuildData, 'profession'> {
   profession: Profession | undefined;
   // Actions
-  setProfession: (profession: Profession) => void;
+  setProfession: (profession: Profession, resetEquipment?: boolean) => void;
   setGameMode: (mode: GameMode) => void;
   updateEquipment: (slot: string, updates: Partial<Equipment>) => void;
   applyStatToCategory: (category: 'armor' | 'trinkets' | 'weapons' | 'all', stat: StatCombo) => void;
-  applyInfusionToCategory: (category: 'armor' | 'trinkets' | 'weapons' | 'all', infusion: InfusionType) => void;
+  applyInfusionToCategory: (category: 'armor' | 'trinkets' | 'weapons' | 'all', infusion: number | undefined) => void;
   setSkill: (slot: keyof BuildData['skills'], skillId: number) => void;
   setSpecialization: (specSlot: 1 | 2 | 3, specId: number) => void;
   setTrait: (specSlot: 1 | 2 | 3, tier: 0 | 1 | 2, traitId: number | null) => void;
@@ -44,8 +44,29 @@ export const useBuildStore = create<BuildStore>((set) => ({
   skills: {},
   traits: {},
 
-  setProfession: (profession) =>
-    set({ profession, skills: {}, traits: {} }),
+  setProfession: (profession, resetEquipment = false) =>
+    set((state) => {
+      // Always reset weapons when changing profession
+      const resetWeapons = state.equipment.map((item) =>
+        WEAPON_SLOTS.includes(item.slot as WeaponSlot)
+          ? { slot: item.slot, stat: 'Berserker' as StatCombo }
+          : item
+      );
+
+      // If resetEquipment is true, also reset armor and trinkets
+      const equipment = resetEquipment
+        ? initialEquipment
+        : resetWeapons;
+
+      return {
+        profession,
+        skills: {},
+        traits: {},
+        equipment,
+        runeId: resetEquipment ? undefined : state.runeId,
+        relicId: resetEquipment ? undefined : state.relicId,
+      };
+    }),
 
   setGameMode: (gameMode) =>
     set({ gameMode }),

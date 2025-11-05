@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
-import type { StatCombo, InfusionType, GW2Item } from '../types/gw2';
+import type { StatCombo, GW2Item } from '../types/gw2';
 import { BASE_HEALTH, PROFESSION_WEIGHT_CLASS, BASE_ARMOR, TWO_HANDED_WEAPONS } from '../types/gw2';
 import { ASCENDED_ARMOR_STATS, ASCENDED_TRINKET_STATS, ASCENDED_WEAPON_STATS, type SlotStatValues } from '../lib/statTables';
 import Tooltip from './Tooltip';
@@ -29,16 +29,16 @@ const BASE_ATTRIBUTES: Record<AttributeKey, number> = {
   BoonDuration: 0,
 };
 
-// Infusions give +5 to a stat
-const INFUSION_BONUSES: Record<InfusionType, Partial<Record<AttributeKey, number>>> = {
-  Mighty: { Power: 5 },
-  Precise: { Precision: 5 },
-  Malign: { ConditionDamage: 5 },
-  Expertise: { Expertise: 5 },
-  Resilient: { Toughness: 5 },
-  Vital: { Vitality: 5 },
-  Healing: { HealingPower: 5 },
-  Concentration: { BoonDuration: 5 },
+// Infusions give +5 to a stat (keyed by item ID)
+const INFUSION_BONUSES: Record<number, Partial<Record<AttributeKey, number>>> = {
+  43254: { Power: 5 },          // Mighty WvW Infusion
+  43255: { Precision: 5 },      // Precise WvW Infusion
+  43253: { ConditionDamage: 5 }, // Malign WvW Infusion
+  87218: { Expertise: 5 },      // Expertise WvW Infusion
+  43251: { Toughness: 5 },      // Resilient WvW Infusion
+  43252: { Vitality: 5 },       // Vital WvW Infusion
+  43250: { HealingPower: 5 },   // Healing WvW Infusion
+  86986: { BoonDuration: 5 },   // Concentration WvW Infusion
 };
 
 // Stat distribution for each stat combo (in order of priority)

@@ -106,6 +106,18 @@ export const INFUSIONS = [
 
 export type InfusionType = typeof INFUSIONS[number];
 
+// WvW Infusion item IDs (8 infusions, +5 to stat)
+export const INFUSION_IDS = [
+  43254, // Mighty WvW Infusion (+5 Power)
+  43255, // Precise WvW Infusion (+5 Precision)
+  43253, // Malign WvW Infusion (+5 Condition Damage)
+  87218, // Expertise WvW Infusion (+5 Expertise)
+  43251, // Resilient WvW Infusion (+5 Toughness)
+  43252, // Vital WvW Infusion (+5 Vitality)
+  43250, // Healing WvW Infusion (+5 Healing Power)
+  86986, // Concentration WvW Infusion (+5 Concentration)
+] as const;
+
 // All Superior Rune item IDs (complete list - 99 unique runes)
 export const RUNE_IDS = [
   89999, // Fireworks
@@ -553,9 +565,9 @@ export interface Equipment {
   upgrade?: string; // Rune or Sigil name (deprecated, use sigil1Id/sigil2Id for weapons)
   sigil1Id?: number; // First sigil for weapon slots (item ID)
   sigil2Id?: number; // Second sigil for weapon slots (item ID)
-  infusion1?: InfusionType;
-  infusion2?: InfusionType;
-  infusion3?: InfusionType;
+  infusion1?: number; // First infusion slot (item ID) - all equipment
+  infusion2?: number; // Second infusion slot (item ID) - 2h weapons, rings, backpiece
+  infusion3?: number; // Third infusion slot (item ID) - rings only
 }
 
 export interface SkillSelection {
