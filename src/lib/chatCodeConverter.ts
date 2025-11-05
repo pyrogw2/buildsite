@@ -11,9 +11,7 @@ if (typeof window !== 'undefined') {
 /**
  * Convert our BuildData format to gw2buildlink's BuildTemplateInput format
  */
-export async function buildDataToBuildTemplate(build: BuildData): Promise<BuildTemplateInput> {
-  const { gw2Api } = await import('./gw2api');
-
+export function buildDataToBuildTemplate(build: BuildData): BuildTemplateInput {
   // Convert specializations - we need to pass trait IDs, not choice positions
   // The library will handle resolving them through our API client
   const specializations: BuildTemplateInput['specializations'] = [
@@ -174,7 +172,7 @@ export async function exportToChatCode(build: BuildData): Promise<string> {
     const { LocalGw2ApiClient } = await import('./gw2buildlinkApiClient');
     const api = new LocalGw2ApiClient();
 
-    const template = await buildDataToBuildTemplate(build);
+    const template = buildDataToBuildTemplate(build);
     console.log('Calling encodeBuildTemplate with:', template);
 
     const chatCode = await encodeBuildTemplate(template, { api });
