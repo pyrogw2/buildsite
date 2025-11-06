@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test V6 Encoder</title>
+</head>
+<body>
+  <h1>Build Encoder V6 Test</h1>
+  <div id="output"></div>
+
+  <script type="module">
+    // We'll test manually in the browser by loading the app
+    const exampleUrl = "eNpj5RJgYGQAgm8XmRgYGBFMJgSTGcFkQTBZEUxuNSgTxONEiHMhmGxgJhCwMyLUAhEHKpeHUfD_fsblBxihhvHCtPExCi45hCTBD5M4dJ1l5m2WtXrL9Q7eZGG7xfeEbza_2i--Zv4-Fu99QmuFngk9OslyeQobUOnrWyxtN1j-32BhYAAAhHBAzA";
+
+    const output = document.getElementById('output');
+    output.innerHTML = `
+      <h2>Testing backward compatibility</h2>
+      <p>Example V5 build URL parameter:</p>
+      <pre>${exampleUrl}</pre>
+      <p><strong>Length:</strong> ${exampleUrl.length} characters</p>
+      <p>This test will verify the decoder can still read V5 builds.</p>
+      <p>After testing, we'll encode a new build with V6 and compare lengths.</p>
+    `;
+  </script>
+</body>
+</html>

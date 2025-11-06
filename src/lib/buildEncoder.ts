@@ -1,5 +1,6 @@
 import pako from 'pako';
 import type { BuildData } from '../types/gw2';
+import specializationsData from '../../public/data/specializations.json' with { type: 'json' };
 
 // Profession enum (3 bits, 0-8)
 const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elementalist', 'Mesmer', 'Necromancer', 'Revenant'];
@@ -7,10 +8,12 @@ const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elem
 const GAME_MODES = ['PvE', 'PvP', 'WvW'];
 // Equipment slots (4 bits, 0-15)
 const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack', 'MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
-// Stat combinations (6 bits, 0-63)
-const STATS = ['Berserker', 'Assassin', 'Harrier', 'Commander', 'Minstrel', 'Marauder', 'Marshal', 'Viper', 'Sinister', 'Grieving', 'Trailblazer', 'Seraph', 'Celestial', 'Diviner', 'Vigilant', 'Crusader', 'Wanderer', 'Nomad', 'Sentinel', 'Dire', 'Rabid', 'Magi', 'Apothecary', 'Cleric', 'Giver', 'Knight', 'Cavalier', 'Soldier', 'Shaman', 'Settler', 'Zealot', 'Valkyrie', 'Rampager', 'Carrion', 'Sinister', 'Plaguedoctor', 'Ritualist', 'Dragon', 'Spellbreaker', 'Wanderer'];
+// Stat combinations (6 bits, 0-63) - deduplicated for v6
+const STATS = ['Berserker', 'Assassin', 'Harrier', 'Commander', 'Minstrel', 'Marauder', 'Marshal', 'Viper', 'Sinister', 'Grieving', 'Trailblazer', 'Seraph', 'Celestial', 'Diviner', 'Vigilant', 'Crusader', 'Wanderer', 'Nomad', 'Sentinel', 'Dire', 'Rabid', 'Magi', 'Apothecary', 'Cleric', 'Giver', 'Knight', 'Cavalier', 'Soldier', 'Shaman', 'Settler', 'Zealot', 'Valkyrie', 'Rampager', 'Carrion', 'Plaguedoctor', 'Ritualist', 'Dragon', 'Spellbreaker'];
 // Weapon types (5 bits, 0-31)
 const WEAPONS = ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Axe', 'Dagger', 'Mace', 'Pistol', 'Scepter', 'Sword', 'Focus', 'Shield', 'Torch', 'Warhorn', 'Spear', 'Trident', 'Harpoon Gun'];
+// Revenant legends (3 bits, 0-7) - for v6 encoding
+const REVENANT_LEGENDS = ['Legend1', 'Legend2', 'Legend3', 'Legend4', 'Legend5', 'Legend6', 'Legend7', 'Legend8'];
 
 /**
  * Convert Uint8Array to base64 string efficiently
@@ -82,100 +85,325 @@ function readString(bytes: Uint8Array, offset: { value: number }): string {
 }
 
 /**
- * Encode build data to a compact binary format
+ * V6 Helper: Write bitflags (up to 16 bits)
+ */
+function writeBitflags(arr: number[], flags: boolean[], numBits: number) {
+  let value = 0;
+  for (let i = 0; i < numBits && i < flags.length; i++) {
+    if (flags[i]) value |= (1 << i);
+  }
+  if (numBits <= 8) {
+    arr.push(value);
+  } else {
+    arr.push(value & 0xFF);
+    arr.push((value >> 8) & 0xFF);
+  }
+}
+
+/**
+ * V6 Helper: Read bitflags (up to 16 bits)
+ */
+function readBitflags(bytes: Uint8Array, offset: { value: number }, numBits: number): boolean[] {
+  let value = bytes[offset.value++];
+  if (numBits > 8) {
+    value |= bytes[offset.value++] << 8;
+  }
+  const flags: boolean[] = [];
+  for (let i = 0; i < numBits; i++) {
+    flags.push((value & (1 << i)) !== 0);
+  }
+  return flags;
+}
+
+/**
+ * V6 Helper: Pack slot index (4 bits) + stat index (6 bits) into 2 bytes
+ * Returns [byte1, byte2] where byte1 has slot in lower 4 bits and stat's upper 2 bits in upper 4 bits
+ */
+function packSlotAndStat(slotIdx: number, statIdx: number): [number, number] {
+  // byte1: [stat[5:4], slot[3:0]]
+  // byte2: [stat[3:0], 0000]
+  const byte1 = (slotIdx & 0x0F) | ((statIdx & 0x30) << 2);
+  const byte2 = (statIdx & 0x0F) << 4;
+  return [byte1, byte2];
+}
+
+/**
+ * V6 Helper: Unpack slot index and stat index from 2 bytes
+ */
+function unpackSlotAndStat(byte1: number, byte2: number): [number, number] {
+  const slotIdx = byte1 & 0x0F;
+  const statIdx = ((byte1 >> 6) & 0x03) << 4 | ((byte2 >> 4) & 0x0F);
+  return [slotIdx, statIdx];
+}
+
+/**
+ * V6 Helper: Find trait position (0-2) within its tier given spec ID and trait ID
+ * Returns [tier (0-2), position (0-2)] or [-1, -1] if not found
+ */
+function getTraitPosition(specId: number, traitId: number): [number, number] {
+  const spec = (specializationsData as any[]).find(s => s.id === specId);
+  if (!spec || !spec.major_traits) return [-1, -1];
+
+  const majorTraits = spec.major_traits;
+  const index = majorTraits.indexOf(traitId);
+  if (index === -1) return [-1, -1];
+
+  const tier = Math.floor(index / 3); // 0-2 (Adept/Master/Grandmaster)
+  const position = index % 3; // 0-2 (top/mid/bot)
+  return [tier, position];
+}
+
+/**
+ * V6 Helper: Get trait ID from spec ID and position
+ */
+function getTraitIdFromPosition(specId: number, tier: number, position: number): number {
+  const spec = (specializationsData as any[]).find(s => s.id === specId);
+  if (!spec || !spec.major_traits) return 0;
+
+  const index = tier * 3 + position;
+  return spec.major_traits[index] || 0;
+}
+
+/**
+ * V6 Helper: Pack 3 trait positions (0-2) for one spec into a single byte
+ * Format: 2 bits per position = 6 bits total, upper 2 bits unused
+ */
+function packTraitPositions(positions: number[]): number {
+  return (positions[0] & 0x03) | ((positions[1] & 0x03) << 2) | ((positions[2] & 0x03) << 4);
+}
+
+/**
+ * V6 Helper: Unpack 3 trait positions from a byte
+ */
+function unpackTraitPositions(byte: number): [number, number, number] {
+  return [
+    byte & 0x03,
+    (byte >> 2) & 0x03,
+    (byte >> 4) & 0x03,
+  ];
+}
+
+
+/**
+ * Encode build data to a compact binary format (Version 6)
+ * Optimizations:
+ * - Sparse equipment (only non-default slots)
+ * - Bitflags for optional fields
+ * - Profession-specific mechanics
+ * - Bit-packing for small values
  */
 export function encodeBuild(build: BuildData): string {
   try {
     const bytes: number[] = [];
 
     // Version byte for future compatibility
-    bytes.push(5);
+    bytes.push(6);
 
     // Profession (3 bits) + GameMode (2 bits) = 1 byte
     const profIdx = PROFESSIONS.indexOf(build.profession);
     const modeIdx = GAME_MODES.indexOf(build.gameMode);
     bytes.push((profIdx << 2) | modeIdx);
 
-    // Equipment count
-    bytes.push(build.equipment.length);
+    // Find most common stat for armor/trinkets (not weapons)
+    const armorTrinketSlots = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
+                                'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'];
+    const statCounts = new Map<string, number>();
     for (const eq of build.equipment) {
-      const slotIdx = SLOTS.indexOf(eq.slot);
-      bytes.push(slotIdx);
+      if (armorTrinketSlots.includes(eq.slot as any)) {
+        statCounts.set(eq.stat, (statCounts.get(eq.stat) || 0) + 1);
+      }
+    }
 
-      // Use index for stat (fallback to string for unknown stats)
+    let defaultStat = 'Berserker'; // fallback
+    let maxStatCount = 0;
+    for (const [stat, count] of statCounts) {
+      if (count > maxStatCount) {
+        maxStatCount = count;
+        defaultStat = stat;
+      }
+    }
+
+    // Only use dynamic default if it appears 8+ times (saves space)
+    const useDefaultStat = maxStatCount >= 8;
+    if (!useDefaultStat) defaultStat = 'Berserker';
+
+    // Write default stat (index or 0 for Berserker)
+    const defaultStatIdx = STATS.indexOf(defaultStat);
+    bytes.push(defaultStatIdx >= 0 ? defaultStatIdx + 1 : 0);
+
+    // Collect ALL infusions across equipment (order doesn't matter)
+    const allInfusions: number[] = [];
+    for (const eq of build.equipment) {
+      for (const key of ['infusion1', 'infusion2', 'infusion3'] as const) {
+        if (eq[key]) allInfusions.push(eq[key]!);
+      }
+    }
+
+    // Count unique infusions
+    const infusionCounts = new Map<number, number>();
+    for (const id of allInfusions) {
+      infusionCounts.set(id, (infusionCounts.get(id) || 0) + 1);
+    }
+
+    // Write infusion types count
+    bytes.push(infusionCounts.size);
+
+    // Write each infusion type: count + id
+    for (const [id, count] of infusionCounts) {
+      writeVarInt(bytes, count);
+      writeVarInt(bytes, id);
+    }
+
+    // Filter equipment: always encode weapons (need weapon type), skip armor/trinkets if default stat + no sigils
+    const isEquipmentRedundant = (eq: any) => {
+      // Always encode weapons (they have weapon type and might differ)
+      if (eq.weaponType) return false;
+
+      // Skip armor/trinkets if they match default stat with no sigils (infusions handled separately)
+      if (eq.stat !== defaultStat) return false;
+      if (eq.sigil1Id || eq.sigil2Id) return false;
+      return true;
+    };
+
+    const nonDefaultEquipment = build.equipment.filter(eq => !isEquipmentRedundant(eq));
+
+    // Equipment count (only non-default)
+    bytes.push(nonDefaultEquipment.length);
+
+    for (const eq of nonDefaultEquipment) {
+      const slotIdx = SLOTS.indexOf(eq.slot);
       const statIdx = STATS.indexOf(eq.stat);
+
       if (statIdx >= 0) {
-        bytes.push(statIdx + 1); // +1 so 0 means "use string"
+        // Bit-pack slot and stat indices
+        const [byte1, byte2] = packSlotAndStat(slotIdx, statIdx);
+        bytes.push(byte1, byte2);
       } else {
-        bytes.push(0);
+        // Fallback: slot index + 0xFF marker + string
+        bytes.push(slotIdx);
+        bytes.push(0xFF);
         writeString(bytes, eq.stat);
       }
 
-      // Use index for weapon type (fallback to string)
+      // Weapon type (index or 0 for none)
       const weaponIdx = eq.weaponType ? WEAPONS.indexOf(eq.weaponType) : -1;
-      if (weaponIdx >= 0) {
-        bytes.push(weaponIdx + 1);
-      } else {
-        bytes.push(0);
-        writeString(bytes, eq.weaponType || '');
-      }
+      bytes.push(weaponIdx >= 0 ? weaponIdx + 1 : 0);
 
-      // Sigils
-      writeVarInt(bytes, eq.sigil1Id || 0);
-      writeVarInt(bytes, eq.sigil2Id || 0);
+      // Sigils bitflags (2 bits: sigil1, sigil2)
+      // Infusions are handled separately at build level
+      const sigilFlags = [!!eq.sigil1Id, !!eq.sigil2Id];
+      writeBitflags(bytes, sigilFlags, 2);
 
-      // Infusions - write as item IDs
-      for (const infKey of ['infusion1', 'infusion2', 'infusion3'] as const) {
-        const infId = eq[infKey] || 0;
-        writeVarInt(bytes, infId);
-      }
+      // Write sigil IDs
+      if (eq.sigil1Id) writeVarInt(bytes, eq.sigil1Id);
+      if (eq.sigil2Id) writeVarInt(bytes, eq.sigil2Id);
     }
 
-    // Skills - write as array of IDs
+    // Skills bitflags (5 bits: heal, util1, util2, util3, elite)
     const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+    const skillFlags = skillSlots.map(slot => !!build.skills[slot]);
+    writeBitflags(bytes, skillFlags, 5);
+
+    // Only write non-zero skill IDs
     for (const slot of skillSlots) {
-      writeVarInt(bytes, build.skills[slot] || 0);
+      if (build.skills[slot]) {
+        writeVarInt(bytes, build.skills[slot]!);
+      }
     }
 
-    // Traits
-    writeVarInt(bytes, build.traits.spec1 || 0);
-    const spec1Choices = build.traits.spec1Choices || [null, null, null];
-    for (const choice of spec1Choices) {
-      writeVarInt(bytes, choice || 0);
+    // Traits - encode spec IDs and packed choices
+    const specs = [
+      { id: build.traits.spec1, choices: build.traits.spec1Choices },
+      { id: build.traits.spec2, choices: build.traits.spec2Choices },
+      { id: build.traits.spec3, choices: build.traits.spec3Choices },
+    ];
+
+    // Bitflags for which specs are set (3 bits)
+    const specFlags = specs.map(s => !!s.id);
+    writeBitflags(bytes, specFlags, 3);
+
+    for (const spec of specs) {
+      if (spec.id) {
+        writeVarInt(bytes, spec.id);
+        // V6: Convert trait IDs to positions (0-2) and pack into 1 byte
+        const choices = spec.choices || [null, null, null];
+        const positions: number[] = [];
+        for (let tier = 0; tier < 3; tier++) {
+          const traitId = choices[tier];
+          if (traitId) {
+            const [foundTier, position] = getTraitPosition(spec.id, traitId);
+            if (foundTier === tier) {
+              positions.push(position);
+            } else {
+              positions.push(0); // Fallback to top if not found
+            }
+          } else {
+            positions.push(0); // Default to top if null
+          }
+        }
+        bytes.push(packTraitPositions(positions));
+      }
     }
 
-    writeVarInt(bytes, build.traits.spec2 || 0);
-    const spec2Choices = build.traits.spec2Choices || [null, null, null];
-    for (const choice of spec2Choices) {
-      writeVarInt(bytes, choice || 0);
+    // Rune and Relic bitflags (2 bits)
+    const upgradeFlags = [!!build.runeId, !!build.relicId];
+    writeBitflags(bytes, upgradeFlags, 2);
+    if (build.runeId) writeVarInt(bytes, build.runeId);
+    if (build.relicId) writeVarInt(bytes, build.relicId);
+
+    // Profession-specific mechanics
+    const mechanics = build.professionMechanics;
+
+    switch (build.profession) {
+      case 'Elementalist':
+        // Evoker familiar (only if set)
+        if (mechanics?.evokerFamiliar) {
+          bytes.push(1); // flag: has familiar
+          writeVarInt(bytes, mechanics.evokerFamiliar);
+        } else {
+          bytes.push(0);
+        }
+        break;
+
+      case 'Revenant':
+        // Revenant legends (use enum indices)
+        const legend1 = mechanics?.revenantLegends?.legend1;
+        const legend2 = mechanics?.revenantLegends?.legend2;
+        const legend1Idx = legend1 ? REVENANT_LEGENDS.indexOf(legend1) : -1;
+        const legend2Idx = legend2 ? REVENANT_LEGENDS.indexOf(legend2) : -1;
+
+        bytes.push(legend1Idx >= 0 ? legend1Idx + 1 : 0);
+        bytes.push(legend2Idx >= 0 ? legend2Idx + 1 : 0);
+        break;
+
+      case 'Engineer':
+        // Amalgam morphs (3 slots, bitflags + values)
+        const morphFlags = [
+          !!mechanics?.amalgamMorphs?.slot2,
+          !!mechanics?.amalgamMorphs?.slot3,
+          !!mechanics?.amalgamMorphs?.slot4,
+        ];
+        writeBitflags(bytes, morphFlags, 3);
+        if (mechanics?.amalgamMorphs?.slot2) writeVarInt(bytes, mechanics.amalgamMorphs.slot2);
+        if (mechanics?.amalgamMorphs?.slot3) writeVarInt(bytes, mechanics.amalgamMorphs.slot3);
+        if (mechanics?.amalgamMorphs?.slot4) writeVarInt(bytes, mechanics.amalgamMorphs.slot4);
+        break;
+
+      case 'Ranger':
+        // Ranger pets (2 pets, bitflags + values)
+        const petFlags = [
+          !!mechanics?.rangerPets?.pet1,
+          !!mechanics?.rangerPets?.pet2,
+        ];
+        writeBitflags(bytes, petFlags, 2);
+        if (mechanics?.rangerPets?.pet1) writeVarInt(bytes, mechanics.rangerPets.pet1);
+        if (mechanics?.rangerPets?.pet2) writeVarInt(bytes, mechanics.rangerPets.pet2);
+        break;
+
+      // Other professions: no mechanics to encode
+      default:
+        break;
     }
-
-    writeVarInt(bytes, build.traits.spec3 || 0);
-    const spec3Choices = build.traits.spec3Choices || [null, null, null];
-    for (const choice of spec3Choices) {
-      writeVarInt(bytes, choice || 0);
-    }
-
-    // Rune and Relic
-    writeVarInt(bytes, build.runeId || 0);
-    writeVarInt(bytes, build.relicId || 0);
-
-    // Profession Mechanics
-    // Evoker familiar
-    writeVarInt(bytes, build.professionMechanics?.evokerFamiliar || 0);
-
-    // Revenant legends
-    writeString(bytes, build.professionMechanics?.revenantLegends?.legend1 || '');
-    writeString(bytes, build.professionMechanics?.revenantLegends?.legend2 || '');
-
-    // Amalgam morphs
-    writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot2 || 0);
-    writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot3 || 0);
-    writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot4 || 0);
-
-    // Ranger pets
-    writeVarInt(bytes, build.professionMechanics?.rangerPets?.pet1 || 0);
-    writeVarInt(bytes, build.professionMechanics?.rangerPets?.pet2 || 0);
 
     const binary = new Uint8Array(bytes);
     const compressed = pako.deflate(binary, { level: 9 });
@@ -206,7 +434,236 @@ export function decodeBuild(encoded: string): BuildData {
     const decompressed = pako.inflate(bytes);
 
     // Check version byte
-    if (decompressed[0] === 5) {
+    if (decompressed[0] === 6) {
+      // Binary format (version 6) - optimized with sparse equipment, bitflags, profession-specific mechanics
+      const offset = { value: 1 };
+
+      // Read profession + game mode
+      const packed = decompressed[offset.value++];
+      const profIdx = (packed >> 2) & 0x07;
+      const modeIdx = packed & 0x03;
+
+      const build: BuildData = {
+        profession: PROFESSIONS[profIdx] as any,
+        gameMode: GAME_MODES[modeIdx] as any,
+        equipment: [],
+        skills: {},
+        traits: {},
+      };
+
+      // Read default stat (0 = Berserker, otherwise index+1)
+      const defaultStatByte = decompressed[offset.value++];
+      const defaultStat = defaultStatByte > 0 ? STATS[defaultStatByte - 1] : 'Berserker';
+
+      // Read infusions (stored as counts at build level)
+      const infusionTypeCount = decompressed[offset.value++];
+      const allInfusions: number[] = [];
+      for (let i = 0; i < infusionTypeCount; i++) {
+        const count = readVarInt(decompressed, offset);
+        const id = readVarInt(decompressed, offset);
+        for (let j = 0; j < count; j++) {
+          allInfusions.push(id);
+        }
+      }
+
+      // Track infusion assignment index
+      let infusionIdx = 0;
+
+      // Read sparse equipment (only non-default slots encoded)
+      const eqCount = decompressed[offset.value++];
+      for (let i = 0; i < eqCount; i++) {
+        const byte1 = decompressed[offset.value++];
+
+        let slotIdx: number;
+        let stat: string;
+
+        if (decompressed[offset.value] === 0xFF) {
+          // String fallback for unknown stats
+          offset.value++; // skip 0xFF marker
+          slotIdx = byte1;
+          stat = readString(decompressed, offset);
+        } else {
+          // Bit-packed slot and stat
+          const byte2 = decompressed[offset.value++];
+          let statIdx: number;
+          [slotIdx, statIdx] = unpackSlotAndStat(byte1, byte2);
+          stat = STATS[statIdx];
+        }
+
+        // Weapon type
+        const weaponByte = decompressed[offset.value++];
+        const weaponType = weaponByte > 0 ? WEAPONS[weaponByte - 1] : undefined;
+
+        // Read sigil bitflags (2 bits, infusions handled separately)
+        const sigilFlags = readBitflags(decompressed, offset, 2);
+
+        // Read sigils
+        const sigil1Id = sigilFlags[0] ? readVarInt(decompressed, offset) : undefined;
+        const sigil2Id = sigilFlags[1] ? readVarInt(decompressed, offset) : undefined;
+
+        build.equipment.push({
+          slot: SLOTS[slotIdx] as any,
+          stat: stat as any,
+          ...(weaponType && { weaponType: weaponType as any }),
+          ...(sigil1Id && { sigil1Id }),
+          ...(sigil2Id && { sigil2Id }),
+        } as any);
+      }
+
+      // Fill in default equipment for missing slots
+      const presentSlots = new Set(build.equipment.map(eq => eq.slot));
+      const armorTrinketSlots = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
+                                  'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'];
+      for (const slotName of armorTrinketSlots) {
+        if (!presentSlots.has(slotName as any)) {
+          build.equipment.push({
+            slot: slotName,
+            stat: defaultStat,
+          } as any);
+        }
+      }
+
+      // Also create weapon slots if missing (UI expects all 4 weapon slots to exist)
+      const weaponSlots = ['MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
+      for (const slotName of weaponSlots) {
+        if (!presentSlots.has(slotName as any)) {
+          build.equipment.push({
+            slot: slotName,
+            stat: defaultStat,
+          } as any);
+        }
+      }
+
+      // Fill infusions across all equipment in slot order
+      // Only fill slots that can actually hold infusions based on equipment type
+      build.equipment.sort((a, b) => SLOTS.indexOf(a.slot as any) - SLOTS.indexOf(b.slot as any));
+      for (const eq of build.equipment) {
+        const slot = eq.slot as any;
+        const isRing = slot === 'Ring1' || slot === 'Ring2';
+        const isBackpack = slot === 'Backpack';
+        const is2HandedWeapon = eq.weaponType && ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Spear', 'Trident', 'Harpoon Gun'].includes(eq.weaponType);
+
+        // All equipment has at least 1 infusion slot
+        if (infusionIdx < allInfusions.length) eq.infusion1 = allInfusions[infusionIdx++];
+
+        // Backpack and 2-handed weapons have 2 slots
+        if ((isBackpack || is2HandedWeapon) && infusionIdx < allInfusions.length) {
+          eq.infusion2 = allInfusions[infusionIdx++];
+        }
+
+        // Only rings have 3 slots
+        if (isRing && infusionIdx < allInfusions.length) {
+          eq.infusion2 = allInfusions[infusionIdx++];
+          if (infusionIdx < allInfusions.length) eq.infusion3 = allInfusions[infusionIdx++];
+        }
+      }
+
+      // Read skills (with bitflags)
+      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillFlags = readBitflags(decompressed, offset, 5);
+      for (let i = 0; i < skillSlots.length; i++) {
+        if (skillFlags[i]) {
+          build.skills[skillSlots[i]] = readVarInt(decompressed, offset);
+        }
+      }
+
+      // Read traits (with bitflags)
+      const specFlags = readBitflags(decompressed, offset, 3);
+
+      if (specFlags[0]) {
+        const specId = readVarInt(decompressed, offset);
+        build.traits.spec1 = specId;
+        // V6: Unpack positions and convert to trait IDs
+        const positions = unpackTraitPositions(decompressed[offset.value++]);
+        build.traits.spec1Choices = [
+          getTraitIdFromPosition(specId, 0, positions[0]) || null,
+          getTraitIdFromPosition(specId, 1, positions[1]) || null,
+          getTraitIdFromPosition(specId, 2, positions[2]) || null,
+        ];
+      }
+
+      if (specFlags[1]) {
+        const specId = readVarInt(decompressed, offset);
+        build.traits.spec2 = specId;
+        const positions = unpackTraitPositions(decompressed[offset.value++]);
+        build.traits.spec2Choices = [
+          getTraitIdFromPosition(specId, 0, positions[0]) || null,
+          getTraitIdFromPosition(specId, 1, positions[1]) || null,
+          getTraitIdFromPosition(specId, 2, positions[2]) || null,
+        ];
+      }
+
+      if (specFlags[2]) {
+        const specId = readVarInt(decompressed, offset);
+        build.traits.spec3 = specId;
+        const positions = unpackTraitPositions(decompressed[offset.value++]);
+        build.traits.spec3Choices = [
+          getTraitIdFromPosition(specId, 0, positions[0]) || null,
+          getTraitIdFromPosition(specId, 1, positions[1]) || null,
+          getTraitIdFromPosition(specId, 2, positions[2]) || null,
+        ];
+      }
+
+      // Read rune and relic (with bitflags)
+      const upgradeFlags = readBitflags(decompressed, offset, 2);
+      if (upgradeFlags[0]) build.runeId = readVarInt(decompressed, offset);
+      if (upgradeFlags[1]) build.relicId = readVarInt(decompressed, offset);
+
+      // Read profession-specific mechanics
+      build.professionMechanics = {};
+
+      switch (build.profession) {
+        case 'Elementalist':
+          const hasFamiliar = decompressed[offset.value++];
+          if (hasFamiliar) {
+            build.professionMechanics.evokerFamiliar = readVarInt(decompressed, offset);
+          }
+          break;
+
+        case 'Revenant':
+          const legend1Idx = decompressed[offset.value++];
+          const legend2Idx = decompressed[offset.value++];
+          if (legend1Idx > 0 || legend2Idx > 0) {
+            build.professionMechanics.revenantLegends = {
+              ...(legend1Idx > 0 && { legend1: REVENANT_LEGENDS[legend1Idx - 1] }),
+              ...(legend2Idx > 0 && { legend2: REVENANT_LEGENDS[legend2Idx - 1] }),
+            };
+          }
+          break;
+
+        case 'Engineer':
+          const morphFlags = readBitflags(decompressed, offset, 3);
+          const slot2 = morphFlags[0] ? readVarInt(decompressed, offset) : undefined;
+          const slot3 = morphFlags[1] ? readVarInt(decompressed, offset) : undefined;
+          const slot4 = morphFlags[2] ? readVarInt(decompressed, offset) : undefined;
+          if (slot2 || slot3 || slot4) {
+            build.professionMechanics.amalgamMorphs = {
+              ...(slot2 && { slot2 }),
+              ...(slot3 && { slot3 }),
+              ...(slot4 && { slot4 }),
+            };
+          }
+          break;
+
+        case 'Ranger':
+          const petFlags = readBitflags(decompressed, offset, 2);
+          const pet1 = petFlags[0] ? readVarInt(decompressed, offset) : undefined;
+          const pet2 = petFlags[1] ? readVarInt(decompressed, offset) : undefined;
+          if (pet1 || pet2) {
+            build.professionMechanics.rangerPets = {
+              ...(pet1 && { pet1 }),
+              ...(pet2 && { pet2 }),
+            };
+          }
+          break;
+
+        // Other professions: no mechanics
+        default:
+          break;
+      }
+
+      return build;
+    } else if (decompressed[0] === 5) {
       // Binary format (version 5) - adds all profession mechanics
       const offset = { value: 1 };
 

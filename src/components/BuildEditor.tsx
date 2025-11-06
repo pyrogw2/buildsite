@@ -148,13 +148,15 @@ function SkillBarContent() {
 
   useEffect(() => {
     if (profession) {
-      loadSkills();
+      // Load skills first, then add profession-specific skills to avoid race condition
+      loadSkills().then(() => {
+        if (profession === 'Engineer') {
+          loadMorphSkills();
+        }
+      });
       loadSpecs();
       if (profession === 'Revenant') {
         loadLegends();
-      }
-      if (profession === 'Engineer') {
-        loadMorphSkills();
       }
       if (profession === 'Ranger') {
         loadPets();

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Encoder</title>
+</head>
+<body>
+    <h1>Test Amalgam Morph Encoding</h1>
+    <button onclick="testEncode()">Test Encode</button>
+    <pre id="output"></pre>
+
+    <script type="module">
+        import { encodeBuild, decodeBuild } from './src/lib/buildEncoder.ts';
+
+        window.testEncode = function() {
+            const testBuild = {
+                profession: 'Engineer',
+                gameMode: 'PvE',
+                equipment: [],
+                skills: {},
+                traits: {
+                    spec1: 75, // Amalgam
+                },
+                professionMechanics: {
+                    amalgamMorphs: {
+                        slot2: 76798,
+                        slot3: 76959,
+                        slot4: 77163,
+                    }
+                }
+            };
+
+            console.log('Original build:', testBuild);
+
+            const encoded = encodeBuild(testBuild);
+            console.log('Encoded:', encoded);
+
+            const decoded = decodeBuild(encoded);
+            console.log('Decoded:', decoded);
+
+            document.getElementById('output').textContent = JSON.stringify({
+                encoded,
+                decoded
+            }, null, 2);
+        };
+    </script>
+</body>
+</html>
