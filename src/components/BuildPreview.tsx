@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type { GW2SkillWithModes, GW2TraitWithModes, GW2Specialization, SkillSelection } from '../types/gw2';
@@ -24,17 +24,13 @@ const SKILL_LABELS: Record<SkillSlot, string> = {
 };
 
 export default function BuildPreview() {
-  const { skills, traits, profession, gameMode } = useBuildStore();
+  const { skills, traits, gameMode } = useBuildStore();
   const [skillData, setSkillData] = useState<Record<string, GW2SkillWithModes>>({});
   const [traitData, setTraitData] = useState<Record<number, GW2TraitWithModes>>({});
   const [specData, setSpecData] = useState<Record<number, GW2Specialization>>({});
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadBuildData();
-  }, [skills, traits, profession]);
-
-  const loadBuildData = async () => {
+  const loadBuildData = useCallback(async () => {
     setLoading(true);
     try {
       // Load skill data
@@ -89,7 +85,11 @@ export default function BuildPreview() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [skills, traits]);
+
+  useEffect(() => {
+    loadBuildData();
+  }, [loadBuildData]);
 
   const hasSkills = SKILL_SLOT_ORDER.some((slot) => skills[slot]);
   const hasTraits = [traits.spec1, traits.spec2, traits.spec3].some(Boolean);

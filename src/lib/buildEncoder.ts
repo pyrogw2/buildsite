@@ -1,5 +1,5 @@
 import pako from 'pako';
-import type { BuildData } from '../types/gw2';
+import type { BuildData, Profession, GameMode, Equipment, StatCombo, WeaponType, InfusionType, ArmorSlot, WeaponSlot, TrinketSlot } from '../types/gw2';
 
 // Profession enum (3 bits, 0-8)
 const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elementalist', 'Mesmer', 'Necromancer', 'Revenant'];
@@ -48,6 +48,7 @@ function writeVarInt(arr: number[], value: number) {
 function readVarInt(bytes: Uint8Array, offset: { value: number }): number {
   let result = 0;
   let shift = 0;
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const byte = bytes[offset.value++];
     result |= (byte & 0x7F) << shift;
@@ -199,8 +200,8 @@ export function decodeBuild(encoded: string): BuildData {
       const modeIdx = packed & 0x03;
 
       const build: BuildData = {
-        profession: PROFESSIONS[profIdx] as any,
-        gameMode: GAME_MODES[modeIdx] as any,
+        profession: PROFESSIONS[profIdx] as Profession,
+        gameMode: GAME_MODES[modeIdx] as GameMode,
         equipment: [],
         skills: {},
         traits: {},
@@ -228,16 +229,18 @@ export function decodeBuild(encoded: string): BuildData {
         const infusion2 = readVarInt(decompressed, offset);
         const infusion3 = readVarInt(decompressed, offset);
 
-        build.equipment.push({
-          slot: SLOTS[slotIdx] as any,
-          stat: stat as any,
-          ...(weaponType && { weaponType: weaponType as any }),
+        const equipmentItem: Equipment = {
+          slot: SLOTS[slotIdx] as ArmorSlot | WeaponSlot | TrinketSlot,
+          stat: stat as StatCombo,
+          ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
-          ...(infusion1 && { infusion1 }),
-          ...(infusion2 && { infusion2 }),
-          ...(infusion3 && { infusion3 }),
-        } as any);
+          ...(infusion1 && { infusion1: infusion1 as InfusionType }),
+          ...(infusion2 && { infusion2: infusion2 as InfusionType }),
+          ...(infusion3 && { infusion3: infusion3 as InfusionType }),
+        };
+
+        build.equipment.push(equipmentItem);
       }
 
       // Read skills
@@ -286,8 +289,8 @@ export function decodeBuild(encoded: string): BuildData {
       const modeIdx = packed & 0x03;
 
       const build: BuildData = {
-        profession: PROFESSIONS[profIdx] as any,
-        gameMode: GAME_MODES[modeIdx] as any,
+        profession: PROFESSIONS[profIdx] as Profession,
+        gameMode: GAME_MODES[modeIdx] as GameMode,
         equipment: [],
         skills: {},
         traits: {},
@@ -306,17 +309,19 @@ export function decodeBuild(encoded: string): BuildData {
         const infusion2 = readString(decompressed, offset);
         const infusion3 = readString(decompressed, offset);
 
-        build.equipment.push({
-          slot: SLOTS[slotIdx] as any,
-          stat: stat as any,
-          ...(weaponType && { weaponType: weaponType as any }),
+        const equipmentItem: Equipment = {
+          slot: SLOTS[slotIdx] as ArmorSlot | WeaponSlot | TrinketSlot,
+          stat: stat as StatCombo,
+          ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(upgrade && { upgrade }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
-          ...(infusion1 && { infusion1 }),
-          ...(infusion2 && { infusion2 }),
-          ...(infusion3 && { infusion3 }),
-        } as any);
+          ...(infusion1 && { infusion1: infusion1 as InfusionType }),
+          ...(infusion2 && { infusion2: infusion2 as InfusionType }),
+          ...(infusion3 && { infusion3: infusion3 as InfusionType }),
+        };
+
+        build.equipment.push(equipmentItem);
       }
 
       // Read skills
@@ -360,21 +365,21 @@ export function decodeBuild(encoded: string): BuildData {
       const decompressedStr = pako.inflate(bytes, { to: 'string' });
       const parsed = JSON.parse(decompressedStr);
 
-      // Check if it's the compact JSON format (version 1)
+      // Check if it's compact JSON format (version 1)
       if (parsed.p !== undefined) {
         return {
           profession: parsed.p,
           gameMode: parsed.g,
-          equipment: parsed.e.map((eq: any) => ({
-            slot: eq.s,
-            stat: eq.st,
-            ...(eq.w && { weaponType: eq.w }),
-            ...(eq.u && { upgrade: eq.u }),
-            ...(eq.s1 && { sigil1Id: eq.s1 }),
-            ...(eq.s2 && { sigil2Id: eq.s2 }),
-            ...(eq.i1 && { infusion1: eq.i1 }),
-            ...(eq.i2 && { infusion2: eq.i2 }),
-            ...(eq.i3 && { infusion3: eq.i3 }),
+          equipment: parsed.e.map((eq: Equipment) => ({
+            slot: eq.slot,
+            stat: eq.stat,
+            ...(eq.weaponType && { weaponType: eq.weaponType }),
+            ...(eq.upgrade && { upgrade: eq.upgrade }),
+            ...(eq.sigil1Id && { sigil1Id: eq.sigil1Id }),
+            ...(eq.sigil2Id && { sigil2Id: eq.sigil2Id }),
+            ...(eq.infusion1 && { infusion1: eq.infusion1 }),
+            ...(eq.infusion2 && { infusion2: eq.infusion2 }),
+            ...(eq.infusion3 && { infusion3: eq.infusion3 }),
           })),
           skills: parsed.sk,
           traits: parsed.t,

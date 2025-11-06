@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type {
@@ -11,7 +11,7 @@ import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
 import SearchableDropdown from './SearchableDropdown';
 import ItemIconBox from './ItemIconBox';
-import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, TWO_HANDED_WEAPONS, PROFESSION_WEAPONS, type StatCombo, type GameMode } from '../types/gw2';
+import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, PROFESSION_WEAPONS, TWO_HANDED_WEAPONS, OFF_HAND_WEAPONS, type StatCombo, type InfusionType, type GameMode, type WeaponType } from '../types/gw2';
 import { resolveSkillMode, resolveTraitMode } from '../lib/modeUtils';
 
 type SectionType = 'skills' | 'traits' | 'equipment';
@@ -75,23 +75,16 @@ function SkillBarContent() {
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (profession) {
-      loadSkills();
-      loadSpecs();
-    }
-  }, [profession]);
-
-  const loadSpecs = async () => {
+  const loadSpecs = useCallback(async () => {
     try {
       const allSpecs = await gw2Api.getSpecializations(profession!);
       setSpecs(allSpecs);
     } catch (error) {
       console.error('Failed to load specializations:', error);
     }
-  };
+  }, [profession]);
 
-  const loadSkills = async () => {
+  const loadSkills = useCallback(async () => {
     setLoading(true);
     try {
       const allSkills = await gw2Api.getSkills(profession);
@@ -124,7 +117,14 @@ function SkillBarContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [profession]);
+
+  useEffect(() => {
+    if (profession) {
+      loadSkills();
+      loadSpecs();
+    }
+  }, [profession, loadSkills, loadSpecs]);
 
   const getSkillsForSlot = (slotType: string): GW2SkillWithModes[] => {
     // Get selected elite specializations (only elite specs, not core specs)
@@ -256,13 +256,7 @@ function TraitPanelContent() {
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (profession) {
-      loadSpecializations();
-    }
-  }, [profession]);
-
-  const loadSpecializations = async () => {
+  const loadSpecializations = useCallback(async () => {
     if (!profession) return;
     setLoading(true);
     try {
@@ -273,7 +267,13 @@ function TraitPanelContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [profession]);
+
+  useEffect(() => {
+    if (profession) {
+      loadSpecializations();
+    }
+  }, [profession, loadSpecializations]);
 
   const renderSpecSlot = (slotNum: 1 | 2 | 3) => {
     const specIdKey = `spec${slotNum}` as const;
@@ -367,11 +367,7 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
   const [spec, setSpec] = useState<GW2Specialization | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTraits();
-  }, [specId]);
-
-  const loadTraits = async () => {
+  const loadTraits = useCallback(async () => {
     setLoading(true);
     try {
       const [specData, traitsData] = await Promise.all([
@@ -385,7 +381,11 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
     } finally {
       setLoading(false);
     }
-  };
+  }, [specId]);
+
+  useEffect(() => {
+    loadTraits();
+  }, [loadTraits]);
 
   if (loading) {
     return <div className="text-sm text-slate-400">Loading traits...</div>;
@@ -695,7 +695,7 @@ function EquipmentPanelContent() {
     const isTwoHanded = item.weaponType && TWO_HANDED_WEAPONS.includes(item.weaponType);
     const availableWeapons = profession ? (PROFESSION_WEAPONS as any)[profession] || [] : [];
     const slotWeapons = isOffHand
-      ? availableWeapons.filter((w: string) => ['Focus', 'Shield', 'Torch', 'Warhorn'].includes(w))
+      ? availableWeapons.filter((w: WeaponType) => OFF_HAND_WEAPONS.includes(w))
       : availableWeapons;
 
     return (
