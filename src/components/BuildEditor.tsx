@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type {
@@ -11,7 +11,6 @@ import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
 import SearchableDropdown from './SearchableDropdown';
 import ItemIconBox from './ItemIconBox';
-import ProfessionMechanicBar from './ProfessionMechanicBar';
 import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, TWO_HANDED_WEAPONS, PROFESSION_WEAPONS, type StatCombo, type GameMode } from '../types/gw2';
 import { resolveSkillMode, resolveTraitMode } from '../lib/modeUtils';
 
@@ -48,11 +47,6 @@ export default function BuildEditor({ activeSection }: BuildEditorProps) {
   // Show Skills & Traits together in a wider, more horizontal layout
   return (
     <div className="rounded-[32px] border border-slate-800/80 bg-gradient-to-b from-slate-900/70 via-slate-950/70 to-slate-950/90 p-4 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.9)]">
-      {/* Profession Mechanics Section (F-keys) */}
-      <div className="mb-4">
-        <ProfessionMechanicBar />
-      </div>
-
       {/* Skills Section */}
       <div className="mb-3">
         <p className="text-[10px] uppercase tracking-[0.4em] text-slate-500">Utility Bar</p>
@@ -74,12 +68,28 @@ export default function BuildEditor({ activeSection }: BuildEditorProps) {
   );
 }
 
+// Evoker specialization ID
+const EVOKER_SPEC_ID = 80;
+
+// Familiar skill IDs for Evoker with friendly names
+const FAMILIAR_NAMES: Record<number, string> = {
+  76585: 'Fox',        // Conflagration
+  76811: 'Otter',      // Buoyant Deluge
+  77089: 'Hare',       // Lightning Blitz
+  76707: 'Toad',       // Seismic Impact
+};
+
+const EVOKER_FAMILIARS = [76585, 76811, 77089, 76707];
+
 // Skill Bar Content (without wrapper)
 function SkillBarContent() {
-  const { profession, skills, traits, setSkill, gameMode } = useBuildStore();
+  const { profession, skills, traits, setSkill, gameMode, professionMechanics, setProfessionMechanic } = useBuildStore();
   const [availableSkills, setAvailableSkills] = useState<GW2SkillWithModes[]>([]);
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (profession) {
@@ -87,6 +97,35 @@ function SkillBarContent() {
       loadSpecs();
     }
   }, [profession]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsPickerOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsPickerOpen(false);
+      }
+    };
+
+    if (isPickerOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isPickerOpen]);
 
   const loadSpecs = async () => {
     try {
@@ -235,6 +274,113 @@ function SkillBarContent() {
     );
   };
 
+  const hasEvokerFamiliar = profession === 'Elementalist' && traits.spec3 === EVOKER_SPEC_ID;
+
+  const handleSelectFamiliar = (skillId: number) => {
+    setProfessionMechanic('evokerFamiliar', skillId);
+    setIsPickerOpen(false);
+  };
+
+  const renderEvokerFamiliar = () => {
+    if (!hasEvokerFamiliar) return null;
+
+    const familiarSkills = availableSkills.filter((skill) => EVOKER_FAMILIARS.includes(skill.id));
+    const selectedSkillId = professionMechanics?.evokerFamiliar;
+    const selectedSkill = availableSkills.find((skill) => skill.id === selectedSkillId);
+    const selectedSkillDetails = selectedSkill ? resolveSkillMode(selectedSkill, gameMode) : undefined;
+
+    return (
+      <div className="flex flex-col items-center gap-2 ml-auto">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">Familiar</span>
+        <div className="relative">
+          <button
+            ref={buttonRef}
+            onClick={() => setIsPickerOpen(!isPickerOpen)}
+            className={`relative flex h-16 w-16 items-center justify-center rounded-xl border cursor-pointer transition ${
+              selectedSkill
+                ? 'border-yellow-400 bg-slate-900 hover:border-yellow-300'
+                : 'border-slate-700 bg-slate-900/50 hover:border-slate-600'
+            }`}
+          >
+            {selectedSkill ? (
+              <Tooltip
+                title={FAMILIAR_NAMES[selectedSkill.id] || selectedSkill.name}
+                content={selectedSkillDetails?.description || ''}
+                icon={selectedSkill.icon}
+                facts={selectedSkillDetails?.facts}
+                modeData={selectedSkill.modes}
+              >
+                <img src={selectedSkill.icon} alt={selectedSkill.name} className="h-14 w-14 rounded-lg object-cover" />
+              </Tooltip>
+            ) : (
+              <span className="text-[10px] text-slate-500">Empty</span>
+            )}
+          </button>
+
+          {/* Familiar Picker Dropdown */}
+          {isPickerOpen && (
+            <div
+              ref={dropdownRef}
+              className="absolute top-full left-1/2 -translate-x-1/2 z-50 mt-2 w-[320px] overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl"
+            >
+              {/* Header */}
+              <div className="border-b border-slate-800 px-4 py-3">
+                <h3 className="text-sm font-semibold text-white">Select Familiar</h3>
+              </div>
+
+              {/* Familiars Grid */}
+              <div className="p-3">
+                <div className="grid grid-cols-4 gap-2">
+                  {familiarSkills.map((skill) => {
+                    const isSelected = skill.id === selectedSkillId;
+                    const modeDetails = resolveSkillMode(skill, gameMode);
+                    const familiarName = FAMILIAR_NAMES[skill.id] || skill.name;
+
+                    return (
+                      <Tooltip
+                        key={skill.id}
+                        title={familiarName}
+                        content={modeDetails?.description || ''}
+                        icon={skill.icon}
+                        facts={modeDetails?.facts}
+                        modeData={skill.modes}
+                      >
+                        <button
+                          onClick={() => handleSelectFamiliar(skill.id)}
+                          className={`group relative flex flex-col items-center gap-1 rounded-xl border-2 p-2 transition ${
+                            isSelected
+                              ? 'border-yellow-400 bg-yellow-400/15'
+                              : 'border-slate-800 bg-slate-900/60 hover:border-slate-600 hover:bg-slate-900'
+                          }`}
+                        >
+                          <div className="relative">
+                            <div className="h-12 w-12 overflow-hidden rounded-lg border border-slate-700 bg-slate-950">
+                              <img src={skill.icon} alt={familiarName} className="h-full w-full object-cover" />
+                            </div>
+                            {isSelected && (
+                              <div className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-yellow-300 text-[10px] font-bold text-slate-900">
+                                ✓
+                              </div>
+                            )}
+                          </div>
+                          <div className={`w-full overflow-hidden text-ellipsis text-center text-[9px] font-medium leading-tight ${
+                            isSelected ? 'text-yellow-200' : 'text-slate-300'
+                          }`}>
+                            {familiarName}
+                          </div>
+                        </button>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="flex gap-4">
@@ -252,6 +398,7 @@ function SkillBarContent() {
       {renderSkillSlot('utility2')}
       {renderSkillSlot('utility3')}
       {renderSkillSlot('elite')}
+      {renderEvokerFamiliar()}
     </div>
   );
 }
