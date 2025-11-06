@@ -43,6 +43,23 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
     }
     lines.push('');
 
+    // Profession Mechanics
+    if (build.professionMechanics?.evokerFamiliar) {
+      lines.push('**Profession Mechanic:**');
+      try {
+        const skills = await gw2Api.getSkills(build.profession);
+        const familiar = skills.find(s => s.id === build.professionMechanics?.evokerFamiliar);
+        if (familiar) {
+          lines.push(`- F5: ${familiar.name}`);
+        } else {
+          lines.push(`- F5: Skill ID ${build.professionMechanics.evokerFamiliar}`);
+        }
+      } catch (error) {
+        lines.push(`- F5: Skill ID ${build.professionMechanics.evokerFamiliar}`);
+      }
+      lines.push('');
+    }
+
     // Skills
     if (Object.keys(build.skills).length > 0) {
       lines.push('**Skills:**');

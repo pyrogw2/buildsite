@@ -11,6 +11,7 @@ import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
 import SearchableDropdown from './SearchableDropdown';
 import ItemIconBox from './ItemIconBox';
+import ProfessionMechanicBar from './ProfessionMechanicBar';
 import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, TWO_HANDED_WEAPONS, PROFESSION_WEAPONS, type StatCombo, type GameMode } from '../types/gw2';
 import { resolveSkillMode, resolveTraitMode } from '../lib/modeUtils';
 
@@ -47,6 +48,11 @@ export default function BuildEditor({ activeSection }: BuildEditorProps) {
   // Show Skills & Traits together in a wider, more horizontal layout
   return (
     <div className="rounded-[32px] border border-slate-800/80 bg-gradient-to-b from-slate-900/70 via-slate-950/70 to-slate-950/90 p-4 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.9)]">
+      {/* Profession Mechanics Section (F-keys) */}
+      <div className="mb-4">
+        <ProfessionMechanicBar />
+      </div>
+
       {/* Skills Section */}
       <div className="mb-3">
         <p className="text-[10px] uppercase tracking-[0.4em] text-slate-500">Utility Bar</p>

@@ -587,12 +587,22 @@ export interface TraitSelection {
   spec3Choices?: [number | null, number | null, number | null];
 }
 
+export interface ProfessionMechanics {
+  // Evoker: Selected familiar (determines F5 skill)
+  evokerFamiliar?: number;
+  // TODO: Add other professions as they are implemented
+  // amalgamMorphs?: { slot2?: number; slot3?: number; slot4?: number };
+  // revenantLegends?: { legend1?: string; legend2?: string };
+  // rangerPet?: number;
+}
+
 export interface BuildData {
   profession: Profession;
   gameMode: GameMode;
   equipment: Equipment[];
   skills: SkillSelection;
   traits: TraitSelection;
+  professionMechanics?: ProfessionMechanics;
   runeId?: number; // Item ID of the rune
   relicId?: number; // Item ID of the relic
 }

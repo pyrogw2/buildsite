@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { BuildData, Profession, Equipment, StatCombo, ArmorSlot, TrinketSlot, WeaponSlot, GameMode } from '../types/gw2';
+import type { BuildData, Profession, Equipment, StatCombo, ArmorSlot, TrinketSlot, WeaponSlot, GameMode, ProfessionMechanics } from '../types/gw2';
 
 interface BuildStore extends Omit<BuildData, 'profession'> {
   profession: Profession | undefined;
@@ -12,6 +12,7 @@ interface BuildStore extends Omit<BuildData, 'profession'> {
   setSkill: (slot: keyof BuildData['skills'], skillId: number) => void;
   setSpecialization: (specSlot: 1 | 2 | 3, specId: number) => void;
   setTrait: (specSlot: 1 | 2 | 3, tier: 0 | 1 | 2, traitId: number | null) => void;
+  setProfessionMechanic: <K extends keyof ProfessionMechanics>(key: K, value: ProfessionMechanics[K]) => void;
   setRuneId: (runeId: number | undefined) => void;
   setRelicId: (relicId: number | undefined) => void;
   loadBuild: (build: BuildData) => void;
@@ -34,6 +35,7 @@ const initialBuild: Partial<BuildData> = {
   equipment: initialEquipment,
   skills: {},
   traits: {},
+  professionMechanics: {},
 };
 
 export const useBuildStore = create<BuildStore>((set) => ({
@@ -43,6 +45,7 @@ export const useBuildStore = create<BuildStore>((set) => ({
   equipment: initialEquipment,
   skills: {},
   traits: {},
+  professionMechanics: {},
 
   setProfession: (profession, resetEquipment = false) =>
     set((state) => {
@@ -62,6 +65,7 @@ export const useBuildStore = create<BuildStore>((set) => ({
         profession,
         skills: {},
         traits: {},
+        professionMechanics: {}, // Reset profession mechanics when changing profession
         equipment,
         runeId: resetEquipment ? undefined : state.runeId,
         relicId: resetEquipment ? undefined : state.relicId,
@@ -168,6 +172,14 @@ export const useBuildStore = create<BuildStore>((set) => ({
         },
       };
     }),
+
+  setProfessionMechanic: (key, value) =>
+    set((state) => ({
+      professionMechanics: {
+        ...state.professionMechanics,
+        [key]: value,
+      },
+    })),
 
   setRuneId: (runeId) => set({ runeId }),
 

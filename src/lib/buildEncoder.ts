@@ -89,7 +89,7 @@ export function encodeBuild(build: BuildData): string {
     const bytes: number[] = [];
 
     // Version byte for future compatibility
-    bytes.push(3);
+    bytes.push(4);
 
     // Profession (3 bits) + GameMode (2 bits) = 1 byte
     const profIdx = PROFESSIONS.indexOf(build.profession);
@@ -160,6 +160,12 @@ export function encodeBuild(build: BuildData): string {
     writeVarInt(bytes, build.runeId || 0);
     writeVarInt(bytes, build.relicId || 0);
 
+    // Profession Mechanics
+    writeVarInt(bytes, build.professionMechanics?.evokerFamiliar || 0);
+    // TODO: Add other profession mechanics as they are implemented
+    // writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot2 || 0);
+    // etc.
+
     const binary = new Uint8Array(bytes);
     const compressed = pako.deflate(binary, { level: 9 });
     const base64 = uint8ArrayToBase64(compressed);
@@ -189,7 +195,101 @@ export function decodeBuild(encoded: string): BuildData {
     const decompressed = pako.inflate(bytes);
 
     // Check version byte
-    if (decompressed[0] === 3) {
+    if (decompressed[0] === 4) {
+      // Binary format (version 4) - adds profession mechanics
+      const offset = { value: 1 };
+
+      // Read profession + game mode
+      const packed = decompressed[offset.value++];
+      const profIdx = (packed >> 2) & 0x07;
+      const modeIdx = packed & 0x03;
+
+      const build: BuildData = {
+        profession: PROFESSIONS[profIdx] as any,
+        gameMode: GAME_MODES[modeIdx] as any,
+        equipment: [],
+        skills: {},
+        traits: {},
+      };
+
+      // Read equipment
+      const eqCount = decompressed[offset.value++];
+      for (let i = 0; i < eqCount; i++) {
+        const slotIdx = decompressed[offset.value++];
+
+        // Read stat (index or string)
+        const statByte = decompressed[offset.value++];
+        const stat = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
+
+        // Read weapon type (index or string)
+        const weaponByte = decompressed[offset.value++];
+        const weaponType = weaponByte > 0 ? WEAPONS[weaponByte - 1] : readString(decompressed, offset);
+
+        // Read sigils
+        const sigil1Id = readVarInt(decompressed, offset);
+        const sigil2Id = readVarInt(decompressed, offset);
+
+        // Read infusions as item IDs
+        const infusion1 = readVarInt(decompressed, offset);
+        const infusion2 = readVarInt(decompressed, offset);
+        const infusion3 = readVarInt(decompressed, offset);
+
+        build.equipment.push({
+          slot: SLOTS[slotIdx] as any,
+          stat: stat as any,
+          ...(weaponType && { weaponType: weaponType as any }),
+          ...(sigil1Id && { sigil1Id }),
+          ...(sigil2Id && { sigil2Id }),
+          ...(infusion1 && { infusion1 }),
+          ...(infusion2 && { infusion2 }),
+          ...(infusion3 && { infusion3 }),
+        } as any);
+      }
+
+      // Read skills
+      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      for (const slot of skillSlots) {
+        const id = readVarInt(decompressed, offset);
+        if (id) build.skills[slot] = id;
+      }
+
+      // Read traits
+      build.traits.spec1 = readVarInt(decompressed, offset) || undefined;
+      build.traits.spec1Choices = [
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+      ];
+
+      build.traits.spec2 = readVarInt(decompressed, offset) || undefined;
+      build.traits.spec2Choices = [
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+      ];
+
+      build.traits.spec3 = readVarInt(decompressed, offset) || undefined;
+      build.traits.spec3Choices = [
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+        readVarInt(decompressed, offset) || null,
+      ];
+
+      // Read rune and relic
+      const runeId = readVarInt(decompressed, offset);
+      const relicId = readVarInt(decompressed, offset);
+      if (runeId) build.runeId = runeId;
+      if (relicId) build.relicId = relicId;
+
+      // Read profession mechanics
+      const evokerFamiliar = readVarInt(decompressed, offset);
+      if (evokerFamiliar) {
+        build.professionMechanics = { evokerFamiliar };
+      }
+      // TODO: Add other profession mechanics as they are implemented
+
+      return build;
+    } else if (decompressed[0] === 3) {
       // Binary format (version 3) - uses indices for stats/weapons/infusions
       const offset = { value: 1 };
 
