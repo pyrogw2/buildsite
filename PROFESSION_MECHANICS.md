@@ -50,10 +50,12 @@ This document tracks the implementation of selectable profession mechanics (F-ke
 
 **Implementation Details:**
 - Selection stored in `professionMechanics.evokerFamiliar`
-- Only F5 slot used
+- **Non-standard approach:** Integrated inline with skill bar (right-aligned)
+- Appears as 6th element in skill bar with "Familiar" label (not "F5")
 - Clickable icon box with grid picker (4 options)
 - Only shows when Evoker (spec3 === 80) is selected
 - Uses friendly familiar names: Fox, Otter, Hare, Toad
+- Logic embedded in `BuildEditor.tsx` SkillBarContent function
 
 ---
 
