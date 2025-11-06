@@ -81,6 +81,35 @@ const FAMILIAR_NAMES: Record<number, string> = {
 
 const EVOKER_FAMILIARS = [76585, 76811, 77089, 76707];
 
+// Revenant elite spec IDs
+const HERALD_SPEC_ID = 52;
+const RENEGADE_SPEC_ID = 63;
+const VINDICATOR_SPEC_ID = 69;
+const CONDUIT_SPEC_ID = 79;
+
+// Legend friendly names
+const LEGEND_NAMES: Record<string, string> = {
+  'Legend1': 'Glint',
+  'Legend2': 'Shiro',
+  'Legend3': 'Jalis',
+  'Legend4': 'Mallyx',
+  'Legend5': 'Kalla',
+  'Legend6': 'Ventari',
+  'Legend7': 'Alliance',
+  'Legend8': 'Razah',
+};
+
+// Core legends (available to all Revenants)
+const CORE_LEGENDS = ['Legend2', 'Legend3', 'Legend4', 'Legend6'];
+
+// Elite spec exclusive legends
+const ELITE_LEGENDS: Record<number, string> = {
+  [HERALD_SPEC_ID]: 'Legend1',     // Glint
+  [RENEGADE_SPEC_ID]: 'Legend5',   // Kalla
+  [VINDICATOR_SPEC_ID]: 'Legend7', // Alliance
+  [CONDUIT_SPEC_ID]: 'Legend8',    // Razah
+};
+
 // Skill Bar Content (without wrapper)
 function SkillBarContent() {
   const { profession, skills, traits, setSkill, gameMode, professionMechanics, setProfessionMechanic } = useBuildStore();
@@ -88,8 +117,12 @@ function SkillBarContent() {
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [legendPickerOpen, setLegendPickerOpen] = useState<'legend1' | 'legend2' | null>(null);
+  const [legends, setLegends] = useState<any[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const legendDropdownRef = useRef<HTMLDivElement>(null);
+  const legendButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (profession) {
