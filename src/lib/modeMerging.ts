@@ -29,6 +29,7 @@ const buildGroupKey = (skill: GW2SkillWithModes): string => {
     weapon_type: skill.weapon_type,
     categories,
     description: skill.modes.default?.description ?? '',
+    flip_skill: skill.flip_skill,
   });
 };
 

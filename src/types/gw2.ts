@@ -595,8 +595,11 @@ export interface ProfessionMechanics {
     legend1?: string;  // Legend ID (e.g., "Legend1", "Legend2")
     legend2?: string;
   };
-  // Ranger: Selected pet (determines F2 skills)
-  rangerPet?: number;  // Pet ID (1-65)
+  // Ranger: Selected pets (2 pets for swapping)
+  rangerPets?: {
+    pet1?: number;  // Pet ID (1-65)
+    pet2?: number;  // Pet ID (1-65)
+  };
   // Amalgam: Selected morph skills for F2, F3, F4 (F1 derived from heal, F5 is Evolve)
   amalgamMorphs?: {
     slot2?: number;  // F2 morph skill ID
