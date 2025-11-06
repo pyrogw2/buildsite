@@ -152,6 +152,22 @@ async function fetchItems() {
   return items;
 }
 
+async function fetchLegends() {
+  console.log('Fetching Revenant legends...');
+  const legendIds = await fetchJson(`${API_BASE}/legends`);
+  const legends = await fetchJson(`${API_BASE}/legends?ids=${legendIds.join(',')}`);
+  console.log(`  ✓ Fetched ${legends.length} legends`);
+  return legends;
+}
+
+async function fetchPets() {
+  console.log('Fetching Ranger pets...');
+  const petIds = await fetchJson(`${API_BASE}/pets`);
+  const pets = await fetchJson(`${API_BASE}/pets?ids=${petIds.join(',')}`);
+  console.log(`  ✓ Fetched ${pets.length} pets`);
+  return pets;
+}
+
 async function main() {
   console.log('Starting static data fetch...\n');
   console.log(`Mode: ${WIKI_ONLY ? 'WIKI-ONLY (using existing API data)' : 'FULL (API + wiki)'}`);
@@ -167,7 +183,7 @@ async function main() {
   }
 
   try {
-    let skillsByProfession, specializations, items, traits;
+    let skillsByProfession, specializations, items, traits, legends, pets;
 
     if (WIKI_ONLY) {
       // Load existing data from files
@@ -176,6 +192,8 @@ async function main() {
       specializations = loadExistingData('specializations.json');
       traits = loadExistingData('traits.json');
       items = loadExistingData('items.json');
+      legends = loadExistingData('legends.json');
+      pets = loadExistingData('pets.json');
       console.log('✓ Existing data loaded\n');
 
       // Filter professions if specified
@@ -194,15 +212,19 @@ async function main() {
       }
     } else {
       // Fetch all data from API
-      const [fetchedSkills, fetchedSpecs, fetchedItems] = await Promise.all([
+      const [fetchedSkills, fetchedSpecs, fetchedItems, fetchedLegends, fetchedPets] = await Promise.all([
         fetchSkills(),
         fetchSpecializations(),
         fetchItems(),
+        fetchLegends(),
+        fetchPets(),
       ]);
 
       skillsByProfession = fetchedSkills;
       specializations = fetchedSpecs;
       items = fetchedItems;
+      legends = fetchedLegends;
+      pets = fetchedPets;
 
       // Fetch traits based on specializations
       traits = await fetchTraits(specializations);
@@ -327,6 +349,8 @@ async function main() {
       'specializations.json': specializations,
       'traits.json': traits,
       'items.json': items,
+      'legends.json': legends,
+      'pets.json': pets,
     };
 
     for (const [filename, data] of Object.entries(dataToSave)) {

@@ -590,10 +590,19 @@ export interface TraitSelection {
 export interface ProfessionMechanics {
   // Evoker: Selected familiar (determines F5 skill)
   evokerFamiliar?: number;
-  // TODO: Add other professions as they are implemented
-  // amalgamMorphs?: { slot2?: number; slot3?: number; slot4?: number };
-  // revenantLegends?: { legend1?: string; legend2?: string };
-  // rangerPet?: number;
+  // Revenant: Selected legends (2 legends, each determines heal/util/elite skills)
+  revenantLegends?: {
+    legend1?: string;  // Legend ID (e.g., "Legend1", "Legend2")
+    legend2?: string;
+  };
+  // Ranger: Selected pet (determines F2 skills)
+  rangerPet?: number;  // Pet ID (1-65)
+  // Amalgam: Selected morph skills for F2, F3, F4 (F1 derived from heal, F5 is Evolve)
+  amalgamMorphs?: {
+    slot2?: number;  // F2 morph skill ID
+    slot3?: number;  // F3 morph skill ID
+    slot4?: number;  // F4 morph skill ID
+  };
 }
 
 export interface BuildData {
