@@ -303,12 +303,14 @@ export function decodeBuild(encoded: string): BuildData {
       build.professionMechanics = {};
 
       const evokerFamiliar = readVarInt(decompressed, offset);
+      console.log('[Decoder] Evoker familiar:', evokerFamiliar);
       if (evokerFamiliar) {
         build.professionMechanics.evokerFamiliar = evokerFamiliar;
       }
 
       const legend1 = readString(decompressed, offset);
       const legend2 = readString(decompressed, offset);
+      console.log('[Decoder] Legends:', { legend1, legend2 });
       if (legend1 || legend2) {
         build.professionMechanics.revenantLegends = {
           ...(legend1 && { legend1 }),
@@ -319,6 +321,7 @@ export function decodeBuild(encoded: string): BuildData {
       const morphSlot2 = readVarInt(decompressed, offset);
       const morphSlot3 = readVarInt(decompressed, offset);
       const morphSlot4 = readVarInt(decompressed, offset);
+      console.log('[Decoder] Amalgam morphs:', { morphSlot2, morphSlot3, morphSlot4 });
       if (morphSlot2 || morphSlot3 || morphSlot4) {
         build.professionMechanics.amalgamMorphs = {
           ...(morphSlot2 && { slot2: morphSlot2 }),
@@ -329,6 +332,7 @@ export function decodeBuild(encoded: string): BuildData {
 
       const pet1 = readVarInt(decompressed, offset);
       const pet2 = readVarInt(decompressed, offset);
+      console.log('[Decoder] Ranger pets:', { pet1, pet2 });
       if (pet1 || pet2) {
         build.professionMechanics.rangerPets = {
           ...(pet1 && { pet1 }),
@@ -336,6 +340,7 @@ export function decodeBuild(encoded: string): BuildData {
         };
       }
 
+      console.log('[Decoder] Final professionMechanics:', build.professionMechanics);
       return build;
     } else if (decompressed[0] === 4) {
       // Binary format (version 4) - adds evoker familiar only
