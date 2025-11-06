@@ -3,9 +3,16 @@ import { encodeBuildTemplate, decodeBuildTemplate } from 'gw2buildlink';
 import type { BuildTemplateInput, DecodedBuildTemplate } from 'gw2buildlink';
 import type { BuildData } from '../types/gw2';
 
+// Extend Window interface to include Buffer
+declare global {
+  interface Window {
+    Buffer: typeof Buffer;
+  }
+}
+
 // Make Buffer available globally for gw2buildlink
 if (typeof window !== 'undefined') {
-  (window as any).Buffer = Buffer;
+  window.Buffer = Buffer;
 }
 
 /**
@@ -148,7 +155,7 @@ export function buildTemplateToBuildData(
     equipment.push({ slot, stat: 'Berserker' });
   });
 
-  // Add weapons based on the decoded weapons if available
+  // Add weapons based on decoded weapons if available
   const weaponSlots = ['MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'] as const;
   weaponSlots.forEach(slot => {
     equipment.push({ slot, stat: 'Berserker' });

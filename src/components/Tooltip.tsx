@@ -1,6 +1,31 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { parseGW2Text } from '../lib/textParser';
 import type { GW2SkillModeData, GW2TraitModeData, ModeBundle, GW2Fact } from '../types/gw2';
+
+// Extended fact types for more specific typing
+interface PrefixedBuffFact extends GW2Fact {
+  type: 'PrefixedBuff';
+  prefix?: {
+    status?: string;
+    text?: string;
+  };
+  status?: string;
+  description?: string;
+}
+
+interface BuffFact extends GW2Fact {
+  type: 'Buff';
+  status?: string;
+  description?: string;
+  duration?: number;
+  apply_count?: number;
+}
+
+interface AttributeAdjustFact extends GW2Fact {
+  type: 'AttributeAdjust';
+  value?: number;
+  target?: string;
+}
 
 interface TooltipProps {
   content: string;
@@ -26,9 +51,10 @@ export default function Tooltip({ content, title, icon, children, bonuses, rarit
   const formatFact = (fact: GW2Fact): { text: string; description?: string } => {
     // Handle PrefixedBuff facts (e.g., "Defensive Protocol: Protect")
     if (fact.type === 'PrefixedBuff') {
-      const prefix = (fact as any).prefix;
-      const status = (fact as any).status;
-      const description = (fact as any).description;
+      const prefixedFact = fact as PrefixedBuffFact;
+      const prefix = prefixedFact.prefix;
+      const status = prefixedFact.status;
+      const description = prefixedFact.description;
 
       // Use the prefix status (e.g., "Defensive Protocol: Protect") as the main text
       const text = prefix?.status || status || fact.text || 'Buff';
@@ -38,10 +64,11 @@ export default function Tooltip({ content, title, icon, children, bonuses, rarit
 
     // Handle regular Buff/Condition facts
     if (fact.type === 'Buff') {
-      const status = (fact as any).status;
-      const description = (fact as any).description;
-      const duration = fact.duration;
-      const applyCount = (fact as any).apply_count;
+      const buffFact = fact as BuffFact;
+      const status = buffFact.status;
+      const description = buffFact.description;
+      const duration = buffFact.duration;
+      const applyCount = buffFact.apply_count;
 
       let text = status || fact.text || 'Buff';
       if (duration !== undefined) {
@@ -79,8 +106,9 @@ export default function Tooltip({ content, title, icon, children, bonuses, rarit
     if (fact.type === 'Time' && fact.value !== undefined) {
       return { text: `${fact.text || 'Time'}: ${fact.value}s` };
     }
-    if (fact.type === 'AttributeAdjust' && fact.value !== undefined && (fact as any).target) {
-      return { text: `${fact.text || (fact as any).target}: ${fact.value}` };
+    if (fact.type === 'AttributeAdjust' && fact.value !== undefined) {
+      const attrFact = fact as AttributeAdjustFact;
+      return { text: `${fact.text || attrFact.target}: ${fact.value}` };
     }
 
     // For other types or facts without specific values, just show the text

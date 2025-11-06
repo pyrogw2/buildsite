@@ -47,7 +47,7 @@ export default function StatsPanel() {
     }
   }, [buildData.relicId]);
 
-  // Fetch sigils for stat calculations
+  // Fetch sigils for gear summary
   const [sigilItems, setSigilItems] = useState<Map<number, GW2Item>>(new Map());
 
   useEffect(() => {
@@ -446,7 +446,7 @@ export default function StatsPanel() {
                   >
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
                       <img src={relicItem.icon} alt={relicItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
-                      <span className="truncate">{relicItem.name.replace('Relic of the ', '')}</span>
+                      <span className="truncate">{relicItem.name.replace('Relic of ', '')}</span>
                     </div>
                   </Tooltip>
                 </div>
