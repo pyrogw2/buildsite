@@ -51,7 +51,9 @@ This document tracks the implementation of selectable profession mechanics (F-ke
 **Implementation Details:**
 - Selection stored in `professionMechanics.evokerFamiliar`
 - Only F5 slot used
-- Dropdown selection (4 options)
+- Clickable icon box with grid picker (4 options)
+- Only shows when Evoker (spec3 === 80) is selected
+- Uses friendly familiar names: Fox, Otter, Hare, Toad
 
 ---
 
