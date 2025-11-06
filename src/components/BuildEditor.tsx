@@ -456,6 +456,7 @@ function SkillBarContent() {
   };
 
   const handleSelectMorph = (skillId: number, slot: 'slot2' | 'slot3' | 'slot4') => {
+    console.log('[Amalgam] Selecting morph:', { skillId, slot, currentState: professionMechanics?.amalgamMorphs });
     setProfessionMechanic('amalgamMorphs', {
       ...professionMechanics?.amalgamMorphs,
       [slot]: skillId,

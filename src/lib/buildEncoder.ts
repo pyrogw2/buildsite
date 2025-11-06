@@ -161,6 +161,8 @@ export function encodeBuild(build: BuildData): string {
     writeVarInt(bytes, build.relicId || 0);
 
     // Profession Mechanics
+    console.log('[Encoder] Encoding profession mechanics:', build.professionMechanics);
+
     // Evoker familiar
     writeVarInt(bytes, build.professionMechanics?.evokerFamiliar || 0);
 
@@ -172,6 +174,11 @@ export function encodeBuild(build: BuildData): string {
     writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot2 || 0);
     writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot3 || 0);
     writeVarInt(bytes, build.professionMechanics?.amalgamMorphs?.slot4 || 0);
+    console.log('[Encoder] Amalgam morphs:', {
+      slot2: build.professionMechanics?.amalgamMorphs?.slot2,
+      slot3: build.professionMechanics?.amalgamMorphs?.slot3,
+      slot4: build.professionMechanics?.amalgamMorphs?.slot4,
+    });
 
     // Ranger pets
     writeVarInt(bytes, build.professionMechanics?.rangerPets?.pet1 || 0);
