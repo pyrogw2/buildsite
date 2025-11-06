@@ -94,19 +94,30 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
       // Amalgam Morphs
       if (build.professionMechanics?.amalgamMorphs) {
         try {
-          const skills = await gw2Api.getSkills(build.profession);
+          // Fetch morph skills directly from API (not in static data)
+          const morphIds = [
+            build.professionMechanics.amalgamMorphs.slot2,
+            build.professionMechanics.amalgamMorphs.slot3,
+            build.professionMechanics.amalgamMorphs.slot4,
+          ].filter(Boolean);
+
+          const morphSkillsPromises = morphIds.map(id =>
+            fetch(`https://api.guildwars2.com/v2/skills/${id}`).then(r => r.json())
+          );
+          const morphSkills = await Promise.all(morphSkillsPromises);
+
           if (build.professionMechanics.amalgamMorphs.slot2) {
-            const morph = skills.find(s => s.id === build.professionMechanics?.amalgamMorphs?.slot2);
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot2);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot2}`;
             lines.push(`- F2 Morph: ${name}`);
           }
           if (build.professionMechanics.amalgamMorphs.slot3) {
-            const morph = skills.find(s => s.id === build.professionMechanics?.amalgamMorphs?.slot3);
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot3);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot3}`;
             lines.push(`- F3 Morph: ${name}`);
           }
           if (build.professionMechanics.amalgamMorphs.slot4) {
-            const morph = skills.find(s => s.id === build.professionMechanics?.amalgamMorphs?.slot4);
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot4);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot4}`;
             lines.push(`- F4 Morph: ${name}`);
           }
