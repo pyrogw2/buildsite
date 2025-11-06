@@ -1,11 +1,13 @@
 {
-  "generated": "2025-11-05T22:14:46.548Z",
+  "generated": "2025-11-06T16:20:36.866Z",
   "version": "1.0.0",
   "files": [
     "skills.json",
     "specializations.json",
     "traits.json",
-    "items.json"
+    "items.json",
+    "legends.json",
+    "pets.json"
   ],
-  "withCompetitiveSplits": true
+  "withCompetitiveSplits": false
 }

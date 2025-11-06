@@ -43,6 +43,127 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
     }
     lines.push('');
 
+    // Profession Mechanics
+    const hasMechanics = build.professionMechanics && (
+      build.professionMechanics.evokerFamiliar ||
+      build.professionMechanics.revenantLegends ||
+      build.professionMechanics.amalgamMorphs ||
+      build.professionMechanics.rangerPets
+    );
+
+    if (hasMechanics) {
+      lines.push('**Profession Mechanics:**');
+
+      // Evoker Familiar
+      if (build.professionMechanics?.evokerFamiliar) {
+        try {
+          const skills = await gw2Api.getSkills(build.profession);
+          const familiar = skills.find(s => s.id === build.professionMechanics?.evokerFamiliar);
+          if (familiar) {
+            lines.push(`- F5 Familiar: ${familiar.name}`);
+          } else {
+            lines.push(`- F5 Familiar: Skill ID ${build.professionMechanics.evokerFamiliar}`);
+          }
+        } catch (error) {
+          lines.push(`- F5 Familiar: Skill ID ${build.professionMechanics.evokerFamiliar}`);
+        }
+      }
+
+      // Revenant Legends
+      if (build.professionMechanics?.revenantLegends) {
+        const legendNames: Record<string, string> = {
+          'Legend1': 'Glint',
+          'Legend2': 'Shiro',
+          'Legend3': 'Jalis',
+          'Legend4': 'Mallyx',
+          'Legend5': 'Kalla',
+          'Legend6': 'Ventari',
+          'Legend7': 'Alliance',
+          'Legend8': 'Razah',
+        };
+        if (build.professionMechanics.revenantLegends.legend1) {
+          const name = legendNames[build.professionMechanics.revenantLegends.legend1] || build.professionMechanics.revenantLegends.legend1;
+          lines.push(`- Legend 1: ${name}`);
+        }
+        if (build.professionMechanics.revenantLegends.legend2) {
+          const name = legendNames[build.professionMechanics.revenantLegends.legend2] || build.professionMechanics.revenantLegends.legend2;
+          lines.push(`- Legend 2: ${name}`);
+        }
+      }
+
+      // Amalgam Morphs
+      if (build.professionMechanics?.amalgamMorphs) {
+        try {
+          // Fetch morph skills directly from API (not in static data)
+          const morphIds = [
+            build.professionMechanics.amalgamMorphs.slot2,
+            build.professionMechanics.amalgamMorphs.slot3,
+            build.professionMechanics.amalgamMorphs.slot4,
+          ].filter(Boolean);
+
+          const morphSkillsPromises = morphIds.map(id =>
+            fetch(`https://api.guildwars2.com/v2/skills/${id}`).then(r => r.json())
+          );
+          const morphSkills = await Promise.all(morphSkillsPromises);
+
+          if (build.professionMechanics.amalgamMorphs.slot2) {
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot2);
+            const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot2}`;
+            lines.push(`- F2 Morph: ${name}`);
+          }
+          if (build.professionMechanics.amalgamMorphs.slot3) {
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot3);
+            const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot3}`;
+            lines.push(`- F3 Morph: ${name}`);
+          }
+          if (build.professionMechanics.amalgamMorphs.slot4) {
+            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot4);
+            const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot4}`;
+            lines.push(`- F4 Morph: ${name}`);
+          }
+        } catch (error) {
+          if (build.professionMechanics.amalgamMorphs.slot2) {
+            lines.push(`- F2 Morph: Skill ID ${build.professionMechanics.amalgamMorphs.slot2}`);
+          }
+          if (build.professionMechanics.amalgamMorphs.slot3) {
+            lines.push(`- F3 Morph: Skill ID ${build.professionMechanics.amalgamMorphs.slot3}`);
+          }
+          if (build.professionMechanics.amalgamMorphs.slot4) {
+            lines.push(`- F4 Morph: Skill ID ${build.professionMechanics.amalgamMorphs.slot4}`);
+          }
+        }
+      }
+
+      // Ranger Pets
+      if (build.professionMechanics?.rangerPets) {
+        try {
+          const base = import.meta.env.BASE_URL;
+          const response = await fetch(`${base}data/pets.json`);
+          const pets = await response.json();
+
+          if (build.professionMechanics.rangerPets.pet1) {
+            const pet = pets.find((p: any) => p.id === build.professionMechanics?.rangerPets?.pet1);
+            const name = pet ? pet.name.replace('Juvenile ', '') : `Pet ID ${build.professionMechanics.rangerPets.pet1}`;
+            lines.push(`- Pet 1: ${name}`);
+          }
+          if (build.professionMechanics.rangerPets.pet2) {
+            const pet = pets.find((p: any) => p.id === build.professionMechanics?.rangerPets?.pet2);
+            const name = pet ? pet.name.replace('Juvenile ', '') : `Pet ID ${build.professionMechanics.rangerPets.pet2}`;
+            lines.push(`- Pet 2: ${name}`);
+          }
+        } catch (error) {
+          if (build.professionMechanics.rangerPets.pet1) {
+            lines.push(`- Pet 1: Pet ID ${build.professionMechanics.rangerPets.pet1}`);
+          }
+          if (build.professionMechanics.rangerPets.pet2) {
+            lines.push(`- Pet 2: Pet ID ${build.professionMechanics.rangerPets.pet2}`);
+          }
+        }
+      }
+
+      lines.push('');
+    }
+
     // Skills
     if (Object.keys(build.skills).length > 0) {
       lines.push('**Skills:**');

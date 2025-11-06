@@ -587,12 +587,34 @@ export interface TraitSelection {
   spec3Choices?: [number | null, number | null, number | null];
 }
 
+export interface ProfessionMechanics {
+  // Evoker: Selected familiar (determines F5 skill)
+  evokerFamiliar?: number;
+  // Revenant: Selected legends (2 legends, each determines heal/util/elite skills)
+  revenantLegends?: {
+    legend1?: string;  // Legend ID (e.g., "Legend1", "Legend2")
+    legend2?: string;
+  };
+  // Ranger: Selected pets (2 pets for swapping)
+  rangerPets?: {
+    pet1?: number;  // Pet ID (1-65)
+    pet2?: number;  // Pet ID (1-65)
+  };
+  // Amalgam: Selected morph skills for F2, F3, F4 (F1 derived from heal, F5 is Evolve)
+  amalgamMorphs?: {
+    slot2?: number;  // F2 morph skill ID
+    slot3?: number;  // F3 morph skill ID
+    slot4?: number;  // F4 morph skill ID
+  };
+}
+
 export interface BuildData {
   profession: Profession;
   gameMode: GameMode;
   equipment: Equipment[];
   skills: SkillSelection;
   traits: TraitSelection;
+  professionMechanics?: ProfessionMechanics;
   runeId?: number; // Item ID of the rune
   relicId?: number; // Item ID of the relic
 }
