@@ -424,10 +424,10 @@ function SkillBarContent() {
     );
   };
 
-  const hasEvokerFamiliar = profession === 'Elementalist' && traits.spec3 === EVOKER_SPEC_ID;
-  const hasRevenantLegends = profession === 'Revenant';
-  const hasAmalgamMorphs = profession === 'Engineer' && [traits.spec1, traits.spec2, traits.spec3].includes(AMALGAM_SPEC_ID);
-  const hasRangerPet = profession === 'Ranger';
+  const hasEvokerFamiliar = profession === 'Elementalist' && (traits.spec3 === EVOKER_SPEC_ID || !!professionMechanics?.evokerFamiliar);
+  const hasRevenantLegends = profession === 'Revenant' || !!professionMechanics?.revenantLegends;
+  const hasAmalgamMorphs = (profession === 'Engineer' && [traits.spec1, traits.spec2, traits.spec3].includes(AMALGAM_SPEC_ID)) || !!professionMechanics?.amalgamMorphs;
+  const hasRangerPet = profession === 'Ranger' || !!professionMechanics?.rangerPets;
 
   const handleSelectFamiliar = (skillId: number) => {
     setProfessionMechanic('evokerFamiliar', skillId);
