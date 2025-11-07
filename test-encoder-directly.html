@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test V6 Encoder Directly</title>
+</head>
+<body>
+  <h1>Test V6 Encoder</h1>
+  <div id="output"></div>
+
+  <script type="module">
+    import { encodeBuild, decodeBuild } from './src/lib/buildEncoder.ts';
+
+    const testBuild = {
+      profession: 'Engineer',
+      gameMode: 'PvE',
+      equipment: [
+        { slot: 'Helm', stat: 'Viper' },
+        { slot: 'Shoulders', stat: 'Viper' },
+        { slot: 'Coat', stat: 'Viper' },
+        { slot: 'Gloves', stat: 'Viper' },
+        { slot: 'Leggings', stat: 'Viper' },
+        { slot: 'Boots', stat: 'Viper' },
+        { slot: 'Amulet', stat: 'Berserker' },
+        { slot: 'Ring1', stat: 'Berserker' },
+        { slot: 'Ring2', stat: 'Berserker' },
+        { slot: 'Accessory1', stat: 'Berserker' },
+        { slot: 'Accessory2', stat: 'Berserker' },
+        { slot: 'Backpack', stat: 'Berserker' },
+        { slot: 'MainHand1', stat: 'Viper', weaponType: 'Pistol' },
+        { slot: 'OffHand1', stat: 'Viper', weaponType: 'Pistol' },
+        { slot: 'MainHand2', stat: 'Berserker', weaponType: 'Rifle' },
+        { slot: 'OffHand2', stat: 'Berserker' },
+      ],
+      skills: {
+        heal: 5857,
+        utility1: 6161,
+        utility2: 5818,
+        utility3: 6164,
+        elite: 5818,
+      },
+      traits: {
+        spec1: 6,
+        spec1Choices: [0, 1, 2],
+        spec2: 38,
+        spec2Choices: [1, 0, 2],
+        spec3: 57,
+        spec3Choices: [2, 1, 0],
+      },
+      runeId: 24836,
+      relicId: 100916,
+      professionMechanics: {
+        amalgamMorphs: {
+          slot2: 5818,
+          slot3: 6161,
+          slot4: 5818,
+        },
+      },
+    };
+
+    const output = document.getElementById('output');
+    let html = '<h2>Encoding Test Build</h2>';
+
+    try {
+      const encoded = encodeBuild(testBuild);
+      html += `<p><strong>Encoded:</strong></p>`;
+      html += `<pre style="word-wrap: break-word; white-space: pre-wrap;">${encoded}</pre>`;
+      html += `<p><strong>Length:</strong> ${encoded.length} characters</p>`;
+
+      // Try to decode it back
+      const decoded = decodeBuild(encoded);
+      html += `<p><strong>✅ Successfully decoded!</strong></p>`;
+      html += `<p>Profession: ${decoded.profession}</p>`;
+      html += `<p>Game Mode: ${decoded.gameMode}</p>`;
+      html += `<p>Equipment count: ${decoded.equipment.length}</p>`;
+      html += `<p>Skills: ${Object.keys(decoded.skills).length} slots filled</p>`;
+      html += `<p>Traits: spec1=${decoded.traits.spec1}, spec2=${decoded.traits.spec2}, spec3=${decoded.traits.spec3}</p>`;
+      html += `<p>Amalgam morphs: ${JSON.stringify(decoded.professionMechanics?.amalgamMorphs)}</p>`;
+
+      // Compare trait choices
+      html += `<h3>Trait Choices Verification</h3>`;
+      html += `<p>Original spec1Choices: [${testBuild.traits.spec1Choices.join(', ')}]</p>`;
+      html += `<p>Decoded spec1Choices: [${decoded.traits.spec1Choices?.join(', ')}]</p>`;
+      html += `<p>Original spec2Choices: [${testBuild.traits.spec2Choices.join(', ')}]</p>`;
+      html += `<p>Decoded spec2Choices: [${decoded.traits.spec2Choices?.join(', ')}]</p>`;
+      html += `<p>Original spec3Choices: [${testBuild.traits.spec3Choices.join(', ')}]</p>`;
+      html += `<p>Decoded spec3Choices: [${decoded.traits.spec3Choices?.join(', ')}]</p>`;
+
+    } catch (error) {
+      html += `<p style="color: red;"><strong>❌ Error:</strong> ${error.message}</p>`;
+      html += `<pre>${error.stack}</pre>`;
+    }
+
+    output.innerHTML = html;
+  </script>
+</body>
+</html>

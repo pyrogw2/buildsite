@@ -482,7 +482,7 @@ export default function StatsPanel() {
             <div className="space-y-2">
               <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Food</div>
               {foodItem && (
-                <div>
+                <div className="pt-1">
                   <Tooltip
                     title={foodItem.name}
                     content={foodItem.details?.infix_upgrade?.buff?.description || foodItem.description || ''}
@@ -490,9 +490,8 @@ export default function StatsPanel() {
                     rarity={foodItem.rarity}
                     itemType="Consumable"
                   >
-                    <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
-                      <img src={foodItem.icon} alt={foodItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
-                      <span className="truncate">{foodItem.name}</span>
+                    <div className="inline-block cursor-help">
+                      <img src={foodItem.icon} alt={foodItem.name} className="w-6 h-6 rounded hover:scale-110 transition-transform" />
                     </div>
                   </Tooltip>
                 </div>
@@ -503,7 +502,7 @@ export default function StatsPanel() {
             <div className="space-y-2">
               <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Utility</div>
               {utilityItem && (
-                <div>
+                <div className="pt-1">
                   <Tooltip
                     title={utilityItem.name}
                     content={utilityItem.details?.infix_upgrade?.buff?.description || utilityItem.description || ''}
@@ -511,9 +510,8 @@ export default function StatsPanel() {
                     rarity={utilityItem.rarity}
                     itemType="Consumable"
                   >
-                    <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
-                      <img src={utilityItem.icon} alt={utilityItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
-                      <span className="truncate">{utilityItem.name}</span>
+                    <div className="inline-block cursor-help">
+                      <img src={utilityItem.icon} alt={utilityItem.name} className="w-6 h-6 rounded hover:scale-110 transition-transform" />
                     </div>
                   </Tooltip>
                 </div>
