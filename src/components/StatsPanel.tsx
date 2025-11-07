@@ -227,7 +227,8 @@ export default function StatsPanel() {
       'Ring2': 4,
       'Amulet': 5,
     };
-    trinkets.sort((a, b) => (trinketOrder[a.originalSlot] || 999) - (trinketOrder[b.originalSlot] || 999));
+
+    trinkets.sort((a, b) => (trinketOrder[a.originalSlot] ?? 999) - (trinketOrder[b.originalSlot] ?? 999));
 
     return { weaponSet1, weaponSet2, armorPieces, trinkets };
   }, [buildData.equipment]);
