@@ -15,6 +15,8 @@ interface BuildStore extends Omit<BuildData, 'profession'> {
   setProfessionMechanic: <K extends keyof ProfessionMechanics>(key: K, value: ProfessionMechanics[K]) => void;
   setRuneId: (runeId: number | undefined) => void;
   setRelicId: (relicId: number | undefined) => void;
+  setFoodId: (foodId: number | undefined) => void;
+  setUtilityId: (utilityId: number | undefined) => void;
   loadBuild: (build: BuildData) => void;
   resetBuild: () => void;
 }
@@ -69,6 +71,8 @@ export const useBuildStore = create<BuildStore>((set) => ({
         equipment,
         runeId: resetEquipment ? undefined : state.runeId,
         relicId: resetEquipment ? undefined : state.relicId,
+        foodId: resetEquipment ? undefined : state.foodId,
+        utilityId: resetEquipment ? undefined : state.utilityId,
       };
     }),
 
@@ -184,6 +188,10 @@ export const useBuildStore = create<BuildStore>((set) => ({
   setRuneId: (runeId) => set({ runeId }),
 
   setRelicId: (relicId) => set({ relicId }),
+
+  setFoodId: (foodId) => set({ foodId }),
+
+  setUtilityId: (utilityId) => set({ utilityId }),
 
   loadBuild: (build) => set(build),
 

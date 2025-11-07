@@ -617,4 +617,6 @@ export interface BuildData {
   professionMechanics?: ProfessionMechanics;
   runeId?: number; // Item ID of the rune
   relicId?: number; // Item ID of the relic
+  foodId?: number; // Item ID of the food consumable
+  utilityId?: number; // Item ID of the utility consumable
 }

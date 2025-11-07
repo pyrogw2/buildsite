@@ -30,6 +30,8 @@ export default function StatsPanel() {
   const buildData = useBuildStore();
   const [runeItem, setRuneItem] = useState<GW2Item | null>(null);
   const [relicItem, setRelicItem] = useState<GW2Item | null>(null);
+  const [foodItem, setFoodItem] = useState<GW2Item | null>(null);
+  const [utilityItem, setUtilityItem] = useState<GW2Item | null>(null);
 
   useEffect(() => {
     if (buildData.runeId) {
@@ -46,6 +48,22 @@ export default function StatsPanel() {
       setRelicItem(null);
     }
   }, [buildData.relicId]);
+
+  useEffect(() => {
+    if (buildData.foodId) {
+      gw2Api.getItem(buildData.foodId).then(setFoodItem).catch(console.error);
+    } else {
+      setFoodItem(null);
+    }
+  }, [buildData.foodId]);
+
+  useEffect(() => {
+    if (buildData.utilityId) {
+      gw2Api.getItem(buildData.utilityId).then(setUtilityItem).catch(console.error);
+    } else {
+      setUtilityItem(null);
+    }
+  }, [buildData.utilityId]);
 
   // Fetch sigils for stat calculations
   const [sigilItems, setSigilItems] = useState<Map<number, GW2Item>>(new Map());
@@ -90,9 +108,11 @@ export default function StatsPanel() {
       sigilItems,
       allTraits,
       allSpecs,
-      []  // allSkills - TODO: Phase 6
+      [],  // allSkills - TODO: Phase 6
+      foodItem,
+      utilityItem
     );
-  }, [buildData, runeItem, sigilItems, allTraits, allSpecs]);
+  }, [buildData, runeItem, sigilItems, allTraits, allSpecs, foodItem, utilityItem]);
 
   // Helper to get derived stat display for an attribute
   const getDerivedStat = (attributeKey: AttributeKey): { label: string; value: string } | null => {
@@ -447,6 +467,53 @@ export default function StatsPanel() {
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
                       <img src={relicItem.icon} alt={relicItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
                       <span className="truncate">{relicItem.name.replace('Relic of the ', '')}</span>
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Food and Utility in Two Columns */}
+        {(foodItem || utilityItem) && (
+          <div className="grid grid-cols-2 gap-4">
+            {/* Food Column */}
+            <div className="space-y-2">
+              <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Food</div>
+              {foodItem && (
+                <div>
+                  <Tooltip
+                    title={foodItem.name}
+                    content={foodItem.details?.infix_upgrade?.buff?.description || foodItem.description || ''}
+                    icon={foodItem.icon}
+                    rarity={foodItem.rarity}
+                    itemType="Consumable"
+                  >
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
+                      <img src={foodItem.icon} alt={foodItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
+                      <span className="truncate">{foodItem.name}</span>
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
+            </div>
+
+            {/* Utility Column */}
+            <div className="space-y-2">
+              <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Utility</div>
+              {utilityItem && (
+                <div>
+                  <Tooltip
+                    title={utilityItem.name}
+                    content={utilityItem.details?.infix_upgrade?.buff?.description || utilityItem.description || ''}
+                    icon={utilityItem.icon}
+                    rarity={utilityItem.rarity}
+                    itemType="Consumable"
+                  >
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
+                      <img src={utilityItem.icon} alt={utilityItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
+                      <span className="truncate">{utilityItem.name}</span>
                     </div>
                   </Tooltip>
                 </div>

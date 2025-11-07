@@ -86,12 +86,13 @@ class GW2ApiClient {
 
     try {
       const base = import.meta.env.BASE_URL;
-      const [metadata, skills, specializations, traits, items] = await Promise.all([
+      const [metadata, skills, specializations, traits, items, consumables] = await Promise.all([
         fetch(`${base}data/metadata.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/skills.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/specializations.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/traits.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/items.json`).then(r => r.ok ? r.json() : null),
+        fetch(`${base}data/consumables.json`).then(r => r.ok ? r.json() : null),
       ]);
 
       if (metadata) {
@@ -102,6 +103,7 @@ class GW2ApiClient {
       if (specializations) this.staticData.specializations = specializations;
       if (traits) this.staticData.traits = traits;
       if (items) this.staticData.items = items;
+      if (consumables) this.staticData.consumables = consumables;
 
       this.staticDataLoaded = true;
       console.log('✅ Static data loaded successfully');
@@ -421,6 +423,26 @@ class GW2ApiClient {
   // Fetch a single item by ID
   async getItem(itemId: number): Promise<GW2Item> {
     return await this.fetchWithCache<GW2Item>(`/items/${itemId}`);
+  }
+
+  // Get all consumables (food and utility items) from static data
+  async getConsumables(): Promise<{ food: GW2Item[]; utility: GW2Item[] }> {
+    await this.loadStaticData();
+
+    const consumables = this.staticData.consumables || [];
+
+    // Separate food and utility items
+    const food = consumables.filter((item: GW2Item) =>
+      item.details?.type === 'Food'
+    ).sort((a: GW2Item, b: GW2Item) => a.name.localeCompare(b.name));
+
+    const utility = consumables.filter((item: GW2Item) =>
+      item.details?.type === 'Utility'
+    ).sort((a: GW2Item, b: GW2Item) => a.name.localeCompare(b.name));
+
+    console.log(`🍖 Loaded ${food.length} food items and ${utility.length} utility items from static data`);
+
+    return { food, utility };
   }
 
   // Clear cache
