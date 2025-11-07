@@ -432,16 +432,13 @@ class GW2ApiClient {
     const consumables = this.staticData.consumables || [];
 
     // Separate food and utility items
-    // Filter out feast items (they don't provide buffs, they create servings)
+    // Note: Some items (like feast containers) may not have buff data in details.description
     const food = consumables.filter((item: GW2Item) =>
-      item.details?.type === 'Food' &&
-      item.details?.description && // Must have buff description
-      !(item.description && item.description.includes('Feast')) // Not a feast container
+      item.details?.type === 'Food'
     ).sort((a: GW2Item, b: GW2Item) => a.name.localeCompare(b.name));
 
     const utility = consumables.filter((item: GW2Item) =>
-      item.details?.type === 'Utility' &&
-      item.details?.description // Must have buff description
+      item.details?.type === 'Utility'
     ).sort((a: GW2Item, b: GW2Item) => a.name.localeCompare(b.name));
 
     console.log(`🍖 Loaded ${food.length} food items and ${utility.length} utility items from static data`);
