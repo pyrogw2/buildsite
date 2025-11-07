@@ -1629,7 +1629,8 @@ function EquipmentPanelContent() {
               selectedId={relicId}
               onSelect={setRelicId}
               getItemId={(relic) => relic.id}
-              getItemLabel={(relic) => relic.name.replace('Relic of ', '')}
+              // Normalize the name for relics
+              getItemLabel={(relic) => relic.name.replace('Relic of the ', '').replace('Relic of ', '')}
               placeholder="Select Relic"
               disabled={loading}
             />
