@@ -51,7 +51,16 @@ export default function StatsPanel() {
 
   useEffect(() => {
     if (buildData.foodId) {
-      gw2Api.getItem(buildData.foodId).then(setFoodItem).catch(console.error);
+      const foodId = buildData.foodId;
+      gw2Api.getItem(foodId).then((item) => {
+        // Check if this is a feast and enrich with buff data
+        const feastBuffs = gw2Api.getFeastBuffDescription(foodId);
+        if (feastBuffs && item.details) {
+          // Enrich the item with feast buff description
+          item.details.description = feastBuffs;
+        }
+        setFoodItem(item);
+      }).catch(console.error);
     } else {
       setFoodItem(null);
     }

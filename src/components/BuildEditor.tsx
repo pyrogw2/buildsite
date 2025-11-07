@@ -1252,7 +1252,23 @@ function EquipmentPanelContent() {
       setRelics(sortedRelics);
       setSigils(sortedSigils);
       setInfusions(sortedInfusions);
-      setFood(consumables.food);
+
+      // Enrich food items with feast buff data
+      const enrichedFood = consumables.food.map(item => {
+        const feastBuffs = gw2Api.getFeastBuffDescription(item.id);
+        if (feastBuffs && item.details) {
+          return {
+            ...item,
+            details: {
+              ...item.details,
+              description: feastBuffs
+            }
+          };
+        }
+        return item;
+      });
+
+      setFood(enrichedFood);
       setUtilities(consumables.utility);
     } catch (error) {
       console.error('Failed to load items:', error);

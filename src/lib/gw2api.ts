@@ -86,13 +86,14 @@ class GW2ApiClient {
 
     try {
       const base = import.meta.env.BASE_URL;
-      const [metadata, skills, specializations, traits, items, consumables] = await Promise.all([
+      const [metadata, skills, specializations, traits, items, consumables, feastBuffs] = await Promise.all([
         fetch(`${base}data/metadata.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/skills.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/specializations.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/traits.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/items.json`).then(r => r.ok ? r.json() : null),
         fetch(`${base}data/consumables.json`).then(r => r.ok ? r.json() : null),
+        fetch(`${base}data/feast-buffs.json`).then(r => r.ok ? r.json() : null),
       ]);
 
       if (metadata) {
@@ -104,6 +105,7 @@ class GW2ApiClient {
       if (traits) this.staticData.traits = traits;
       if (items) this.staticData.items = items;
       if (consumables) this.staticData.consumables = consumables;
+      if (feastBuffs) this.staticData.feastBuffs = feastBuffs;
 
       this.staticDataLoaded = true;
       console.log('✅ Static data loaded successfully');
@@ -444,6 +446,15 @@ class GW2ApiClient {
     console.log(`🍖 Loaded ${food.length} food items and ${utility.length} utility items from static data`);
 
     return { food, utility };
+  }
+
+  // Get feast buff description for a feast item ID
+  getFeastBuffDescription(itemId: number): string | null {
+    if (!this.staticData.feastBuffs) {
+      return null;
+    }
+    const feastData = this.staticData.feastBuffs[itemId.toString()];
+    return feastData?.description || null;
   }
 
   // Clear cache
