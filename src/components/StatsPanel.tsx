@@ -207,8 +207,8 @@ export default function StatsPanel() {
         armorPieces.push({ slot: item.slot, stat: item.stat });
       }
 
-      // Trinkets
-      if (['Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'].includes(item.slot) && item.stat) {
+      // Trinkets (ordered to match equipment panel: Back, Accessories, Rings, Amulet)
+      if (['Backpack', 'Accessory1', 'Accessory2', 'Ring1', 'Ring2', 'Amulet'].includes(item.slot) && item.stat) {
         const displaySlot = item.slot === 'Ring1' ? 'ring' :
                            item.slot === 'Ring2' ? 'ring' :
                            item.slot === 'Accessory1' ? 'accessory' :
