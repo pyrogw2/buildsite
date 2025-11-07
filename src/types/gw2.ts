@@ -542,7 +542,13 @@ export interface GW2Item {
   icon: string;
   details?: {
     type?: string;
-    bonuses?: string[];
+    bonuses?: string[]; // For runes: array of bonus strings
+    // Consumable-specific fields (food/utility)
+    description?: string; // Buff description for consumables
+    duration_ms?: number; // Buff duration in milliseconds
+    apply_count?: number; // Number of stacks
+    name?: string; // Buff name (e.g., "Nourishment", "Enhancement")
+    // Equipment upgrade fields
     infix_upgrade?: {
       id: number;
       attributes: Array<{

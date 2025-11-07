@@ -1670,7 +1670,7 @@ function EquipmentPanelContent() {
             {selectedFood && (
               <Tooltip
                 title={selectedFood.name}
-                content={selectedFood.details?.infix_upgrade?.buff?.description || selectedFood.description || ''}
+                content={selectedFood.details?.description || ''}
                 icon={selectedFood.icon}
                 rarity={selectedFood.rarity}
                 itemType="Consumable"
@@ -1699,7 +1699,7 @@ function EquipmentPanelContent() {
             {selectedUtility && (
               <Tooltip
                 title={selectedUtility.name}
-                content={selectedUtility.details?.infix_upgrade?.buff?.description || selectedUtility.description || ''}
+                content={selectedUtility.details?.description || ''}
                 icon={selectedUtility.icon}
                 rarity={selectedUtility.rarity}
                 itemType="Consumable"

@@ -539,11 +539,11 @@ function calculateSigilStats(
  * Calculate consumable bonuses from food and utility items
  * Parses bonus strings from buff descriptions for flat and percentage bonuses
  *
- * Food and utility items store bonuses in: details.infix_upgrade.buff.description
+ * Food and utility items store bonuses in: details.description
  * Examples:
- * - "+100 Power, +70 Ferocity" (flat stats)
+ * - "+100 Power\n+70 Ferocity" (flat stats)
  * - "+10% Experience from kills" (non-combat, ignored)
- * - "+40% Condition Duration, +10 Expertise" (percentage + flat)
+ * - "+40% Condition Duration\n+10 Expertise" (percentage + flat)
  *
  * IMPORTANT: Only combat-relevant stats are parsed. Non-combat bonuses
  * (experience, karma, magic find, gathering) are ignored.
@@ -560,16 +560,16 @@ function calculateConsumableStats(
 
   // Helper to parse consumable description
   const parseConsumable = (item: GW2Item | null) => {
-    if (!item?.details?.infix_upgrade?.buff?.description) {
+    if (!item?.details?.description) {
       return;
     }
 
-    const description = item.details.infix_upgrade.buff.description;
+    const description = item.details.description;
 
     // Split by newlines and commas to handle various formats
     const lines = description.split(/[\n,]+/);
 
-    lines.forEach((line) => {
+    lines.forEach((line: string) => {
       const trimmed = line.trim();
       if (!trimmed) return;
 

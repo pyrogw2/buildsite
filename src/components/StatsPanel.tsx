@@ -485,7 +485,7 @@ export default function StatsPanel() {
                 <div className="pt-1">
                   <Tooltip
                     title={foodItem.name}
-                    content={foodItem.details?.infix_upgrade?.buff?.description || foodItem.description || ''}
+                    content={foodItem.details?.description || ''}
                     icon={foodItem.icon}
                     rarity={foodItem.rarity}
                     itemType="Consumable"
@@ -505,7 +505,7 @@ export default function StatsPanel() {
                 <div className="pt-1">
                   <Tooltip
                     title={utilityItem.name}
-                    content={utilityItem.details?.infix_upgrade?.buff?.description || utilityItem.description || ''}
+                    content={utilityItem.details?.description || ''}
                     icon={utilityItem.icon}
                     rarity={utilityItem.rarity}
                     itemType="Consumable"
