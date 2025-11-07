@@ -1,19 +1,53 @@
 import pako from 'pako';
-import type { BuildData, Profession, GameMode, Equipment, StatCombo, WeaponType, InfusionType, ArmorSlot, WeaponSlot, TrinketSlot } from '../types/gw2';
+import type { BuildData, Profession, GameMode, Equipment, StatCombo, WeaponType, ArmorSlot, WeaponSlot, TrinketSlot, GW2Specialization } from '../types/gw2';
 import specializationsData from '../../public/data/specializations.json' with { type: 'json' };
 
+// Type for imported specializations data
+type SpecializationsData = GW2Specialization[];
+
+// Type for equipment slot names
+type EquipmentSlot = ArmorSlot | WeaponSlot | TrinketSlot;
+
+// Type for equipment with optional infusion properties
+type EquipmentWithInfusions = Equipment & {
+  infusion1?: number;
+  infusion2?: number;
+  infusion3?: number;
+};
+
+// Type for equipment filtering function
+type EquipmentFilter = (eq: Equipment) => boolean;
+
+// Type for skill slot names
+type SkillSlot = 'heal' | 'utility1' | 'utility2' | 'utility3' | 'elite';
+
+// Type for trait choices array
+type TraitChoices = [number | null, number | null, number | null];
+
+// Type for specification data with choices
+type SpecData = {
+  id?: number;
+  choices?: TraitChoices;
+};
+
+// Type for stat names (more permissive for encoding/decoding)
+type StatName = string;
+
+// Type for legend names (more permissive for encoding/decoding)
+type LegendName = string;
+
 // Profession enum (3 bits, 0-8)
-const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elementalist', 'Mesmer', 'Necromancer', 'Revenant'];
+const PROFESSIONS = ['Guardian', 'Warrior', 'Engineer', 'Ranger', 'Thief', 'Elementalist', 'Mesmer', 'Necromancer', 'Revenant'] as const;
 // Game mode enum (2 bits, 0-2)
-const GAME_MODES = ['PvE', 'PvP', 'WvW'];
+const GAME_MODES = ['PvE', 'PvP', 'WvW'] as const;
 // Equipment slots (4 bits, 0-15)
-const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack', 'MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
+const SLOTS = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots', 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack', 'MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'] as const;
 // Stat combinations (6 bits, 0-63) - deduplicated for v6
-const STATS = ['Berserker', 'Assassin', 'Harrier', 'Commander', 'Minstrel', 'Marauder', 'Marshal', 'Viper', 'Sinister', 'Grieving', 'Trailblazer', 'Seraph', 'Celestial', 'Diviner', 'Vigilant', 'Crusader', 'Wanderer', 'Nomad', 'Sentinel', 'Dire', 'Rabid', 'Magi', 'Apothecary', 'Cleric', 'Giver', 'Knight', 'Cavalier', 'Soldier', 'Shaman', 'Settler', 'Zealot', 'Valkyrie', 'Rampager', 'Carrion', 'Plaguedoctor', 'Ritualist', 'Dragon', 'Spellbreaker'];
+const STATS = ['Berserker', 'Assassin', 'Harrier', 'Commander', 'Minstrel', 'Marauder', 'Marshal', 'Viper', 'Sinister', 'Grieving', 'Trailblazer', 'Seraph', 'Celestial', 'Diviner', 'Vigilant', 'Crusader', 'Wanderer', 'Nomad', 'Sentinel', 'Dire', 'Rabid', 'Magi', 'Apothecary', 'Cleric', 'Giver', 'Knight', 'Cavalier', 'Soldier', 'Shaman', 'Settler', 'Zealot', 'Valkyrie', 'Rampager', 'Carrion', 'Plaguedoctor', 'Ritualist', 'Dragon', 'Spellbreaker', 'Demolisher'] as const;
 // Weapon types (5 bits, 0-31)
-const WEAPONS = ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Axe', 'Dagger', 'Mace', 'Pistol', 'Scepter', 'Sword', 'Focus', 'Shield', 'Torch', 'Warhorn', 'Spear', 'Trident', 'Harpoon Gun'];
+const WEAPONS = ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Axe', 'Dagger', 'Mace', 'Pistol', 'Scepter', 'Sword', 'Focus', 'Shield', 'Torch', 'Warhorn', 'Spear', 'Trident', 'Harpoon Gun'] as const;
 // Revenant legends (3 bits, 0-7) - for v6 encoding
-const REVENANT_LEGENDS = ['Legend1', 'Legend2', 'Legend3', 'Legend4', 'Legend5', 'Legend6', 'Legend7', 'Legend8'];
+const REVENANT_LEGENDS = ['Legend1', 'Legend2', 'Legend3', 'Legend4', 'Legend5', 'Legend6', 'Legend7', 'Legend8'] as const;
 
 /**
  * Convert Uint8Array to base64 string efficiently
@@ -142,7 +176,7 @@ function unpackSlotAndStat(byte1: number, byte2: number): [number, number] {
  * Returns [tier (0-2), position (0-2)] or [-1, -1] if not found
  */
 function getTraitPosition(specId: number, traitId: number): [number, number] {
-  const spec = (specializationsData as any[]).find(s => s.id === specId);
+  const spec = (specializationsData as SpecializationsData).find(s => s.id === specId);
   if (!spec || !spec.major_traits) return [-1, -1];
 
   const majorTraits = spec.major_traits;
@@ -158,7 +192,7 @@ function getTraitPosition(specId: number, traitId: number): [number, number] {
  * V6 Helper: Get trait ID from spec ID and position
  */
 function getTraitIdFromPosition(specId: number, tier: number, position: number): number {
-  const spec = (specializationsData as any[]).find(s => s.id === specId);
+  const spec = (specializationsData as SpecializationsData).find(s => s.id === specId);
   if (!spec || !spec.major_traits) return 0;
 
   const index = tier * 3 + position;
@@ -206,16 +240,16 @@ export function encodeBuild(build: BuildData): string {
     bytes.push((profIdx << 2) | modeIdx);
 
     // Find most common stat for armor/trinkets (not weapons)
-    const armorTrinketSlots = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
+    const armorTrinketSlots: EquipmentSlot[] = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
                                 'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'];
-    const statCounts = new Map<string, number>();
+    const statCounts = new Map<StatName, number>();
     for (const eq of build.equipment) {
-      if (armorTrinketSlots.includes(eq.slot as any)) {
+      if (armorTrinketSlots.includes(eq.slot)) {
         statCounts.set(eq.stat, (statCounts.get(eq.stat) || 0) + 1);
       }
     }
 
-    let defaultStat = 'Berserker'; // fallback
+    let defaultStat: StatName = 'Berserker'; // fallback
     let maxStatCount = 0;
     for (const [stat, count] of statCounts) {
       if (count > maxStatCount) {
@@ -229,7 +263,7 @@ export function encodeBuild(build: BuildData): string {
     if (!useDefaultStat) defaultStat = 'Berserker';
 
     // Write default stat (index or 0 for Berserker)
-    const defaultStatIdx = STATS.indexOf(defaultStat);
+    const defaultStatIdx = STATS.indexOf(defaultStat as typeof STATS[number]);
     bytes.push(defaultStatIdx >= 0 ? defaultStatIdx + 1 : 0);
 
     // Collect ALL infusions across equipment (order doesn't matter)
@@ -256,7 +290,7 @@ export function encodeBuild(build: BuildData): string {
     }
 
     // Filter equipment: always encode weapons (need weapon type), skip armor/trinkets if default stat + no sigils
-    const isEquipmentRedundant = (eq: any) => {
+    const isEquipmentRedundant: EquipmentFilter = (eq: Equipment) => {
       // Always encode weapons (they have weapon type and might differ)
       if (eq.weaponType) return false;
 
@@ -273,7 +307,7 @@ export function encodeBuild(build: BuildData): string {
 
     for (const eq of nonDefaultEquipment) {
       const slotIdx = SLOTS.indexOf(eq.slot);
-      const statIdx = STATS.indexOf(eq.stat);
+      const statIdx = STATS.indexOf(eq.stat as typeof STATS[number]);
 
       if (statIdx >= 0) {
         // Bit-pack slot and stat indices
@@ -301,7 +335,7 @@ export function encodeBuild(build: BuildData): string {
     }
 
     // Skills bitflags (5 bits: heal, util1, util2, util3, elite)
-    const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+    const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
     const skillFlags = skillSlots.map(slot => !!build.skills[slot]);
     writeBitflags(bytes, skillFlags, 5);
 
@@ -313,7 +347,7 @@ export function encodeBuild(build: BuildData): string {
     }
 
     // Traits - encode spec IDs and packed choices
-    const specs = [
+    const specs: SpecData[] = [
       { id: build.traits.spec1, choices: build.traits.spec1Choices },
       { id: build.traits.spec2, choices: build.traits.spec2Choices },
       { id: build.traits.spec3, choices: build.traits.spec3Choices },
@@ -356,7 +390,7 @@ export function encodeBuild(build: BuildData): string {
     const mechanics = build.professionMechanics;
 
     switch (build.profession) {
-      case 'Elementalist':
+      case 'Elementalist': {
         // Evoker familiar (only if set)
         if (mechanics?.evokerFamiliar) {
           bytes.push(1); // flag: has familiar
@@ -365,19 +399,21 @@ export function encodeBuild(build: BuildData): string {
           bytes.push(0);
         }
         break;
+      }
 
-      case 'Revenant':
+      case 'Revenant': {
         // Revenant legends (use enum indices)
         const legend1 = mechanics?.revenantLegends?.legend1;
         const legend2 = mechanics?.revenantLegends?.legend2;
-        const legend1Idx = legend1 ? REVENANT_LEGENDS.indexOf(legend1) : -1;
-        const legend2Idx = legend2 ? REVENANT_LEGENDS.indexOf(legend2) : -1;
+        const legend1Idx = legend1 ? REVENANT_LEGENDS.indexOf(legend1 as typeof REVENANT_LEGENDS[number]) : -1;
+        const legend2Idx = legend2 ? REVENANT_LEGENDS.indexOf(legend2 as typeof REVENANT_LEGENDS[number]) : -1;
 
         bytes.push(legend1Idx >= 0 ? legend1Idx + 1 : 0);
         bytes.push(legend2Idx >= 0 ? legend2Idx + 1 : 0);
         break;
+      }
 
-      case 'Engineer':
+      case 'Engineer': {
         // Amalgam morphs (3 slots, bitflags + values)
         const morphFlags = [
           !!mechanics?.amalgamMorphs?.slot2,
@@ -389,8 +425,9 @@ export function encodeBuild(build: BuildData): string {
         if (mechanics?.amalgamMorphs?.slot3) writeVarInt(bytes, mechanics.amalgamMorphs.slot3);
         if (mechanics?.amalgamMorphs?.slot4) writeVarInt(bytes, mechanics.amalgamMorphs.slot4);
         break;
+      }
 
-      case 'Ranger':
+      case 'Ranger': {
         // Ranger pets (2 pets, bitflags + values)
         const petFlags = [
           !!mechanics?.rangerPets?.pet1,
@@ -400,6 +437,7 @@ export function encodeBuild(build: BuildData): string {
         if (mechanics?.rangerPets?.pet1) writeVarInt(bytes, mechanics.rangerPets.pet1);
         if (mechanics?.rangerPets?.pet2) writeVarInt(bytes, mechanics.rangerPets.pet2);
         break;
+      }
 
       // Other professions: no mechanics to encode
       default:
@@ -445,8 +483,8 @@ export function decodeBuild(encoded: string): BuildData {
       const modeIdx = packed & 0x03;
 
       const build: BuildData = {
-        profession: PROFESSIONS[profIdx] as any,
-        gameMode: GAME_MODES[modeIdx] as any,
+        profession: PROFESSIONS[profIdx] as Profession,
+        gameMode: GAME_MODES[modeIdx] as GameMode,
         equipment: [],
         skills: {},
         traits: {},
@@ -454,7 +492,7 @@ export function decodeBuild(encoded: string): BuildData {
 
       // Read default stat (0 = Berserker, otherwise index+1)
       const defaultStatByte = decompressed[offset.value++];
-      const defaultStat = defaultStatByte > 0 ? STATS[defaultStatByte - 1] : 'Berserker';
+      const defaultStat: StatName = defaultStatByte > 0 ? STATS[defaultStatByte - 1] : 'Berserker';
 
       // Read infusions (stored as counts at build level)
       const infusionTypeCount = decompressed[offset.value++];
@@ -476,7 +514,7 @@ export function decodeBuild(encoded: string): BuildData {
         const byte1 = decompressed[offset.value++];
 
         let slotIdx: number;
-        let stat: string;
+        let stat: StatName;
 
         if (decompressed[offset.value] === 0xFF) {
           // String fallback for unknown stats
@@ -503,64 +541,64 @@ export function decodeBuild(encoded: string): BuildData {
         const sigil2Id = sigilFlags[1] ? readVarInt(decompressed, offset) : undefined;
 
         build.equipment.push({
-          slot: SLOTS[slotIdx] as any,
-          stat: stat as any,
-          ...(weaponType && { weaponType: weaponType as any }),
+          slot: SLOTS[slotIdx] as EquipmentSlot,
+          stat: stat as StatCombo,
+          ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
-        } as any);
+        });
       }
 
       // Fill in default equipment for missing slots
       const presentSlots = new Set(build.equipment.map(eq => eq.slot));
-      const armorTrinketSlots = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
+      const armorTrinketSlots: EquipmentSlot[] = ['Helm', 'Shoulders', 'Coat', 'Gloves', 'Leggings', 'Boots',
                                   'Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'];
       for (const slotName of armorTrinketSlots) {
-        if (!presentSlots.has(slotName as any)) {
+        if (!presentSlots.has(slotName)) {
           build.equipment.push({
             slot: slotName,
-            stat: defaultStat,
-          } as any);
+            stat: defaultStat as StatCombo,
+          });
         }
       }
 
       // Also create weapon slots if missing (UI expects all 4 weapon slots to exist)
-      const weaponSlots = ['MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
+      const weaponSlots: EquipmentSlot[] = ['MainHand1', 'OffHand1', 'MainHand2', 'OffHand2'];
       for (const slotName of weaponSlots) {
-        if (!presentSlots.has(slotName as any)) {
+        if (!presentSlots.has(slotName)) {
           build.equipment.push({
             slot: slotName,
-            stat: defaultStat,
-          } as any);
+            stat: defaultStat as StatCombo,
+          });
         }
       }
 
       // Fill infusions across all equipment in slot order
       // Only fill slots that can actually hold infusions based on equipment type
-      build.equipment.sort((a, b) => SLOTS.indexOf(a.slot as any) - SLOTS.indexOf(b.slot as any));
+      build.equipment.sort((a, b) => SLOTS.indexOf(a.slot) - SLOTS.indexOf(b.slot));
       for (const eq of build.equipment) {
-        const slot = eq.slot as any;
+        const slot = eq.slot;
         const isRing = slot === 'Ring1' || slot === 'Ring2';
         const isBackpack = slot === 'Backpack';
         const is2HandedWeapon = eq.weaponType && ['Greatsword', 'Hammer', 'Longbow', 'Rifle', 'Short Bow', 'Staff', 'Spear', 'Trident', 'Harpoon Gun'].includes(eq.weaponType);
 
         // All equipment has at least 1 infusion slot
-        if (infusionIdx < allInfusions.length) eq.infusion1 = allInfusions[infusionIdx++];
+        if (infusionIdx < allInfusions.length) (eq as EquipmentWithInfusions).infusion1 = allInfusions[infusionIdx++];
 
         // Backpack and 2-handed weapons have 2 slots
         if ((isBackpack || is2HandedWeapon) && infusionIdx < allInfusions.length) {
-          eq.infusion2 = allInfusions[infusionIdx++];
+          (eq as EquipmentWithInfusions).infusion2 = allInfusions[infusionIdx++];
         }
 
         // Only rings have 3 slots
         if (isRing && infusionIdx < allInfusions.length) {
-          eq.infusion2 = allInfusions[infusionIdx++];
-          if (infusionIdx < allInfusions.length) eq.infusion3 = allInfusions[infusionIdx++];
+          (eq as EquipmentWithInfusions).infusion2 = allInfusions[infusionIdx++];
+          if (infusionIdx < allInfusions.length) (eq as EquipmentWithInfusions).infusion3 = allInfusions[infusionIdx++];
         }
       }
 
       // Read skills (with bitflags)
-      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
       const skillFlags = readBitflags(decompressed, offset, 5);
       for (let i = 0; i < skillSlots.length; i++) {
         if (skillFlags[i]) {
@@ -614,25 +652,27 @@ export function decodeBuild(encoded: string): BuildData {
       build.professionMechanics = {};
 
       switch (build.profession) {
-        case 'Elementalist':
+        case 'Elementalist': {
           const hasFamiliar = decompressed[offset.value++];
           if (hasFamiliar) {
             build.professionMechanics.evokerFamiliar = readVarInt(decompressed, offset);
           }
           break;
+        }
 
-        case 'Revenant':
+        case 'Revenant': {
           const legend1Idx = decompressed[offset.value++];
           const legend2Idx = decompressed[offset.value++];
           if (legend1Idx > 0 || legend2Idx > 0) {
             build.professionMechanics.revenantLegends = {
-              ...(legend1Idx > 0 && { legend1: REVENANT_LEGENDS[legend1Idx - 1] }),
-              ...(legend2Idx > 0 && { legend2: REVENANT_LEGENDS[legend2Idx - 1] }),
+              ...(legend1Idx > 0 && { legend1: REVENANT_LEGENDS[legend1Idx - 1] as LegendName }),
+              ...(legend2Idx > 0 && { legend2: REVENANT_LEGENDS[legend2Idx - 1] as LegendName }),
             };
           }
           break;
+        }
 
-        case 'Engineer':
+        case 'Engineer': {
           const morphFlags = readBitflags(decompressed, offset, 3);
           const slot2 = morphFlags[0] ? readVarInt(decompressed, offset) : undefined;
           const slot3 = morphFlags[1] ? readVarInt(decompressed, offset) : undefined;
@@ -645,8 +685,9 @@ export function decodeBuild(encoded: string): BuildData {
             };
           }
           break;
+        }
 
-        case 'Ranger':
+        case 'Ranger': {
           const petFlags = readBitflags(decompressed, offset, 2);
           const pet1 = petFlags[0] ? readVarInt(decompressed, offset) : undefined;
           const pet2 = petFlags[1] ? readVarInt(decompressed, offset) : undefined;
@@ -657,6 +698,7 @@ export function decodeBuild(encoded: string): BuildData {
             };
           }
           break;
+        }
 
         // Other professions: no mechanics
         default:
@@ -674,8 +716,8 @@ export function decodeBuild(encoded: string): BuildData {
       const modeIdx = packed & 0x03;
 
       const build: BuildData = {
-        profession: PROFESSIONS[profIdx] as any,
-        gameMode: GAME_MODES[modeIdx] as any,
+        profession: PROFESSIONS[profIdx] as Profession,
+        gameMode: GAME_MODES[modeIdx] as GameMode,
         equipment: [],
         skills: {},
         traits: {},
@@ -688,7 +730,7 @@ export function decodeBuild(encoded: string): BuildData {
 
         // Read stat (index or string)
         const statByte = decompressed[offset.value++];
-        const stat = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
+        const stat: StatName = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
 
         // Read weapon type (index or string)
         const weaponByte = decompressed[offset.value++];
@@ -704,19 +746,19 @@ export function decodeBuild(encoded: string): BuildData {
         const infusion3 = readVarInt(decompressed, offset);
 
         build.equipment.push({
-          slot: SLOTS[slotIdx] as any,
-          stat: stat as any,
-          ...(weaponType && { weaponType: weaponType as any }),
+          slot: SLOTS[slotIdx] as EquipmentSlot,
+          stat: stat as StatCombo,
+          ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
           ...(infusion1 && { infusion1 }),
           ...(infusion2 && { infusion2 }),
           ...(infusion3 && { infusion3 }),
-        } as any);
+        });
       }
 
       // Read skills
-      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
       for (const slot of skillSlots) {
         const id = readVarInt(decompressed, offset);
         if (id) build.skills[slot] = id;
@@ -798,8 +840,8 @@ export function decodeBuild(encoded: string): BuildData {
       const modeIdx = packed & 0x03;
 
       const build: BuildData = {
-        profession: PROFESSIONS[profIdx] as any,
-        gameMode: GAME_MODES[modeIdx] as any,
+        profession: PROFESSIONS[profIdx] as Profession,
+        gameMode: GAME_MODES[modeIdx] as GameMode,
         equipment: [],
         skills: {},
         traits: {},
@@ -812,7 +854,7 @@ export function decodeBuild(encoded: string): BuildData {
 
         // Read stat (index or string)
         const statByte = decompressed[offset.value++];
-        const stat = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
+        const stat: StatName = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
 
         // Read weapon type (index or string)
         const weaponByte = decompressed[offset.value++];
@@ -828,19 +870,19 @@ export function decodeBuild(encoded: string): BuildData {
         const infusion3 = readVarInt(decompressed, offset);
 
         build.equipment.push({
-          slot: SLOTS[slotIdx] as any,
-          stat: stat as any,
-          ...(weaponType && { weaponType: weaponType as any }),
+          slot: SLOTS[slotIdx] as EquipmentSlot,
+          stat: stat as StatCombo,
+          ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
           ...(infusion1 && { infusion1 }),
           ...(infusion2 && { infusion2 }),
           ...(infusion3 && { infusion3 }),
-        } as any);
+        });
       }
 
       // Read skills
-      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
       for (const slot of skillSlots) {
         const id = readVarInt(decompressed, offset);
         if (id) build.skills[slot] = id;
@@ -906,7 +948,7 @@ export function decodeBuild(encoded: string): BuildData {
 
         // Read stat (index or string)
         const statByte = decompressed[offset.value++];
-        const stat = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
+        const stat: StatName = statByte > 0 ? STATS[statByte - 1] : readString(decompressed, offset);
 
         // Read weapon type (index or string)
         const weaponByte = decompressed[offset.value++];
@@ -927,16 +969,16 @@ export function decodeBuild(encoded: string): BuildData {
           ...(weaponType && { weaponType: weaponType as WeaponType }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
-          ...(infusion1 && { infusion1: infusion1 as InfusionType }),
-          ...(infusion2 && { infusion2: infusion2 as InfusionType }),
-          ...(infusion3 && { infusion3: infusion3 as InfusionType }),
+          ...(infusion1 && { infusion1 }),
+          ...(infusion2 && { infusion2 }),
+          ...(infusion3 && { infusion3 }),
         };
 
         build.equipment.push(equipmentItem);
       }
 
       // Read skills
-      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
       for (const slot of skillSlots) {
         const id = readVarInt(decompressed, offset);
         if (id) build.skills[slot] = id;
@@ -1008,16 +1050,16 @@ export function decodeBuild(encoded: string): BuildData {
           ...(upgrade && { upgrade }),
           ...(sigil1Id && { sigil1Id }),
           ...(sigil2Id && { sigil2Id }),
-          ...(infusion1 && { infusion1: infusion1 as InfusionType }),
-          ...(infusion2 && { infusion2: infusion2 as InfusionType }),
-          ...(infusion3 && { infusion3: infusion3 as InfusionType }),
+          ...(infusion1 && { infusion1: parseInt(infusion1) || undefined }),
+          ...(infusion2 && { infusion2: parseInt(infusion2) || undefined }),
+          ...(infusion3 && { infusion3: parseInt(infusion3) || undefined }),
         };
 
         build.equipment.push(equipmentItem);
       }
 
       // Read skills
-      const skillSlots = ['heal', 'utility1', 'utility2', 'utility3', 'elite'] as const;
+      const skillSlots: SkillSlot[] = ['heal', 'utility1', 'utility2', 'utility3', 'elite'];
       for (const slot of skillSlots) {
         const id = readVarInt(decompressed, offset);
         if (id) build.skills[slot] = id;

@@ -27,7 +27,7 @@ export default function BuildExport() {
       navigator.clipboard.writeText(chatCode);
       setCopied('chatCode');
       setTimeout(() => setCopied(null), 2000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to generate chat code:', error);
     }
   };
@@ -46,7 +46,7 @@ export default function BuildExport() {
       setImportSuccess(true);
       setChatCodeInput('');
       setTimeout(() => setImportSuccess(false), 3000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to import chat code:', error);
       const errorMessage = error instanceof Error ? error.message : 'Invalid chat code. Please check the format and try again.';
       setImportError(errorMessage);

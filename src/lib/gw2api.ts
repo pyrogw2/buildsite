@@ -389,7 +389,10 @@ class GW2ApiClient {
   // Get all traits from static data
   async getAllTraits(): Promise<GW2TraitWithModes[]> {
     await this.loadStaticData();
-    return this.staticData.traits || [];
+    if (this.staticData.traits) {
+      return this.staticData.traits.map((trait: GW2Trait) => this.normalizeTrait(trait));
+    }
+    return [];
   }
 
   // Get all specializations from static data

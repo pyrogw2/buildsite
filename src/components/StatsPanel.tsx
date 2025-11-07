@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
-import type { GW2Item } from '../types/gw2';
+import type { GW2Item, GW2TraitWithModes, GW2Specialization } from '../types/gw2';
 import { TWO_HANDED_WEAPONS } from '../types/gw2';
 import { calculateStats, type AttributeKey } from '../lib/statCalculator';
 import Tooltip from './Tooltip';
@@ -69,8 +69,8 @@ export default function StatsPanel() {
   }, [buildData.equipment]);
 
   // Load trait and specialization data for stat calculations
-  const [allTraits, setAllTraits] = useState<any[]>([]);
-  const [allSpecs, setAllSpecs] = useState<any[]>([]);
+  const [allTraits, setAllTraits] = useState<GW2TraitWithModes[]>([]);
+  const [allSpecs, setAllSpecs] = useState<GW2Specialization[]>([]);
 
   useEffect(() => {
     Promise.all([
