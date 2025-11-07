@@ -544,19 +544,26 @@ function calculateSigilStats(
  * - "+100 Power\n+70 Ferocity" (flat stats)
  * - "+10% Experience from kills" (non-combat, ignored)
  * - "+40% Condition Duration\n+10 Expertise" (percentage + flat)
+ * - "Gain Concentration Equal to 3% of Your Vitality" (dynamic calculation)
  *
  * IMPORTANT: Only combat-relevant stats are parsed. Non-combat bonuses
  * (experience, karma, magic find, gathering) are ignored.
+ *
+ * Dynamic calculations like "Gain X Equal to Y% of Your Z" are returned
+ * as conversion factors to be applied after base stats are calculated.
  */
 function calculateConsumableStats(
   foodItem: GW2Item | null,
-  utilityItem: GW2Item | null
+  utilityItem: GW2Item | null,
+  currentAttributes?: Partial<BaseAttributes>
 ): {
   attributes: Partial<BaseAttributes>;
-  percentages: DirectPercentageBonuses
+  percentages: DirectPercentageBonuses;
+  conversions: Array<{ from: AttributeKey; to: AttributeKey; percent: number }>;
 } {
   const stats = createEmptyAttributes();
   const percentages: DirectPercentageBonuses = {};
+  const conversions: Array<{ from: AttributeKey; to: AttributeKey; percent: number }> = [];
 
   // Helper to parse consumable description
   const parseConsumable = (item: GW2Item | null) => {
@@ -572,6 +579,39 @@ function calculateConsumableStats(
     lines.forEach((line: string) => {
       const trimmed = line.trim();
       if (!trimmed) return;
+
+      // Check for dynamic conversion bonuses (e.g., "Gain Concentration Equal to 3% of Your Vitality")
+      const conversionMatch = trimmed.match(/Gain\s+(\w+(?:\s+\w+)?)\s+Equal\s+to\s+(\d+)%\s+of\s+Your\s+(\w+)/i);
+      if (conversionMatch) {
+        const [, toStat, percentStr, fromStat] = conversionMatch;
+        const percent = parseInt(percentStr, 10);
+
+        // Map stat names to AttributeKey
+        const statNameMap: Record<string, AttributeKey> = {
+          'power': 'Power',
+          'precision': 'Precision',
+          'toughness': 'Toughness',
+          'vitality': 'Vitality',
+          'ferocity': 'Ferocity',
+          'condition damage': 'ConditionDamage',
+          'healing power': 'HealingPower',
+          'expertise': 'Expertise',
+          'concentration': 'Concentration',
+        };
+
+        const from = statNameMap[fromStat.toLowerCase()];
+        const to = statNameMap[toStat.toLowerCase()];
+
+        if (from && to) {
+          conversions.push({ from, to, percent });
+          // If current attributes are provided, calculate the conversion immediately
+          if (currentAttributes && currentAttributes[from]) {
+            const bonus = Math.floor((currentAttributes[from] || 0) * percent / 100);
+            stats[to] += bonus;
+          }
+        }
+        return;
+      }
 
       // Check for percentage bonuses (e.g., "+10% Boon Duration", "+40% Condition Duration")
       const percentMatch = trimmed.match(/\+(\d+)%\s+(.+)/);
@@ -602,7 +642,7 @@ function calculateConsumableStats(
   parseConsumable(foodItem);
   parseConsumable(utilityItem);
 
-  return { attributes: stats, percentages };
+  return { attributes: stats, percentages, conversions };
 }
 
 /**
@@ -879,6 +919,8 @@ export function calculateStats(
   const infusionStats = calculateInfusionStats(equipment);
   const runeResult = calculateRuneStats(runeItem);
   const sigilResult = calculateSigilStats(equipment, sigilItems);
+
+  // First pass: Get flat consumable bonuses and conversions
   const consumableResult = calculateConsumableStats(foodItem, utilityItem);
 
   // Get selected trait IDs (both major and minor traits)
@@ -904,7 +946,7 @@ export function calculateStats(
   const traitStats = calculateTraitStats(selectedTraitIds, allTraits, gameMode);
   const skillStats = calculateSkillStats(selectedSkillIds, allSkills, gameMode);
 
-  // Combine all attribute stats
+  // Combine all attribute stats (without conversion bonuses)
   const totalAttributes = createEmptyAttributes();
   addAttributes(totalAttributes, baseStats);
   addAttributes(totalAttributes, equipmentStats);
@@ -914,6 +956,17 @@ export function calculateStats(
   addAttributes(totalAttributes, consumableResult.attributes);
   addAttributes(totalAttributes, traitStats);
   addAttributes(totalAttributes, skillStats);
+
+  // Second pass: Apply consumable conversions based on total attributes
+  // (e.g., "Gain Concentration Equal to 3% of Your Vitality")
+  const consumableConversionStats = createEmptyAttributes();
+  if (consumableResult.conversions.length > 0) {
+    consumableResult.conversions.forEach(({ from, to, percent }) => {
+      const bonus = Math.floor((totalAttributes[from] || 0) * percent / 100);
+      consumableConversionStats[to] += bonus;
+    });
+    addAttributes(totalAttributes, consumableConversionStats);
+  }
 
   // Collect percentage bonuses from runes, sigils, and consumables
   const percentageBonuses: DirectPercentageBonuses = {
