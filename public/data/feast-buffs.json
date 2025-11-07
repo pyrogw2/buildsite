@@ -1,262 +1,266 @@
 {
   "91690": {
     "name": "Bowl of Fruit Salad with Mint Garnish",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n+10% Outgoing Healing"
   },
   "91769": {
     "name": "Bowl of Fruit Salad with Cilantro Garnish",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n66% Chance to Steal Life on Critical Hit"
   },
   "91841": {
     "name": "Bowl of Fruit Salad with Orange-Clove Syrup",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n-20% Incoming Condition Duration"
   },
   "91732": {
     "name": "Bowl of Sesame Fruit Salad",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\nGain Health Every Second"
   },
   "91737": {
     "name": "Bowl of Spiced Fruit Salad",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n-10% Incoming Damage"
   },
   "99804": {
     "name": "Bowl of Mists-Infused Fruit Salad with Mint Garnish",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n+10% Outgoing Healing"
   },
   "91719": {
     "name": "Plate of Beef Carpaccio with Mint Garnish",
-    "description": "+100 Concentration\n+70 Power"
+    "description": "+100 Concentration\n+70 Power\n+10% Outgoing Healing"
   },
   "91807": {
     "name": "Plate of Beef Carpaccio with Salsa Garnish",
-    "description": "+100 Concentration\n+70 Power"
+    "description": "+100 Concentration\n+70 Power\n66% Chance to Steal Life on Critical Hit"
   },
   "91781": {
     "name": "Plate of Clove-Spiced Beef Carpaccio",
-    "description": "+100 Concentration\n+70 Power"
+    "description": "+100 Concentration\n+70 Power\n-20% Incoming Condition Duration"
   },
   "91696": {
     "name": "Plate of Peppercorn-Spiced Beef Carpaccio",
-    "description": "+100 Concentration\n+70 Power"
+    "description": "+100 Concentration\n+70 Power\n-10% Incoming Damage"
   },
   "91780": {
     "name": "Plate of Sesame-Ginger Beef Carpaccio",
-    "description": "+100 Concentration\n+70 Power"
+    "description": "+100 Concentration\n+70 Power\nGain Health Every Second"
   },
   "91738": {
     "name": "Mint Strawberry Cheesecake",
-    "description": "+100 Concentration"
+    "description": "+100 Concentration\n+10% Outgoing Healing"
   },
   "91760": {
     "name": "Orange Clove Cheesecake",
-    "description": "+100 Concentration"
+    "description": "+100 Concentration\n-20% Incoming Condition Duration"
   },
   "91806": {
     "name": "Sesame Cheesecake",
-    "description": "+100 Concentration"
+    "description": "+100 Concentration\nGain Health Every Second"
   },
   "91711": {
     "name": "Strawberry Cilantro Cheesecake",
-    "description": "+100 Concentration"
+    "description": "+100 Concentration\n66% Chance to Steal Life on Critical Hit"
   },
   "91764": {
     "name": "Spiced Peppercorn Cheesecake",
-    "description": "+100 Concentration"
+    "description": "+100 Concentration\n-10% Incoming Damage"
   },
   "91754": {
     "name": "Plate of Coq Au Vin with Mint Garnish",
-    "description": "+100 Power\n+70 Precision"
+    "description": "+100 Power\n+70 Precision\n+10% Outgoing Healing"
   },
   "91773": {
     "name": "Plate of Coq Au Vin with Salsa",
-    "description": "+100 Power\n+70 Precision"
+    "description": "+100 Power\n+70 Precision\n66% Chance to Steal Life on Critical Hit"
   },
   "91704": {
     "name": "Plate of Clove-Spiced Coq Au Vin",
-    "description": "+100 Power\n+70 Precision"
+    "description": "+100 Power\n+70 Precision\n-20% Incoming Condition Duration"
   },
   "91875": {
     "name": "Plate of Peppercorn-Spiced Coq Au Vin",
-    "description": "+100 Power\n+70 Precision"
+    "description": "+100 Power\n+70 Precision\n-10% Incoming Damage"
   },
   "91768": {
     "name": "Plate of Sesame-Crusted Coq Au Vin",
-    "description": "+100 Power\n+70 Precision"
+    "description": "+100 Power\n+70 Precision\nGain Health Every Second"
   },
   "91876": {
     "name": "Mushroom Clove Sous-Vide Steak",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\n-20% Incoming Condition Duration"
   },
   "91766": {
     "name": "Clove-Spiced Creme Brulee",
-    "description": "+100 Concentration\n+70 Healing Power"
+    "description": "+100 Concentration\n+70 Healing Power\n-20% Incoming Condition Duration"
   },
   "91752": {
     "name": "Mint Creme Brulee",
-    "description": "+100 Concentration\n+70 Healing Power"
+    "description": "+100 Concentration\n+70 Healing Power\n+10% Outgoing Healing"
   },
   "91800": {
     "name": "Sesame Creme Brulee",
-    "description": "+100 Concentration\n+70 Healing Power"
+    "description": "+100 Concentration\n+70 Healing Power\nGain Health Every Second"
   },
   "91736": {
     "name": "Spiced Pepper Creme Brulee",
-    "description": "+100 Concentration\n+70 Healing Power"
+    "description": "+100 Concentration\n+70 Healing Power\n-10% Incoming Damage"
   },
   "91693": {
     "name": "Mango Cilantro Creme Brulee",
-    "description": "+100 Concentration\n+70 Healing Power"
+    "description": "+100 Concentration\n+70 Healing Power\n66% Chance to Steal Life on Critical Hit"
   },
   "91878": {
     "name": "Cilantro and Cured Meat Flatbread",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\n66% Chance to Steal Life on Critical Hit"
   },
   "91784": {
     "name": "Clove-Spiced Pear and Cured Meat Flatbread",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\n-20% Incoming Condition Duration"
   },
   "91699": {
     "name": "Mint-Pear Cured Meat Flatbread",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\n+10% Outgoing Healing"
   },
   "91879": {
     "name": "Peppered Cured Meat Flatbread",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\n-10% Incoming Damage"
   },
   "91844": {
     "name": "Sesame-Asparagus and Cured Meat Flatbread",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\nGain Health Every Second"
   },
   "91705": {
     "name": "Clove-Spiced Eggs Benedict",
-    "description": "+100 Concentration\n+70 Expertise"
+    "description": "+100 Concentration\n+70 Expertise\n-20% Incoming Condition Duration"
   },
   "91874": {
     "name": "Peppercorn-Spiced Eggs Benedict",
-    "description": "+100 Concentration\n+70 Expertise"
+    "description": "+100 Concentration\n+70 Expertise\n-10% Incoming Damage"
   },
   "91843": {
     "name": "Salsa Eggs Benedict",
-    "description": "+100 Concentration\n+70 Expertise"
+    "description": "+100 Concentration\n+70 Expertise\n66% Chance to Steal Life on Critical Hit"
   },
   "91765": {
     "name": "Sesame Eggs Benedict",
-    "description": "+100 Concentration\n+70 Expertise"
+    "description": "+100 Concentration\n+70 Expertise\nGain Health Every Second"
   },
   "91758": {
     "name": "Eggs Benedict with Mint-Parsley Sauce",
-    "description": "+100 Concentration\n+70 Expertise"
+    "description": "+100 Concentration\n+70 Expertise\n+10% Outgoing Healing"
   },
   "91835": {
     "name": "Spherified Cilantro Oyster Soup",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\n66% Chance to Steal Life on Critical Hit"
   },
   "91772": {
     "name": "Spherified Clove-Spiced Oyster Soup",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\n-20% Incoming Condition Duration"
   },
   "91692": {
     "name": "Spherified Oyster Soup with Mint Garnish",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\n+10% Outgoing Healing"
   },
   "91840": {
     "name": "Spherified Peppercorn-Spiced Oyster Soup",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\n-10% Incoming Damage"
   },
   "91783": {
     "name": "Spherified Sesame Oyster Soup",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\nGain Health Every Second"
   },
   "91710": {
     "name": "Plate of Poultry Aspic with Mint Garnish",
-    "description": "+100 Concentration\n+70 Toughness"
+    "description": "+100 Concentration\n+70 Toughness\n+10% Outgoing Healing"
   },
   "91838": {
     "name": "Plate of Poultry Aspic with Salsa Garnish",
-    "description": "+100 Concentration\n+70 Toughness"
+    "description": "+100 Concentration\n+70 Toughness\n66% Chance to Steal Life on Critical Hit"
   },
   "91753": {
     "name": "Plate of Clove-Spiced Poultry Aspic",
-    "description": "+100 Concentration\n+70 Toughness"
+    "description": "+100 Concentration\n+70 Toughness\n-20% Incoming Condition Duration"
   },
   "91832": {
     "name": "Plate of Peppercorn-Spiced Poultry Aspic",
-    "description": "+100 Concentration\n+70 Toughness"
+    "description": "+100 Concentration\n+70 Toughness\n-10% Incoming Damage"
+  },
+  "91804": {
+    "name": "Plate of Sesame Poultry Aspic",
+    "description": "+100 Concentration\n+70 Toughness\nGain Health Every Second"
   },
   "91805": {
     "name": "Cilantro Lime Sous-Vide Steak",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\n66% Chance to Steal Life on Critical Hit"
   },
   "91797": {
     "name": "Peppercorn-Crusted Sous-Vide Steak",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\n-10% Incoming Damage"
   },
   "91794": {
     "name": "Sous-Vide Steak with Mint-Parsley Sauce",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\n+10% Outgoing Healing"
   },
   "91839": {
     "name": "Soy-Sesame Sous-Vide Steak",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\nGain Health Every Second"
   },
   "91767": {
     "name": "Plate of Clear Truffle and Cilantro Ravioli",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\n66% Chance to Steal Life on Critical Hit"
   },
   "91709": {
     "name": "Plate of Clear Truffle and Mint Ravioli",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\n+10% Outgoing Healing"
   },
   "91755": {
     "name": "Plate of Clear Truffle and Sesame Ravioli",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\nGain Health Every Second"
   },
   "91691": {
     "name": "Plate of Clove-Spiced Clear Truffle Ravioli",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\n-20% Incoming Condition Duration"
   },
   "91833": {
     "name": "Plate of Peppered Clear Truffle Ravioli",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\n-10% Incoming Damage"
   },
   "91698": {
     "name": "Clove and Veggie Flatbread",
-    "description": "+100 Expertise\n+70 Condition Damage"
+    "description": "+100 Expertise\n+70 Condition Damage\n-20% Incoming Condition Duration"
   },
   "91694": {
     "name": "Mint and Veggie Flatbread",
-    "description": "+100 Expertise\n+70 Condition Damage"
+    "description": "+100 Expertise\n+70 Condition Damage\n+10% Outgoing Healing"
   },
   "91731": {
     "name": "Peppercorn and Veggie Flatbread",
-    "description": "+100 Expertise\n+70 Condition Damage"
+    "description": "+100 Expertise\n+70 Condition Damage\n-10% Incoming Damage"
   },
   "91756": {
     "name": "Salsa-Topped Veggie Flatbread",
-    "description": "+100 Expertise\n+70 Condition Damage"
+    "description": "+100 Expertise\n+70 Condition Damage\n66% Chance to Steal Life on Critical Hit"
   },
   "91701": {
     "name": "Sesame Veggie Flatbread",
-    "description": "+100 Expertise\n+70 Condition Damage"
+    "description": "+100 Expertise\n+70 Condition Damage\nGain Health Every Second"
   },
   "97592": {
     "name": "Bowl of Echovald Hotpot",
-    "description": "+100 Condition Damage\n+70 Expertise"
+    "description": "+100 Condition Damage\n+70 Expertise\n+150 Fishing Power"
   },
   "97282": {
     "name": "Bowl of Jade Sea Bounty",
-    "description": "+100 Power\n+70 Ferocity"
+    "description": "+100 Power\n+70 Ferocity\n+150 Fishing Power"
   },
   "97336": {
     "name": "Flight of Sushi",
-    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration"
+    "description": "+45 Power\n+45 Precision\n+45 Toughness\n+45 Vitality\n+45 Ferocity\n+45 Condition Damage\n+45 Healing Power\n+45 Expertise\n+45 Concentration\n+150 Fishing Power"
   },
   "97489": {
     "name": "Plate of Crispy Fish Pancakes",
-    "description": "+100 Vitality\n+70 Toughness"
+    "description": "+100 Vitality\n+70 Toughness\n+150 Fishing Power"
   },
   "97513": {
     "name": "Plate of Imperial Palace Special",
-    "description": "+100 Healing Power\n+70 Concentration"
+    "description": "+100 Healing Power\n+70 Concentration\n+150 Fishing Power"
   }
 }
