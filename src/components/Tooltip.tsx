@@ -1,31 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { parseGW2Text } from '../lib/textParser';
-import type { GW2SkillModeData, GW2TraitModeData, ModeBundle, GW2Fact } from '../types/gw2';
-
-// Extended fact types for more specific typing
-interface PrefixedBuffFact extends GW2Fact {
-  type: 'PrefixedBuff';
-  prefix?: {
-    status?: string;
-    text?: string;
-  };
-  status?: string;
-  description?: string;
-}
-
-interface BuffFact extends GW2Fact {
-  type: 'Buff';
-  status?: string;
-  description?: string;
-  duration?: number;
-  apply_count?: number;
-}
-
-interface AttributeAdjustFact extends GW2Fact {
-  type: 'AttributeAdjust';
-  value?: number;
-  target?: string;
-}
+import type { GW2SkillModeData, GW2TraitModeData, ModeBundle, GW2Fact, PrefixedBuffFact, BuffFact, AttributeAdjustFact } from '../types/gw2';
 
 interface TooltipProps {
   content: string;

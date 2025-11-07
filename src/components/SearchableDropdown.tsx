@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import type { KeyboardEvent } from 'react';
 
 interface SearchableDropdownProps<T, K = number> {
   items: T[];
@@ -70,7 +71,7 @@ export default function SearchableDropdown<T, K = number>({
     }
   }, [autoFocus]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen) {
       if (event.key === 'ArrowDown' || event.key === 'Enter') {
         setIsOpen(true);
