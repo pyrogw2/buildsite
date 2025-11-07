@@ -169,7 +169,7 @@ export default function StatsPanel() {
     const armorPieces: Array<{ slot: string; stat: string }> = [];
 
     // Individual trinkets
-    const trinkets: Array<{ slot: string; stat: string }> = [];
+    const trinkets: Array<{ slot: string; stat: string; originalSlot: string }> = [];
 
     buildData.equipment.forEach((item) => {
       // Weapon Set 1
@@ -214,9 +214,20 @@ export default function StatsPanel() {
                            item.slot === 'Accessory1' ? 'accessory' :
                            item.slot === 'Accessory2' ? 'accessory' :
                            item.slot === 'Amulet' ? 'amulet' : 'back';
-        trinkets.push({ slot: displaySlot, stat: item.stat });
+        trinkets.push({ slot: displaySlot, stat: item.stat, originalSlot: item.slot });
       }
     });
+
+    // Sort trinkets to match equipment panel order: Back, Accessories, Rings, Amulet
+    const trinketOrder: Record<string, number> = {
+      'Backpack': 0,
+      'Accessory1': 1,
+      'Accessory2': 2,
+      'Ring1': 3,
+      'Ring2': 4,
+      'Amulet': 5,
+    };
+    trinkets.sort((a, b) => (trinketOrder[a.originalSlot] || 999) - (trinketOrder[b.originalSlot] || 999));
 
     return { weaponSet1, weaponSet2, armorPieces, trinkets };
   }, [buildData.equipment]);
