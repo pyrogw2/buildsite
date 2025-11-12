@@ -23,10 +23,11 @@ import type {
   Equipment,
   StatCombo,
   GW2Item,
-  GW2Trait,
+  GW2TraitWithModes,
   GW2Skill,
   GW2Specialization,
   BuildData,
+  GW2Fact,
 } from '../types/gw2';
 import {
   BASE_HEALTH,
@@ -85,14 +86,14 @@ export interface DerivedStats {
   // Offensive
   critChance: number;      // Percentage (0-100) - includes both attribute-derived and direct bonuses
   critDamage: number;      // Percentage (150+) - includes both attribute-derived and direct bonuses
-  effectivePower: number;  // Power * (1 + CritChance * (CritDamage - 1))
+  effectivePower: number;  // Power × (1 + CritChance × (CritDamage - 1))
 
   // Durations
   conditionDuration: number; // Percentage (0-100) - includes both attribute-derived and direct bonuses
   boonDuration: number;      // Percentage (0-100) - includes both attribute-derived and direct bonuses
 
   // Survivability
-  effectiveHP: number;       // HP * (1 + Armor / 1000)
+  effectiveHP: number;       // HP × (1 + Armor / 1000)
 }
 
 /**
@@ -285,7 +286,7 @@ function addAttributes(target: BaseAttributes, source: Partial<BaseAttributes>):
 
 /**
  * Parses a bonus string like "+25 Power" or "+10% Boon Duration"
- * Returns the attribute and flat value (converts percentages)
+ * Returns attribute and flat value (converts percentages)
  */
 function parseBonus(bonus: string): { attribute: AttributeKey; value: number } | null {
   // Match patterns like "+25 Power" or "+10% Boon Duration"
@@ -536,7 +537,7 @@ function calculateSigilStats(
 
 /**
  * Whitelist of trait IDs that provide passive stat bonuses (no conditions)
- * Only includes traits where the stat bonus is always active
+ * Only includes traits where stat bonus is always active
  *
  * Excluded: Conditional bonuses (weapon-specific, boon-dependent, combat state, etc.)
  *
@@ -578,7 +579,7 @@ const PASSIVE_STAT_TRAITS: number[] = [
  */
 function calculateTraitStats(
   selectedTraits: number[],
-  allTraits: GW2Trait[],
+  allTraits: GW2TraitWithModes[],
   gameMode: GameMode
 ): Partial<BaseAttributes> {
   const stats = createEmptyAttributes();
@@ -591,19 +592,19 @@ function calculateTraitStats(
     if (!trait) return;
 
     // Get mode-specific facts or fall back to base facts
-    let facts: any[] | undefined;
+    let facts: GW2Fact[] | undefined;
     switch (gameMode) {
       case 'PvE':
-        facts = trait.pve?.facts || trait.facts;
+        facts = trait.modes.pve?.facts || trait.modes.default.facts;
         break;
       case 'PvP':
-        facts = trait.pvp?.facts || trait.facts;
+        facts = trait.modes.pvp?.facts || trait.modes.default.facts;
         break;
       case 'WvW':
-        facts = trait.wvw?.facts || trait.facts;
+        facts = trait.modes.wvw?.facts || trait.modes.default.facts;
         break;
       default:
-        facts = trait.facts;
+        facts = trait.modes.default.facts;
     }
 
     if (!facts) return;
@@ -615,19 +616,21 @@ function calculateTraitStats(
     // (API may return multiple AttributeAdjust facts for the same target)
     const processedTargets = new Set<string>();
 
-    statFacts.forEach((fact: any) => {
-      const target = fact.target;
+    statFacts.forEach((fact: GW2Fact) => {
+      const target = fact.target as string | undefined;
       const value = fact.value;
 
       // Skip if we've already processed this target
-      if (processedTargets.has(target)) {
+      if (target && processedTargets.has(target)) {
         return;
       }
-      processedTargets.add(target);
+      if (target) {
+        processedTargets.add(target);
+      }
 
       // Map API target names to our AttributeKey
-      const attribute = STAT_NAME_MAP[target];
-      if (attribute && value) {
+      const attribute = target ? STAT_NAME_MAP[target] : undefined;
+      if (attribute && value !== undefined) {
         stats[attribute] = (stats[attribute] || 0) + value;
       }
     });
@@ -640,7 +643,7 @@ function calculateTraitStats(
  * Signet passive stat bonuses (level 80)
  *
  * NOTE: The GW2 API does not expose signet passive bonuses via AttributeAdjust facts.
- * These values are hardcoded based on the GW2 Wiki (formula: 20 + 2 * level = 180 at level 80).
+ * These values are hardcoded based on GW2 Wiki (formula: 20 + 2 * level = 180 at level 80).
  *
  * Excluded: Superconducting Signet (provides % damage modifier, not attribute bonus)
  * Excluded: Healing signets (provide healing effects, not flat attribute bonuses)
@@ -649,7 +652,7 @@ const SIGNET_PASSIVE_STAT_BONUSES: Record<number, { attribute: AttributeKey; val
   9151: { attribute: 'ConditionDamage', value: 180 }, // Signet of Wrath (Guardian)
   14404: { attribute: 'Power', value: 180 },          // Signet of Might (Warrior)
   14410: { attribute: 'Precision', value: 180 },      // Signet of Fury (Warrior)
-  12491: { attribute: 'Ferocity', value: 180 },       // Signet of the Wild (Ranger)
+  12491: { attribute: 'Ferocity', value: 180 },       // Signet of Wild (Ranger)
   13046: { attribute: 'Power', value: 180 },          // Assassin's Signet (Thief)
   13062: { attribute: 'Precision', value: 180 },      // Signet of Agility (Thief)
 };
@@ -766,7 +769,7 @@ export function calculateStats(
   buildData: BuildData,
   runeItem: GW2Item | null,
   sigilItems: Map<number, GW2Item>,
-  allTraits: GW2Trait[],
+  allTraits: GW2TraitWithModes[],
   allSpecs: GW2Specialization[],
   allSkills: GW2Skill[]
 ): CalculatedStats {

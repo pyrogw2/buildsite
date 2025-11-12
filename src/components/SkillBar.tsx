@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type { GW2SkillWithModes } from '../types/gw2';
@@ -21,12 +21,7 @@ export default function SkillBar() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(true);
 
-
-  useEffect(() => {
-    loadSkills();
-  }, [profession]);
-
-  const loadSkills = async () => {
+  const loadSkills = useCallback(async () => {
     setLoading(true);
     try {
       const allSkills = await gw2Api.getSkills(profession);
@@ -36,7 +31,11 @@ export default function SkillBar() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [profession]);
+
+  useEffect(() => {
+    loadSkills();
+  }, [loadSkills]);
 
   const getSkillsForSlot = (slotType: string): GW2SkillWithModes[] => {
     return availableSkills.filter((skill) => skill.slot?.toLowerCase() === slotType.toLowerCase());

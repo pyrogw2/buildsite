@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type {
@@ -11,11 +11,30 @@ import Tooltip from './Tooltip';
 import SkillPicker from './SkillPicker';
 import SearchableDropdown from './SearchableDropdown';
 import ItemIconBox from './ItemIconBox';
-import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, TWO_HANDED_WEAPONS, PROFESSION_WEAPONS, type StatCombo, type GameMode } from '../types/gw2';
+import { STAT_COMBOS, INFUSION_IDS, RUNE_IDS, RELIC_IDS, SIGIL_IDS, PROFESSION_WEAPONS, TWO_HANDED_WEAPONS, OFF_HAND_WEAPONS, type StatCombo, type GameMode, type WeaponType } from '../types/gw2';
 import { resolveSkillMode, resolveTraitMode } from '../lib/modeUtils';
 
 type SectionType = 'skills' | 'traits' | 'equipment';
 type SkillSlot = 'heal' | 'utility1' | 'utility2' | 'utility3' | 'elite';
+
+// Type for legend data from API
+interface LegendData {
+  id: string;
+  name: string;
+  swap: number;
+  heal: number;
+  utilities: [number, number, number];
+  elite: number;
+  icon: string;
+}
+
+// Type for pet data from API
+interface PetData {
+  id: number;
+  name: string;
+  description: string;
+  icon: string;
+}
 
 const SLOT_LABELS: Record<SkillSlot, string> = {
   heal: 'Heal',
@@ -129,14 +148,13 @@ function SkillBarContent() {
   const { profession, skills, traits, setSkill, gameMode, professionMechanics, setProfessionMechanic } = useBuildStore();
   const [availableSkills, setAvailableSkills] = useState<GW2SkillWithModes[]>([]);
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [legendPickerOpen, setLegendPickerOpen] = useState<'legend1' | 'legend2' | null>(null);
   const [morphPickerOpen, setMorphPickerOpen] = useState<'slot2' | 'slot3' | 'slot4' | null>(null);
   const [petPickerOpen, setPetPickerOpen] = useState<'pet1' | 'pet2' | null>(null);
   const [petSearchQuery, setPetSearchQuery] = useState('');
-  const [legends, setLegends] = useState<any[]>([]);
-  const [pets, setPets] = useState<any[]>([]);
+  const [legends, setLegends] = useState<LegendData[]>([]);
+  const [pets, setPets] = useState<PetData[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const legendDropdownRef = useRef<HTMLDivElement>(null);
@@ -145,6 +163,52 @@ function SkillBarContent() {
   const morphButtonRef = useRef<HTMLButtonElement>(null);
   const petDropdownRef = useRef<HTMLDivElement>(null);
   const petButtonRef = useRef<HTMLButtonElement>(null);
+
+  const loadSpecs = useCallback(async () => {
+    try {
+      const allSpecs = await gw2Api.getSpecializations(profession!);
+      setSpecs(allSpecs);
+    } catch (error) {
+      console.error('Failed to load specializations:', error);
+    }
+  }, [profession]);
+
+  const loadSkills = useCallback(async () => {
+    try {
+      const allSkills = await gw2Api.getSkills(profession);
+
+      // Filter out racial skills - they have multiple professions (8 base professions)
+      // Regular profession skills only have 1 profession in an array
+      // Also filter out skill flips/transforms - they don't have a slot field
+      // Exception: Keep profession mechanic skills (familiars, morphs) even without slot field
+      const filteredSkills = allSkills.filter(skill =>
+        skill.professions.length === 1 && (skill.slot || AMALGAM_MORPHS.includes(skill.id) || EVOKER_FAMILIARS.includes(skill.id))
+      );
+
+      // Deduplicate skills by NAME + flip_skill combination to handle PvE/PvP versions
+      // while keeping flip skill variants separate
+      // Prefer skills without specialization (core skills) over those with specialization
+      const skillsByKey = new Map<string, GW2SkillWithModes>();
+      filteredSkills.forEach(skill => {
+        // Create a unique key combining name and flip_skill status
+        const key = `${skill.name}_${skill.flip_skill || 'none'}`;
+        const existing = skillsByKey.get(key);
+        if (!existing) {
+          skillsByKey.set(key, skill);
+        } else {
+          // Prefer skills without specialization
+          if (!skill.specialization && existing.specialization) {
+            skillsByKey.set(key, skill);
+          }
+        }
+      });
+      const uniqueSkills = Array.from(skillsByKey.values());
+
+      setAvailableSkills(uniqueSkills);
+    } catch (error) {
+      console.error('Failed to load skills:', error);
+    }
+  }, [profession]);
 
   useEffect(() => {
     if (profession) {
@@ -162,7 +226,7 @@ function SkillBarContent() {
         loadPets();
       }
     }
-  }, [profession]);
+  }, [profession, loadSkills, loadSpecs]);
 
   const loadLegends = async () => {
     try {
@@ -271,57 +335,7 @@ function SkillBarContent() {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isPickerOpen, legendPickerOpen, morphPickerOpen]);
-
-  const loadSpecs = async () => {
-    try {
-      const allSpecs = await gw2Api.getSpecializations(profession!);
-      setSpecs(allSpecs);
-    } catch (error) {
-      console.error('Failed to load specializations:', error);
-    }
-  };
-
-  const loadSkills = async () => {
-    setLoading(true);
-    try {
-      const allSkills = await gw2Api.getSkills(profession);
-
-
-      // Filter out racial skills - they have multiple professions (8 base professions)
-      // Regular profession skills only have 1 profession in the array
-      // Also filter out skill flips/transforms - they don't have a slot field
-      // Exception: Keep profession mechanic skills (familiars, morphs) even without slot field
-      const filteredSkills = allSkills.filter(skill =>
-        skill.professions.length === 1 && (skill.slot || AMALGAM_MORPHS.includes(skill.id) || EVOKER_FAMILIARS.includes(skill.id))
-      );
-
-      // Deduplicate skills by NAME + flip_skill combination to handle PvE/PvP versions
-      // while keeping flip skill variants separate
-      // Prefer skills without specialization (core skills) over those with specialization
-      const skillsByKey = new Map<string, GW2SkillWithModes>();
-      filteredSkills.forEach(skill => {
-        // Create a unique key combining name and flip_skill status
-        const key = `${skill.name}_${skill.flip_skill || 'none'}`;
-        const existing = skillsByKey.get(key);
-        if (!existing) {
-          skillsByKey.set(key, skill);
-        } else {
-          // Prefer skills without specialization
-          if (!skill.specialization && existing.specialization) {
-            skillsByKey.set(key, skill);
-          }
-        }
-      });
-      const uniqueSkills = Array.from(skillsByKey.values());
-
-      setAvailableSkills(uniqueSkills);
-    } catch (error) {
-      console.error('Failed to load skills:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [isPickerOpen, legendPickerOpen, morphPickerOpen, petPickerOpen]);
 
   const getSkillsForSlot = (slotType: string): GW2SkillWithModes[] => {
     // Get selected elite specializations (only elite specs, not core specs)
@@ -343,10 +357,10 @@ function SkillBarContent() {
         // If specs haven't loaded yet, show all elites to avoid empty state
         if (specs.length === 0) return true;
 
-        // Check if the skill's specialization is an elite spec
+        // Check if skill's specialization is an elite spec
         const skillSpec = specs.find(s => s.id === skill.specialization);
 
-        // If we can't find the spec in our list, show it (safety fallback)
+        // If we can't find spec in our list, show it (safety fallback)
         if (!skillSpec) return true;
 
         // If it's a core spec (not elite), always show it
@@ -819,16 +833,6 @@ function SkillBarContent() {
     );
   };
 
-  if (loading) {
-    return (
-      <div className="flex gap-4">
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className="h-32 flex-1 rounded-2xl bg-slate-800/60" />
-        ))}
-      </div>
-    );
-  }
-
   const renderAmalgamMorph = (slot: 'slot2' | 'slot3' | 'slot4') => {
     if (!hasAmalgamMorphs) return null;
 
@@ -978,13 +982,7 @@ function TraitPanelContent() {
   const [specs, setSpecs] = useState<GW2Specialization[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (profession) {
-      loadSpecializations();
-    }
-  }, [profession]);
-
-  const loadSpecializations = async () => {
+  const loadSpecializations = useCallback(async () => {
     if (!profession) return;
     setLoading(true);
     try {
@@ -995,7 +993,13 @@ function TraitPanelContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [profession]);
+
+  useEffect(() => {
+    if (profession) {
+      loadSpecializations();
+    }
+  }, [profession, loadSpecializations]);
 
   const renderSpecSlot = (slotNum: 1 | 2 | 3) => {
     const specIdKey = `spec${slotNum}` as const;
@@ -1089,11 +1093,7 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
   const [spec, setSpec] = useState<GW2Specialization | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTraits();
-  }, [specId]);
-
-  const loadTraits = async () => {
+  const loadTraits = useCallback(async () => {
     setLoading(true);
     try {
       const [specData, traitsData] = await Promise.all([
@@ -1107,7 +1107,11 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
     } finally {
       setLoading(false);
     }
-  };
+  }, [specId]);
+
+  useEffect(() => {
+    loadTraits();
+  }, [loadTraits]);
 
   if (loading) {
     return <div className="text-sm text-slate-400">Loading traits...</div>;
@@ -1265,7 +1269,7 @@ function EquipmentPanelContent() {
     if (slot === 'Backpack') return 2;
     if (slot === 'Amulet') return 0; // Enrichment (greyed out)
     if (slot === 'MainHand1' || slot === 'MainHand2') {
-      return weaponType && TWO_HANDED_WEAPONS.includes(weaponType as any) ? 2 : 1;
+      return weaponType && TWO_HANDED_WEAPONS.includes(weaponType as WeaponType) ? 2 : 1;
     }
     // Armor and other trinkets
     return 1;
@@ -1357,7 +1361,7 @@ function EquipmentPanelContent() {
 
       for (let i = 1; i <= infusionCount; i++) {
         const infusionKey = `infusion${i}` as 'infusion1' | 'infusion2' | 'infusion3';
-        // Apply if overwrite is enabled OR if the slot is empty
+        // Apply if overwrite is enabled OR if slot is empty
         if (overwriteInfusions || !item[infusionKey]) {
           updates[infusionKey] = bulkInfusion;
         }
@@ -1415,9 +1419,9 @@ function EquipmentPanelContent() {
     }
 
     const isTwoHanded = item.weaponType && TWO_HANDED_WEAPONS.includes(item.weaponType);
-    const availableWeapons = profession ? (PROFESSION_WEAPONS as any)[profession] || [] : [];
+    const availableWeapons = profession ? PROFESSION_WEAPONS[profession] || [] : [];
     const slotWeapons = isOffHand
-      ? availableWeapons.filter((w: string) => ['Focus', 'Shield', 'Torch', 'Warhorn'].includes(w))
+      ? availableWeapons.filter((w: WeaponType) => OFF_HAND_WEAPONS.includes(w))
       : availableWeapons;
 
     return (
@@ -1429,44 +1433,46 @@ function EquipmentPanelContent() {
               value={item.weaponType || ''}
               onChange={(e) => {
                 const weaponType = e.target.value || undefined;
-                const newIsTwoHanded = weaponType && TWO_HANDED_WEAPONS.includes(weaponType as any);
+                const newIsTwoHanded = weaponType && TWO_HANDED_WEAPONS.includes(weaponType as WeaponType);
                 const wasOffHand = isOffHand;
 
                 if (!wasOffHand) {
                   // Main-hand weapon change
-                  const offHandSlot = item.slot === 'MainHand1' ? 'OffHand1' : 'OffHand2';
-                  const offHandItem = equipment.find(e => e.slot === offHandSlot);
+                  const offHandSlot = item.slot === 'MainHand1' ? 'OffHand1' : item.slot === 'MainHand2' ? 'OffHand2' : null;
+                  const offHandItem = offHandSlot ? equipment.find(e => e.slot === offHandSlot) : null;
 
                   if (newIsTwoHanded && offHandItem) {
                     // Switching to 2h: merge off-hand sigils/infusions into main-hand
                     updateEquipment(item.slot, {
-                      weaponType: weaponType as any,
+                      weaponType: weaponType as WeaponType,
                       sigil2Id: offHandItem.sigil1Id || item.sigil2Id,
                       infusion2: offHandItem.infusion1 || item.infusion2,
                     });
                     // Clear off-hand
-                    updateEquipment(offHandSlot, {
-                      weaponType: undefined,
-                      sigil1Id: undefined,
-                      infusion1: undefined,
-                    });
+                    if (offHandSlot) {
+                      updateEquipment(offHandSlot, {
+                        weaponType: undefined,
+                        sigil1Id: undefined,
+                        infusion1: undefined,
+                      });
+                    }
                   } else if (!newIsTwoHanded && isTwoHanded) {
                     // Switching from 2h to 1h: keep only first sigil/infusion
                     updateEquipment(item.slot, {
-                      weaponType: weaponType as any,
+                      weaponType: weaponType as WeaponType,
                       sigil2Id: undefined,
                       infusion2: undefined,
                     });
                   } else {
                     // Normal 1h to 1h change
                     updateEquipment(item.slot, {
-                      weaponType: weaponType as any,
+                      weaponType: weaponType as WeaponType,
                     });
                   }
                 } else {
                   // Off-hand weapon change
                   updateEquipment(item.slot, {
-                    weaponType: weaponType as any,
+                    weaponType: weaponType as WeaponType,
                   });
                 }
               }}
@@ -1623,6 +1629,7 @@ function EquipmentPanelContent() {
               selectedId={relicId}
               onSelect={setRelicId}
               getItemId={(relic) => relic.id}
+              // Normalize the name for relics
               getItemLabel={(relic) => relic.name.replace('Relic of the ', '').replace('Relic of ', '')}
               placeholder="Select Relic"
               disabled={loading}

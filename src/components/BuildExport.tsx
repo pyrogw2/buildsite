@@ -3,6 +3,7 @@ import { useBuildStore } from '../store/buildStore';
 import { getShareableUrl } from '../lib/buildEncoder';
 import { generateChatLink } from '../lib/buildExport';
 import { importFromChatCode } from '../lib/chatCodeConverter';
+import type { BuildData } from '../types/gw2';
 
 export default function BuildExport() {
   const buildData = useBuildStore();
@@ -14,7 +15,7 @@ export default function BuildExport() {
   const [importSuccess, setImportSuccess] = useState(false);
 
   const handleCopyUrl = () => {
-    const url = getShareableUrl(buildData as any);
+    const url = getShareableUrl(buildData as BuildData);
     navigator.clipboard.writeText(url);
     setCopied('url');
     setTimeout(() => setCopied(null), 2000);
@@ -22,11 +23,11 @@ export default function BuildExport() {
 
   const handleCopyChatCode = async () => {
     try {
-      const chatCode = await generateChatLink(buildData as any);
+      const chatCode = await generateChatLink(buildData as BuildData);
       navigator.clipboard.writeText(chatCode);
       setCopied('chatCode');
       setTimeout(() => setCopied(null), 2000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to generate chat code:', error);
     }
   };
@@ -45,7 +46,7 @@ export default function BuildExport() {
       setImportSuccess(true);
       setChatCodeInput('');
       setTimeout(() => setImportSuccess(false), 3000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to import chat code:', error);
       const errorMessage = error instanceof Error ? error.message : 'Invalid chat code. Please check the format and try again.';
       setImportError(errorMessage);
