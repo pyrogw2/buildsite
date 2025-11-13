@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
-import type { GW2Item } from '../types/gw2';
+import type { GW2Item, GW2TraitWithModes, GW2Specialization } from '../types/gw2';
 import { TWO_HANDED_WEAPONS } from '../types/gw2';
 import { calculateStats, type AttributeKey } from '../lib/statCalculator';
 import Tooltip from './Tooltip';
@@ -13,16 +13,16 @@ const ATTRIBUTES: Array<{
   accent: string;
   icon: string;
 }> = [
-  { key: 'Power', label: 'Power', shortLabel: 'Power', accent: 'bg-sky-500', icon: 'https://wiki.guildwars2.com/images/2/23/Power.png' },
-  { key: 'Toughness', label: 'Toughness', shortLabel: 'Tough', accent: 'bg-amber-500', icon: 'https://wiki.guildwars2.com/images/1/12/Toughness.png' },
-  { key: 'Vitality', label: 'Vitality', shortLabel: 'Vit', accent: 'bg-emerald-500', icon: 'https://wiki.guildwars2.com/images/b/be/Vitality.png' },
-  { key: 'Precision', label: 'Precision', shortLabel: 'Prec', accent: 'bg-fuchsia-500', icon: 'https://wiki.guildwars2.com/images/e/ee/Precision.png' },
-  { key: 'Ferocity', label: 'Ferocity', shortLabel: 'Fero', accent: 'bg-orange-500', icon: 'https://wiki.guildwars2.com/images/f/f1/Ferocity.png' },
-  { key: 'ConditionDamage', label: 'Condition Damage', shortLabel: 'Condi', accent: 'bg-red-500', icon: 'https://wiki.guildwars2.com/images/5/54/Condition_Damage.png' },
-  { key: 'HealingPower', label: 'Healing Power', shortLabel: 'Healing P', accent: 'bg-teal-400', icon: 'https://wiki.guildwars2.com/images/8/81/Healing_Power.png' },
-  { key: 'Expertise', label: 'Expertise', shortLabel: 'Exp', accent: 'bg-indigo-500', icon: 'https://wiki.guildwars2.com/images/3/38/Condition_Duration.png' },
-  { key: 'Concentration', label: 'Concentration', shortLabel: 'Conc', accent: 'bg-lime-400', icon: 'https://wiki.guildwars2.com/images/4/44/Boon_Duration.png' },
-];
+    { key: 'Power', label: 'Power', shortLabel: 'Power', accent: 'bg-sky-500', icon: 'https://wiki.guildwars2.com/images/2/23/Power.png' },
+    { key: 'Toughness', label: 'Toughness', shortLabel: 'Tough', accent: 'bg-amber-500', icon: 'https://wiki.guildwars2.com/images/1/12/Toughness.png' },
+    { key: 'Vitality', label: 'Vitality', shortLabel: 'Vit', accent: 'bg-emerald-500', icon: 'https://wiki.guildwars2.com/images/b/be/Vitality.png' },
+    { key: 'Precision', label: 'Precision', shortLabel: 'Prec', accent: 'bg-fuchsia-500', icon: 'https://wiki.guildwars2.com/images/e/ee/Precision.png' },
+    { key: 'Ferocity', label: 'Ferocity', shortLabel: 'Fero', accent: 'bg-orange-500', icon: 'https://wiki.guildwars2.com/images/f/f1/Ferocity.png' },
+    { key: 'ConditionDamage', label: 'Condition Damage', shortLabel: 'Condi', accent: 'bg-red-500', icon: 'https://wiki.guildwars2.com/images/5/54/Condition_Damage.png' },
+    { key: 'HealingPower', label: 'Healing Power', shortLabel: 'Healing P', accent: 'bg-teal-400', icon: 'https://wiki.guildwars2.com/images/8/81/Healing_Power.png' },
+    { key: 'Expertise', label: 'Expertise', shortLabel: 'Exp', accent: 'bg-indigo-500', icon: 'https://wiki.guildwars2.com/images/3/38/Condition_Duration.png' },
+    { key: 'Concentration', label: 'Concentration', shortLabel: 'Conc', accent: 'bg-lime-400', icon: 'https://wiki.guildwars2.com/images/4/44/Boon_Duration.png' },
+  ];
 
 const formatNumber = (value: number) => Math.round(value).toLocaleString();
 
@@ -96,8 +96,8 @@ export default function StatsPanel() {
   }, [buildData.equipment]);
 
   // Load trait and specialization data for stat calculations
-  const [allTraits, setAllTraits] = useState<any[]>([]);
-  const [allSpecs, setAllSpecs] = useState<any[]>([]);
+  const [allTraits, setAllTraits] = useState<GW2TraitWithModes[]>([]);
+  const [allSpecs, setAllSpecs] = useState<GW2Specialization[]>([]);
 
   useEffect(() => {
     Promise.all([

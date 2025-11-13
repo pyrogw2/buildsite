@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useBuildStore } from '../store/buildStore';
 import { gw2Api } from '../lib/gw2api';
 import type { GW2Specialization, GW2TraitWithModes, GameMode } from '../types/gw2';
@@ -12,11 +12,7 @@ export default function TraitPanel() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(true);
 
-  useEffect(() => {
-    loadSpecializations();
-  }, [profession]);
-
-  const loadSpecializations = async () => {
+  const loadSpecializations = useCallback(async () => {
     setLoading(true);
     try {
       const allSpecs = await gw2Api.getSpecializations(profession);
@@ -26,7 +22,11 @@ export default function TraitPanel() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [profession]);
+
+  useEffect(() => {
+    loadSpecializations();
+  }, [loadSpecializations]);
 
   const renderSpecSlot = (slotNum: 1 | 2 | 3) => {
     const specIdKey = `spec${slotNum}` as const;
@@ -149,11 +149,7 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
   const [spec, setSpec] = useState<GW2Specialization | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTraits();
-  }, [specId]);
-
-  const loadTraits = async () => {
+  const loadTraits = useCallback(async () => {
     setLoading(true);
     try {
       const [specData, traitsData] = await Promise.all([
@@ -167,7 +163,11 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
     } finally {
       setLoading(false);
     }
-  };
+  }, [specId]);
+
+  useEffect(() => {
+    loadTraits();
+  }, [loadTraits]);
 
   if (loading) {
     return <div className="text-sm text-slate-400">Loading traits...</div>;

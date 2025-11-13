@@ -8,6 +8,7 @@ import type {
   GW2Specialization,
   GW2ItemStat,
   GW2Item,
+  GW2Fact,
 } from '../types/gw2';
 import {
   mergeModeData,
@@ -23,9 +24,17 @@ interface CacheEntry<T> {
   timestamp: number;
 }
 
+// Type for static data structure
+interface StaticData {
+  skills?: Record<string, GW2Skill[]>;
+  specializations?: GW2Specialization[];
+  traits?: GW2Trait[];
+  items?: GW2Item[];
+}
+
 class GW2ApiClient {
-  private cache: Map<string, CacheEntry<any>> = new Map();
-  private staticData: Record<string, any> = {};
+  private cache: Map<string, CacheEntry<unknown>> = new Map();
+  private staticData: StaticData = {};
   private staticDataLoaded = false;
   private skillOverrideLookup: Map<number, SkillModeOverrideInfo> = new Map();
   private processedSplitProfessions: Set<string> = new Set();
@@ -53,7 +62,7 @@ class GW2ApiClient {
     if (skill.name === 'Well of Corruption') {
       console.log('Normalizing Well of Corruption:', {
         hasWvwInput: !!wvw,
-        wvwInputRecharge: wvw?.facts?.find((f: any) => f.type === 'Recharge')?.value,
+        wvwInputRecharge: wvw?.facts?.find((f: GW2Fact) => f.type === 'Recharge')?.value,
         hasWvwOutput: !!normalized.modes.wvw,
         wvwOutputRecharge: normalized.modes.wvw?.facts?.find(f => f.type === 'Recharge')?.value,
       });
@@ -120,7 +129,7 @@ class GW2ApiClient {
     const cached = this.cache.get(cacheKey);
 
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      return cached.data;
+      return cached.data as T;
     }
 
     try {
@@ -138,7 +147,7 @@ class GW2ApiClient {
       // If fetch fails, try to return stale cache
       if (cached) {
         console.warn('Using stale cache due to fetch error:', error);
-        return cached.data;
+        return cached.data as T;
       }
       throw error;
     }
@@ -253,7 +262,7 @@ class GW2ApiClient {
         const normalized = skills.map((skill: GW2Skill) => this.normalizeSkill(skill));
 
         // Only merge skill mode overrides if we don't have wiki-scraped competitive splits
-        // (merging breaks the wiki-scraped data)
+        // (merging breaks wiki-scraped data)
         if (!this.hasCompetitiveSplits) {
           const { skills: mergedSkills, overrideLookup } = mergeSkillModeOverrides(normalized);
           this.registerSkillOverrides(overrideLookup);
@@ -384,7 +393,10 @@ class GW2ApiClient {
   // Get all traits from static data
   async getAllTraits(): Promise<GW2TraitWithModes[]> {
     await this.loadStaticData();
-    return this.staticData.traits || [];
+    if (this.staticData.traits) {
+      return this.staticData.traits.map((trait: GW2Trait) => this.normalizeTrait(trait));
+    }
+    return [];
   }
 
   // Get all specializations from static data

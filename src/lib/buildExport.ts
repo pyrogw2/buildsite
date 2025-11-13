@@ -107,17 +107,17 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
           const morphSkills = await Promise.all(morphSkillsPromises);
 
           if (build.professionMechanics.amalgamMorphs.slot2) {
-            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot2);
+            const morph = morphSkills.find((s: { id: number; name: string }) => s.id === build.professionMechanics?.amalgamMorphs?.slot2);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot2}`;
             lines.push(`- F2 Morph: ${name}`);
           }
           if (build.professionMechanics.amalgamMorphs.slot3) {
-            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot3);
+            const morph = morphSkills.find((s: { id: number; name: string }) => s.id === build.professionMechanics?.amalgamMorphs?.slot3);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot3}`;
             lines.push(`- F3 Morph: ${name}`);
           }
           if (build.professionMechanics.amalgamMorphs.slot4) {
-            const morph = morphSkills.find((s: any) => s.id === build.professionMechanics?.amalgamMorphs?.slot4);
+            const morph = morphSkills.find((s: { id: number; name: string }) => s.id === build.professionMechanics?.amalgamMorphs?.slot4);
             const name = morph ? morph.name : `Skill ID ${build.professionMechanics.amalgamMorphs.slot4}`;
             lines.push(`- F4 Morph: ${name}`);
           }
@@ -142,12 +142,12 @@ export async function generateDiscordMarkdown(build: BuildData, shareUrl: string
           const pets = await response.json();
 
           if (build.professionMechanics.rangerPets.pet1) {
-            const pet = pets.find((p: any) => p.id === build.professionMechanics?.rangerPets?.pet1);
+            const pet = pets.find((p: { id: number; name: string }) => p.id === build.professionMechanics?.rangerPets?.pet1);
             const name = pet ? pet.name.replace('Juvenile ', '') : `Pet ID ${build.professionMechanics.rangerPets.pet1}`;
             lines.push(`- Pet 1: ${name}`);
           }
           if (build.professionMechanics.rangerPets.pet2) {
-            const pet = pets.find((p: any) => p.id === build.professionMechanics?.rangerPets?.pet2);
+            const pet = pets.find((p: { id: number; name: string }) => p.id === build.professionMechanics?.rangerPets?.pet2);
             const name = pet ? pet.name.replace('Juvenile ', '') : `Pet ID ${build.professionMechanics.rangerPets.pet2}`;
             lines.push(`- Pet 2: ${name}`);
           }
@@ -200,7 +200,7 @@ export async function generateChatLink(build: BuildData): Promise<string> {
 }
 
 /**
- * Generate a text summary of the build
+ * Generate a text summary of a build
  */
 export function generateTextSummary(build: BuildData): string {
   const lines: string[] = [];

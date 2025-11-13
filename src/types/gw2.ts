@@ -426,6 +426,31 @@ export interface GW2Fact {
   [key: string]: unknown;
 }
 
+// Extended fact types for more specific typing
+export interface PrefixedBuffFact extends GW2Fact {
+  type: 'PrefixedBuff';
+  prefix?: {
+    status?: string;
+    text?: string;
+  };
+  status?: string;
+  description?: string;
+}
+
+export interface BuffFact extends GW2Fact {
+  type: 'Buff';
+  status?: string;
+  description?: string;
+  duration?: number;
+  apply_count?: number;
+}
+
+export interface AttributeAdjustFact extends GW2Fact {
+  type: 'AttributeAdjust';
+  value?: number;
+  target?: string;
+}
+
 export interface GW2SkillModeData {
   description?: string;
   facts?: GW2Fact[];
