@@ -152,6 +152,68 @@ async function fetchItems() {
   return items;
 }
 
+async function fetchConsumables() {
+  console.log('Fetching food and utility consumables...');
+
+  // Fetch all item IDs
+  const allItemIds = await fetchJson(`${API_BASE}/items`);
+  console.log(`  Total items in game: ${allItemIds.length}`);
+
+  // Fetch items in parallel batches to filter for consumables
+  console.log('  Fetching and filtering consumables (parallelized)...');
+  const batchSize = 200;
+  const parallelBatches = 10; // Fetch 10 batches at once
+  const consumables = [];
+
+  // Create all batch tasks
+  const batches = [];
+  for (let i = 0; i < allItemIds.length; i += batchSize) {
+    batches.push(allItemIds.slice(i, i + batchSize));
+  }
+
+  // Process batches in parallel chunks
+  for (let i = 0; i < batches.length; i += parallelBatches) {
+    const batchChunk = batches.slice(i, i + parallelBatches);
+    const startIdx = i * batchSize;
+    process.stdout.write(`\r  Progress: ${Math.floor((startIdx / allItemIds.length) * 100)}% (${startIdx}/${allItemIds.length})`);
+
+    const results = await Promise.all(
+      batchChunk.map(async (batch) => {
+        try {
+          const url = `${API_BASE}/items?ids=${batch.join(',')}`;
+          const items = await fetchJson(url);
+
+          // Filter for food and utility consumables
+          return items.filter(item => {
+            return item.type === 'Consumable' &&
+                   item.details &&
+                   (item.details.type === 'Food' || item.details.type === 'Utility');
+          });
+        } catch (error) {
+          console.error(`\n  Error fetching batch:`, error.message);
+          return [];
+        }
+      })
+    );
+
+    // Flatten results and add to consumables
+    results.forEach(result => consumables.push(...result));
+
+    // Small delay between parallel chunks
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+
+  console.log(`\n  ✓ Found ${consumables.length} food and utility items`);
+
+  // Separate food and utility for logging
+  const food = consumables.filter(item => item.details.type === 'Food');
+  const utility = consumables.filter(item => item.details.type === 'Utility');
+  console.log(`    - Food: ${food.length}`);
+  console.log(`    - Utility: ${utility.length}`);
+
+  return consumables;
+}
+
 async function fetchLegends() {
   console.log('Fetching Revenant legends...');
   const legendIds = await fetchJson(`${API_BASE}/legends`);
@@ -183,7 +245,7 @@ async function main() {
   }
 
   try {
-    let skillsByProfession, specializations, items, traits, legends, pets;
+    let skillsByProfession, specializations, items, traits, legends, pets, consumables;
 
     if (WIKI_ONLY) {
       // Load existing data from files
@@ -194,6 +256,7 @@ async function main() {
       items = loadExistingData('items.json');
       legends = loadExistingData('legends.json');
       pets = loadExistingData('pets.json');
+      consumables = loadExistingData('consumables.json');
       console.log('✓ Existing data loaded\n');
 
       // Filter professions if specified
@@ -212,12 +275,13 @@ async function main() {
       }
     } else {
       // Fetch all data from API
-      const [fetchedSkills, fetchedSpecs, fetchedItems, fetchedLegends, fetchedPets] = await Promise.all([
+      const [fetchedSkills, fetchedSpecs, fetchedItems, fetchedLegends, fetchedPets, fetchedConsumables] = await Promise.all([
         fetchSkills(),
         fetchSpecializations(),
         fetchItems(),
         fetchLegends(),
         fetchPets(),
+        fetchConsumables(),
       ]);
 
       skillsByProfession = fetchedSkills;
@@ -225,6 +289,7 @@ async function main() {
       items = fetchedItems;
       legends = fetchedLegends;
       pets = fetchedPets;
+      consumables = fetchedConsumables;
 
       // Fetch traits based on specializations
       traits = await fetchTraits(specializations);
@@ -351,6 +416,7 @@ async function main() {
       'items.json': items,
       'legends.json': legends,
       'pets.json': pets,
+      'consumables.json': consumables,
     };
 
     for (const [filename, data] of Object.entries(dataToSave)) {

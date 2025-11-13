@@ -1217,7 +1217,7 @@ function TraitSelector({ specId, selectedChoices, gameMode, onTraitSelect }: Tra
 
 // Equipment Panel Content (without wrapper)
 function EquipmentPanelContent() {
-  const { profession, equipment, updateEquipment, applyStatToCategory, runeId, setRuneId, relicId, setRelicId } = useBuildStore();
+  const { profession, equipment, updateEquipment, applyStatToCategory, runeId, setRuneId, relicId, setRelicId, foodId, setFoodId, utilityId, setUtilityId } = useBuildStore();
   const [bulkStat, setBulkStat] = useState<StatCombo>('Berserker');
   const [bulkInfusion, setBulkInfusion] = useState<number | undefined>(INFUSION_IDS[0]);
   const [overwriteStats, setOverwriteStats] = useState(false);
@@ -1226,6 +1226,8 @@ function EquipmentPanelContent() {
   const [relics, setRelics] = useState<GW2Item[]>([]);
   const [sigils, setSigils] = useState<GW2Item[]>([]);
   const [infusions, setInfusions] = useState<GW2Item[]>([]);
+  const [food, setFood] = useState<GW2Item[]>([]);
+  const [utilities, setUtilities] = useState<GW2Item[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -1235,12 +1237,13 @@ function EquipmentPanelContent() {
   const loadItems = async () => {
     setLoading(true);
     try {
-      // Fetch all runes, relics, sigils, and infusions using static ID lists
-      const [runeItems, relicItems, sigilItems, infusionItems] = await Promise.all([
+      // Fetch all runes, relics, sigils, infusions, and consumables
+      const [runeItems, relicItems, sigilItems, infusionItems, consumables] = await Promise.all([
         gw2Api.getItems(RUNE_IDS),
         gw2Api.getItems(RELIC_IDS),
         gw2Api.getItems(SIGIL_IDS),
-        gw2Api.getItems(INFUSION_IDS)
+        gw2Api.getItems(INFUSION_IDS),
+        gw2Api.getConsumables()
       ]);
 
       // Sort by name for better UX
@@ -1253,6 +1256,24 @@ function EquipmentPanelContent() {
       setRelics(sortedRelics);
       setSigils(sortedSigils);
       setInfusions(sortedInfusions);
+
+      // Enrich food items with feast buff data
+      const enrichedFood = consumables.food.map(item => {
+        const feastBuffs = gw2Api.getFeastBuffDescription(item.id);
+        if (feastBuffs && item.details) {
+          return {
+            ...item,
+            details: {
+              ...item.details,
+              description: feastBuffs
+            }
+          };
+        }
+        return item;
+      });
+
+      setFood(enrichedFood);
+      setUtilities(consumables.utility);
     } catch (error) {
       console.error('Failed to load items:', error);
     } finally {
@@ -1262,6 +1283,8 @@ function EquipmentPanelContent() {
 
   const selectedRune = runes.find(r => r.id === runeId);
   const selectedRelic = relics.find(r => r.id === relicId);
+  const selectedFood = food.find(f => f.id === foodId);
+  const selectedUtility = utilities.find(u => u.id === utilityId);
 
   // Helper function to get infusion count for a slot
   const getInfusionCountForSlot = (slot: string, weaponType?: string): number => {
@@ -1645,6 +1668,67 @@ function EquipmentPanelContent() {
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900">
                   <img src={selectedRelic.icon} alt={selectedRelic.name} className="h-6 w-6 rounded" />
+                </div>
+              </Tooltip>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* FOOD & UTILITY SECTION */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Food (Left) */}
+        <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <h3 className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Food</h3>
+          <div className="flex gap-2">
+            <SearchableDropdown
+              items={food}
+              selectedId={foodId}
+              onSelect={setFoodId}
+              getItemId={(item) => item.id}
+              getItemLabel={(item) => item.name}
+              placeholder="Select Food"
+              disabled={loading}
+            />
+            {selectedFood && (
+              <Tooltip
+                title={selectedFood.name}
+                content={selectedFood.details?.description || ''}
+                icon={selectedFood.icon}
+                rarity={selectedFood.rarity}
+                itemType="Consumable"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900">
+                  <img src={selectedFood.icon} alt={selectedFood.name} className="h-6 w-6 rounded" />
+                </div>
+              </Tooltip>
+            )}
+          </div>
+        </div>
+
+        {/* Utility (Right) */}
+        <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <h3 className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Utility</h3>
+          <div className="flex gap-2">
+            <SearchableDropdown
+              items={utilities}
+              selectedId={utilityId}
+              onSelect={setUtilityId}
+              getItemId={(item) => item.id}
+              getItemLabel={(item) => item.name}
+              placeholder="Select Utility"
+              disabled={loading}
+            />
+            {selectedUtility && (
+              <Tooltip
+                title={selectedUtility.name}
+                content={selectedUtility.details?.description || ''}
+                icon={selectedUtility.icon}
+                rarity={selectedUtility.rarity}
+                itemType="Consumable"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-yellow-400 bg-slate-900">
+                  <img src={selectedUtility.icon} alt={selectedUtility.name} className="h-6 w-6 rounded" />
                 </div>
               </Tooltip>
             )}

@@ -232,7 +232,7 @@ export function encodeBuild(build: BuildData): string {
     const bytes: number[] = [];
 
     // Version byte for future compatibility
-    bytes.push(6);
+    bytes.push(7);
 
     // Profession (3 bits) + GameMode (2 bits) = 1 byte
     const profIdx = PROFESSIONS.indexOf(build.profession);
@@ -380,11 +380,13 @@ export function encodeBuild(build: BuildData): string {
       }
     }
 
-    // Rune and Relic bitflags (2 bits)
-    const upgradeFlags = [!!build.runeId, !!build.relicId];
-    writeBitflags(bytes, upgradeFlags, 2);
+    // Rune, Relic, Food, and Utility bitflags (4 bits)
+    const upgradeFlags = [!!build.runeId, !!build.relicId, !!build.foodId, !!build.utilityId];
+    writeBitflags(bytes, upgradeFlags, 4);
     if (build.runeId) writeVarInt(bytes, build.runeId);
     if (build.relicId) writeVarInt(bytes, build.relicId);
+    if (build.foodId) writeVarInt(bytes, build.foodId);
+    if (build.utilityId) writeVarInt(bytes, build.utilityId);
 
     // Profession-specific mechanics
     const mechanics = build.professionMechanics;
@@ -473,8 +475,9 @@ export function decodeBuild(encoded: string): BuildData {
     const decompressed = pako.inflate(bytes);
 
     // Check version byte
-    if (decompressed[0] === 6) {
-      // Binary format (version 6) - optimized with sparse equipment, bitflags, profession-specific mechanics
+    if (decompressed[0] === 6 || decompressed[0] === 7) {
+      // Binary format (version 6/7) - optimized with sparse equipment, bitflags, profession-specific mechanics
+      const formatVersion = decompressed[0];
       const offset = { value: 1 };
 
       // Read profession + game mode
@@ -643,10 +646,16 @@ export function decodeBuild(encoded: string): BuildData {
         ];
       }
 
-      // Read rune and relic (with bitflags)
-      const upgradeFlags = readBitflags(decompressed, offset, 2);
+      // Read rune, relic, food, and utility (with bitflags)
+      // Version 6: 2 bits (rune, relic), Version 7: 4 bits (rune, relic, food, utility)
+      const upgradeFlagCount = formatVersion === 7 ? 4 : 2;
+      const upgradeFlags = readBitflags(decompressed, offset, upgradeFlagCount);
       if (upgradeFlags[0]) build.runeId = readVarInt(decompressed, offset);
       if (upgradeFlags[1]) build.relicId = readVarInt(decompressed, offset);
+      if (formatVersion === 7) {
+        if (upgradeFlags[2]) build.foodId = readVarInt(decompressed, offset);
+        if (upgradeFlags[3]) build.utilityId = readVarInt(decompressed, offset);
+      }
 
       // Read profession-specific mechanics
       build.professionMechanics = {};

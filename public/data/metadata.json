@@ -1,5 +1,5 @@
 {
-  "generated": "2025-11-06T16:20:36.866Z",
+  "generated": "2025-11-07T15:41:54.808Z",
   "version": "1.0.0",
   "files": [
     "skills.json",
@@ -7,7 +7,8 @@
     "traits.json",
     "items.json",
     "legends.json",
-    "pets.json"
+    "pets.json",
+    "consumables.json"
   ],
   "withCompetitiveSplits": false
 }

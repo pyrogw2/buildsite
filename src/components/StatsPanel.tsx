@@ -30,6 +30,8 @@ export default function StatsPanel() {
   const buildData = useBuildStore();
   const [runeItem, setRuneItem] = useState<GW2Item | null>(null);
   const [relicItem, setRelicItem] = useState<GW2Item | null>(null);
+  const [foodItem, setFoodItem] = useState<GW2Item | null>(null);
+  const [utilityItem, setUtilityItem] = useState<GW2Item | null>(null);
 
   useEffect(() => {
     if (buildData.runeId) {
@@ -47,7 +49,32 @@ export default function StatsPanel() {
     }
   }, [buildData.relicId]);
 
-  // Fetch sigils for gear summary
+  useEffect(() => {
+    if (buildData.foodId) {
+      const foodId = buildData.foodId;
+      gw2Api.getItem(foodId).then((item) => {
+        // Check if this is a feast and enrich with buff data
+        const feastBuffs = gw2Api.getFeastBuffDescription(foodId);
+        if (feastBuffs && item.details) {
+          // Enrich the item with feast buff description
+          item.details.description = feastBuffs;
+        }
+        setFoodItem(item);
+      }).catch(console.error);
+    } else {
+      setFoodItem(null);
+    }
+  }, [buildData.foodId]);
+
+  useEffect(() => {
+    if (buildData.utilityId) {
+      gw2Api.getItem(buildData.utilityId).then(setUtilityItem).catch(console.error);
+    } else {
+      setUtilityItem(null);
+    }
+  }, [buildData.utilityId]);
+
+  // Fetch sigils for stat calculations
   const [sigilItems, setSigilItems] = useState<Map<number, GW2Item>>(new Map());
 
   useEffect(() => {
@@ -90,9 +117,11 @@ export default function StatsPanel() {
       sigilItems,
       allTraits,
       allSpecs,
-      []  // allSkills - TODO: Phase 6
+      [],  // allSkills - TODO: Phase 6
+      foodItem,
+      utilityItem
     );
-  }, [buildData, runeItem, sigilItems, allTraits, allSpecs]);
+  }, [buildData, runeItem, sigilItems, allTraits, allSpecs, foodItem, utilityItem]);
 
   // Helper to get derived stat display for an attribute
   const getDerivedStat = (attributeKey: AttributeKey): { label: string; value: string } | null => {
@@ -140,7 +169,7 @@ export default function StatsPanel() {
     const armorPieces: Array<{ slot: string; stat: string }> = [];
 
     // Individual trinkets
-    const trinkets: Array<{ slot: string; stat: string }> = [];
+    const trinkets: Array<{ slot: string; stat: string; originalSlot: string }> = [];
 
     buildData.equipment.forEach((item) => {
       // Weapon Set 1
@@ -178,16 +207,28 @@ export default function StatsPanel() {
         armorPieces.push({ slot: item.slot, stat: item.stat });
       }
 
-      // Trinkets
-      if (['Amulet', 'Ring1', 'Ring2', 'Accessory1', 'Accessory2', 'Backpack'].includes(item.slot) && item.stat) {
+      // Trinkets (ordered to match equipment panel: Back, Accessories, Rings, Amulet)
+      if (['Backpack', 'Accessory1', 'Accessory2', 'Ring1', 'Ring2', 'Amulet'].includes(item.slot) && item.stat) {
         const displaySlot = item.slot === 'Ring1' ? 'ring' :
-          item.slot === 'Ring2' ? 'ring' :
-            item.slot === 'Accessory1' ? 'accessory' :
-              item.slot === 'Accessory2' ? 'accessory' :
-                item.slot === 'Amulet' ? 'amulet' : 'back';
-        trinkets.push({ slot: displaySlot, stat: item.stat });
+                           item.slot === 'Ring2' ? 'ring' :
+                           item.slot === 'Accessory1' ? 'accessory' :
+                           item.slot === 'Accessory2' ? 'accessory' :
+                           item.slot === 'Amulet' ? 'amulet' : 'back';
+        trinkets.push({ slot: displaySlot, stat: item.stat, originalSlot: item.slot });
       }
     });
+
+    // Sort trinkets to match equipment panel order: Back, Accessories, Rings, Amulet
+    const trinketOrder: Record<string, number> = {
+      'Backpack': 0,
+      'Accessory1': 1,
+      'Accessory2': 2,
+      'Ring1': 3,
+      'Ring2': 4,
+      'Amulet': 5,
+    };
+
+    trinkets.sort((a, b) => (trinketOrder[a.originalSlot] ?? 999) - (trinketOrder[b.originalSlot] ?? 999));
 
     return { weaponSet1, weaponSet2, armorPieces, trinkets };
   }, [buildData.equipment]);
@@ -447,6 +488,51 @@ export default function StatsPanel() {
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-help hover:text-white transition-colors">
                       <img src={relicItem.icon} alt={relicItem.name} className="w-3.5 h-3.5 rounded flex-shrink-0" />
                       <span className="truncate">{relicItem.name.replace('Relic of the ', '')}</span>
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Food and Utility in Two Columns */}
+        {(foodItem || utilityItem) && (
+          <div className="grid grid-cols-2 gap-4">
+            {/* Food Column */}
+            <div className="space-y-2">
+              <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Food</div>
+              {foodItem && (
+                <div className="pt-1">
+                  <Tooltip
+                    title={foodItem.name}
+                    content={foodItem.details?.description || ''}
+                    icon={foodItem.icon}
+                    rarity={foodItem.rarity}
+                    itemType="Consumable"
+                  >
+                    <div className="inline-block cursor-help">
+                      <img src={foodItem.icon} alt={foodItem.name} className="w-6 h-6 rounded hover:scale-110 transition-transform" />
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
+            </div>
+
+            {/* Utility Column */}
+            <div className="space-y-2">
+              <div className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Utility</div>
+              {utilityItem && (
+                <div className="pt-1">
+                  <Tooltip
+                    title={utilityItem.name}
+                    content={utilityItem.details?.description || ''}
+                    icon={utilityItem.icon}
+                    rarity={utilityItem.rarity}
+                    itemType="Consumable"
+                  >
+                    <div className="inline-block cursor-help">
+                      <img src={utilityItem.icon} alt={utilityItem.name} className="w-6 h-6 rounded hover:scale-110 transition-transform" />
                     </div>
                   </Tooltip>
                 </div>
