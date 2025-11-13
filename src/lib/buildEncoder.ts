@@ -1181,12 +1181,13 @@ function getEliteSpecOrProfession(build: BuildData): string {
 export function getShareableUrl(build: BuildData): string {
   const url = new URL(window.location.href);
   const encoded = encodeBuild(build);
-
-  // Add spec parameter (elite spec or profession)
   const specSlug = getEliteSpecOrProfession(build);
-  url.searchParams.set('spec', specSlug);
 
+  // Clear existing params and rebuild in correct order
+  url.search = '';
+  url.searchParams.set('spec', specSlug);
   url.searchParams.set('build', encoded);
+
   return url.toString();
 }
 
