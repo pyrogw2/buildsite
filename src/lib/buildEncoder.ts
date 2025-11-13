@@ -1132,11 +1132,60 @@ export function decodeBuild(encoded: string): BuildData {
 }
 
 /**
+ * Convert specialization or profession name to URL-friendly slug
+ * Examples: "Dragon Hunter" -> "dragonhunter", "Amalgam" -> "amalgam"
+ */
+function toSpecSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '');
+}
+
+/**
+ * Get the elite specialization name or profession name for URL
+ * Checks spec3, spec2, spec1 in order for elite specs, falls back to profession
+ */
+function getEliteSpecOrProfession(build: BuildData): string {
+  const specs = specializationsData as SpecializationsData;
+
+  // Check spec3 (bottom slot, most common for elite spec)
+  if (build.traits.spec3) {
+    const spec = specs.find(s => s.id === build.traits.spec3);
+    if (spec?.elite) {
+      return toSpecSlug(spec.name);
+    }
+  }
+
+  // Check spec2 (middle slot)
+  if (build.traits.spec2) {
+    const spec = specs.find(s => s.id === build.traits.spec2);
+    if (spec?.elite) {
+      return toSpecSlug(spec.name);
+    }
+  }
+
+  // Check spec1 (top slot)
+  if (build.traits.spec1) {
+    const spec = specs.find(s => s.id === build.traits.spec1);
+    if (spec?.elite) {
+      return toSpecSlug(spec.name);
+    }
+  }
+
+  // No elite spec found, use profession name
+  return toSpecSlug(build.profession);
+}
+
+/**
  * Get shareable URL for current build
+ * Includes elite spec or profession name for better readability
  */
 export function getShareableUrl(build: BuildData): string {
   const url = new URL(window.location.href);
   const encoded = encodeBuild(build);
+
+  // Add spec parameter (elite spec or profession)
+  const specSlug = getEliteSpecOrProfession(build);
+  url.searchParams.set('spec', specSlug);
+
   url.searchParams.set('build', encoded);
   return url.toString();
 }
